@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Students | SIIT ERP</title>
+  <link rel="icon" href="../assets/img/logo.png" type="image/png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="../assets/css/style.css" rel="stylesheet">
+  <style>
+    .modal-dialog-scrollable .modal-body { max-height: min(70vh, 520px); overflow-y: auto; }
+    .logo-preview { max-height: 80px; max-width: 160px; object-fit: contain; border-radius: 8px; }
+    @media (max-width: 576px) {
+      .modal-dialog { margin: 0.5rem; }
+      .admin-topbar h5 { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="admin-wrapper">
+  <aside class="admin-sidebar" id="sidebar">
+    <a href="dashboard.html" class="sidebar-brand text-decoration-none text-white">
+      <img src="../assets/img/logo.png" alt="Logo"><span>SIIT ERP</span>
+    </a>
+    <div class="nav-section"><div class="nav-section-title">Main</div>
+      <a href="dashboard.html" class="nav-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+      <a href="users.html" class="nav-link"><i class="fas fa-users"></i> Users</a>
+      <a href="colleges.html" class="nav-link"><i class="fas fa-university"></i> Colleges</a>
+      <a href="courses.html" class="nav-link"><i class="fas fa-book"></i> Courses</a>
+      <a href="trainers.html" class="nav-link"><i class="fas fa-chalkboard-teacher"></i> Trainers</a>
+      <a href="students.html" class="nav-link active"><i class="fas fa-user-graduate"></i> Students</a>
+      <a href="batches.html" class="nav-link"><i class="fas fa-layer-group"></i> Batches</a>
+    </div>
+    <div class="nav-section"><div class="nav-section-title">Academic</div>
+      <a href="attendance.html" class="nav-link"><i class="fas fa-qrcode"></i> Attendance</a>
+      <a href="quizzes.html" class="nav-link"><i class="fas fa-question-circle"></i> Quizzes</a>
+      <a href="assessments.html" class="nav-link"><i class="fas fa-clipboard-check"></i> Assessments</a>
+      <a href="tasks.html" class="nav-link"><i class="fas fa-tasks"></i> Tasks</a>
+      <a href="feedback-forms.html" class="nav-link"><i class="fas fa-comment-dots"></i> Feedback Forms</a>
+      <a href="certificates.html" class="nav-link"><i class="fas fa-certificate"></i> Certificates</a>
+      <a href="training-internships.html" class="nav-link"><i class="fas fa-user-tie"></i> Training + Internship</a>
+      <a href="short-term-certificates.html" class="nav-link"><i class="fas fa-award"></i> ST Certificates</a>
+      <a href="short-term-courses.html" class="nav-link"><i class="fas fa-graduation-cap"></i> ST Course Catalog</a>
+      <a href="events.html" class="nav-link"><i class="fas fa-calendar-alt"></i> Events</a>
+    </div>
+    <div class="nav-section"><div class="nav-section-title">Finance & Placement</div>
+      <a href="fees.html" class="nav-link"><i class="fas fa-rupee-sign"></i> Fees</a>
+      <a href="finance.html" class="nav-link"><i class="fas fa-chart-pie"></i> Finance</a>
+      <a href="companies.html" class="nav-link"><i class="fas fa-building"></i> Companies</a>
+      <a href="placements.html" class="nav-link"><i class="fas fa-briefcase"></i> Placed Candidates</a>
+    </div>
+    <div class="nav-section"><div class="nav-section-title">Website</div>
+      <a href="enquiries.html" class="nav-link"><i class="fas fa-envelope-open-text"></i> Enquiries</a>
+      <a href="gallery.html" class="nav-link"><i class="fas fa-images"></i> Gallery</a>
+      <a href="blogs.html" class="nav-link"><i class="fas fa-blog"></i> Blogs</a>
+      <a href="settings.html" class="nav-link"><i class="fas fa-cog"></i> Settings</a>
+    </div>
+  </aside>
+
+  <div class="admin-content">
+    <div class="admin-topbar">
+      <div class="d-flex align-items-center gap-3">
+        <button class="btn btn-sm btn-outline-secondary d-lg-none" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+        <h5 class="mb-0 fw-bold">Students</h5>
+      </div>
+      <div class="d-flex align-items-center gap-3">
+        <span class="text-muted small" id="userName">Admin</span>
+        <button class="btn btn-sm btn-outline-danger" onclick="SIIT.logoutUser()"><i class="fas fa-sign-out-alt"></i></button>
+      </div>
+    </div>
+
+    <div class="admin-main">
+      <div class="dashboard-card">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+          <div>
+            <h6 class="fw-bold mb-0">Students</h6>
+            <small class="text-muted" id="recordCount">Loading...</small>
+          </div>
+          <div class="d-flex gap-2 flex-wrap">
+            <input type="search" class="form-control form-control-sm" id="searchInput" placeholder="Search..." style="min-width:160px">
+            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="loadData()"><i class="fas fa-sync-alt"></i></button>
+            <button type="button" class="btn btn-sm btn-outline-success" data-bs-toggle="modal" data-bs-target="#importModal">
+              <i class="fas fa-file-excel me-1"></i>Import Excel
+            </button>
+            <button type="button" class="btn btn-sm btn-primary" onclick="openForm()">
+              <i class="fas fa-plus me-1"></i>Add New
+            </button>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+              <tr>
+                <th>Roll No</th>
+                <th>Name</th>
+                <th>Mobile</th>
+                <th>College</th>
+                <th>Course</th>
+                <th>Short-Term Course</th>
+                <th>Training / Internship</th>
+                <th>Status</th>
+                <th width="110">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="dataBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ===================== Excel Import Modal ===================== -->
+      <div class="modal fade" id="importModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title"><i class="fas fa-file-excel text-success me-2"></i>Import Students from Excel</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+              <p class="text-muted small">
+                College & Department are optional. Set defaults below — every row inherits them
+                (sheet columns override when present).
+              </p>
+
+              <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                  <label class="form-label">College</label>
+                  <select class="form-select" id="impCollege"><option value="">— Optional —</option></select>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Department</label>
+                  <select class="form-select" id="impDept"><option value="">— Select college first —</option></select>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Course</label>
+                  <select class="form-select" id="impCourse"><option value="">— Optional —</option></select>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Batch</label>
+                  <select class="form-select" id="impBatch"><option value="">— Optional —</option></select>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Short-Term Course</label>
+                  <select class="form-select" id="impSTC"><option value="">— Optional —</option></select>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Training / Internship</label>
+                  <select class="form-select" id="impTI"><option value="">— Optional —</option></select>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Academic Year</label>
+                  <input type="text" class="form-control" id="impYear" placeholder="e.g. FY / TY / MCS or 2025-26">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Excel / CSV File *</label>
+                  <input type="file" class="form-control" id="impFile" accept=".xlsx,.xls,.csv">
+                </div>
+              </div>
+
+              <div class="alert alert-light border small">
+                <strong>Expected columns</strong> (any order, case-insensitive):
+                <code>Roll No</code> / <code>college_roll_no</code> *,
+                <code>Name</code> / <code>full_name</code> *,
+                <code>Mobile</code>, <code>Email</code>, <code>Gender</code>,
+                <code>Academic Year</code>, <code>Semester</code>, <code>Section</code>,
+                <code>Status</code>, <code>short_term_course</code>, <code>training_internship</code>
+                <br>
+                <a href="#" onclick="downloadImportTemplate();return false;">
+                  <i class="fas fa-download me-1"></i>Download sample template
+                </a>
+              </div>
+
+              <div id="importError" class="alert alert-danger d-none py-2"></div>
+              <div id="importSummary" class="alert alert-success d-none py-2"></div>
+              <div id="importProgress" class="d-none">
+                <div class="progress mb-2" style="height:8px">
+                  <div class="progress-bar" id="importProgressBar" style="width:0%"></div>
+                </div>
+                <div class="small text-muted" id="importProgressText"></div>
+              </div>
+
+              <div class="table-responsive" style="max-height:260px">
+                <table class="table table-sm mb-0" id="importErrorTable" style="display:none">
+                  <thead class="table-light"><tr><th>Row</th><th>Roll No</th><th>Reason</th></tr></thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-success" id="btnRunImport" onclick="runImport()">
+                <i class="fas fa-upload me-1"></i>Import Students
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================== Add / Edit Modal ===================== -->
+      <div class="modal fade" id="crudModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
+          <div class="modal-content">
+            <form id="crudForm" enctype="multipart/form-data">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Add Students</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+              <div class="modal-body">
+                <input type="hidden" name="id" id="recordId">
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="form-label">Roll No *</label>
+                    <input type="text" class="form-control" name="college_roll_no" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Full Name *</label>
+                    <input type="text" class="form-control" name="full_name" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Gender</label>
+                    <select class="form-select" name="gender">
+                      <option value="">—</option>
+                      <option>Male</option>
+                      <option>Female</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Date of Birth</label>
+                    <input type="date" class="form-control" name="date_of_birth">
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Mobile</label>
+                    <input type="text" class="form-control" name="mobile">
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" name="email">
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">College</label>
+                    <select class="form-select" name="college_id" id="selCollege">
+                      <option value="">— Optional —</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Department</label>
+                    <select class="form-select" name="department_id" id="selDept">
+                      <option value="">— Select college —</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Course</label>
+                    <select class="form-select" name="course_id" id="selCourse">
+                      <option value="">Loading...</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Batch</label>
+                    <select class="form-select" name="batch_id" id="selBatch">
+                      <option value="">Loading...</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label">Academic Year</label>
+                    <input type="text" class="form-control" name="academic_year" placeholder="2025-26">
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label">Semester</label>
+                    <input type="number" class="form-control" name="semester">
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label">Status</label>
+                    <select class="form-select" name="status">
+                      <option>Active</option>
+                      <option>Inactive</option>
+                      <option>Completed</option>
+                      <option>Dropped</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Guardian Name</label>
+                    <input type="text" class="form-control" name="guardian_name">
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Guardian Mobile</label>
+                    <input type="text" class="form-control" name="guardian_mobile">
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">Short Term Course</label>
+                    <select class="form-select" name="short_term_course_id" id="selSTC">
+                      <option value="">— Optional —</option>
+                    </select>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">Training / Internship Program</label>
+                    <select class="form-select" name="training_internship_id" id="selTI">
+                      <option value="">— Optional —</option>
+                    </select>
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label">Address</label>
+                    <textarea class="form-control" name="address" rows="2"></textarea>
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label">Photo — bucket: <code>profiles</code></label>
+                    <input type="file" class="form-control" name="photo_file" id="photoFile" accept="image/*">
+                    <input type="hidden" name="profile_photo" id="photoUrl">
+                    <img id="photoPreview" class="logo-preview mt-2 d-none">
+                  </div>
+                </div>
+                <div id="formError" class="alert alert-danger d-none mt-3 mb-0"></div>
+              </div>
+              <div class="modal-footer sticky-bottom bg-white">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary" id="saveBtn">
+                  <i class="fas fa-save me-1"></i>Save
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../assets/js/supabase-config.js"></script>
+<script src="../assets/js/admin-crud.js"></script>
+<script src="../assets/js/rbac.js"></script>
+<script>
+if (!SIIT.Session.requireAuth()) {}
+RBAC.enforce();
+const user = SIIT.Session.get();
+if (user) document.getElementById('userName').textContent = user.full_name || user.email;
+document.getElementById('sidebarToggle')?.addEventListener('click', () =>
+  document.getElementById('sidebar').classList.toggle('show')
+);
+SIIT.initSupabase();
+
+const TABLE = 'students';
+let allRows = [], editId = null;
+let collegeMap = {}, courseMap = {}, stcMap = {}, tiMap = {};
+const modal = new bootstrap.Modal(document.getElementById('crudModal'));
+const form = document.getElementById('crudForm');
+
+/* ---------- Dropdown helpers ---------- */
+async function loadDropdowns() {
+  try {
+    const stc = await AdminCRUD.list('short_term_courses', { order: 'sr_no', ascending: true });
+    stcMap = {};
+    stc.forEach(c => stcMap[c.id] = c.course_name);
+    const opts = '<option value="">— Optional —</option>' +
+      stc.map(c => `<option value="${c.id}">${SIIT.Utils.escapeHtml(c.course_name)}</option>`).join('');
+    ['selSTC', 'impSTC'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.innerHTML = opts;
+    });
+  } catch (e) {}
+
+  try {
+    const ti = await AdminCRUD.list('training_internships', { order: 'program_name', ascending: true });
+    tiMap = {};
+    ti.forEach(c => tiMap[c.id] = (c.program_type || '') + ': ' + (c.program_name || ''));
+    const opts = '<option value="">— Optional —</option>' +
+      ti.filter(x => (x.status || 'Active') === 'Active' || x.status === 'Upcoming')
+        .map(c => `<option value="${c.id}">${SIIT.Utils.escapeHtml(c.program_type + ': ' + c.program_name)}</option>`)
+        .join('');
+    ['selTI', 'impTI'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.innerHTML = opts;
+    });
+  } catch (e) {}
+
+  await AdminCRUD.fillSelect('#selCollege', 'colleges', {
+    valueKey: 'id', labelKey: 'college_name', order: 'college_name',
+    extraLabel: 'college_code', placeholder: '— Optional —'
+  });
+  await AdminCRUD.fillSelect('#selCourse', 'courses', {
+    valueKey: 'id', labelKey: 'course_name', order: 'course_name', placeholder: '— Optional —'
+  });
+  await AdminCRUD.fillSelect('#selBatch', 'batches', {
+    valueKey: 'id', labelKey: 'batch_name', order: 'batch_name',
+    placeholder: '— Optional —', extraLabel: 'batch_code'
+  });
+
+  (await AdminCRUD.list('colleges')).forEach(c => collegeMap[c.id] = c.college_name);
+  (await AdminCRUD.list('courses')).forEach(c => courseMap[c.id] = c.course_name);
+}
+
+document.getElementById('selCollege')?.addEventListener('change', async function () {
+  const cid = this.value;
+  const sel = document.getElementById('selDept');
+  if (!cid) { sel.innerHTML = '<option value="">— Select college —</option>'; return; }
+  try {
+    const deps = await AdminCRUD.list('departments', { order: 'department_name', ascending: true });
+    const f = deps.filter(d => String(d.college_id) === String(cid));
+    sel.innerHTML = '<option value="">— Optional —</option>' +
+      f.map(d => `<option value="${d.id}">${SIIT.Utils.escapeHtml(d.department_name)}</option>`).join('');
+  } catch (e) {
+    sel.innerHTML = '<option value="">No departments</option>';
+  }
+});
+
+document.getElementById('photoFile')?.addEventListener('change', e => {
+  const f = e.target.files[0];
+  const p = document.getElementById('photoPreview');
+  if (f) { p.src = URL.createObjectURL(f); p.classList.remove('d-none'); }
+});
+
+/* ---------- Table render ---------- */
+function render(rows) {
+  const tbody = document.getElementById('dataBody');
+  document.getElementById('recordCount').textContent = rows.length + ' records';
+  if (!rows.length) {
+    tbody.innerHTML = '<tr><td colspan="9" class="text-center text-muted py-4">No students</td></tr>';
+    return;
+  }
+  tbody.innerHTML = rows.map(row => `<tr>
+    <td>${SIIT.Utils.escapeHtml(row.college_roll_no)}</td>
+    <td>${SIIT.Utils.escapeHtml(row.full_name)}</td>
+    <td>${SIIT.Utils.escapeHtml(row.mobile || '—')}</td>
+    <td>${SIIT.Utils.escapeHtml(collegeMap[row.college_id] || '—')}</td>
+    <td>${SIIT.Utils.escapeHtml(courseMap[row.course_id] || '—')}</td>
+    <td>${SIIT.Utils.escapeHtml(stcMap[row.short_term_course_id] || '—')}</td>
+    <td>${SIIT.Utils.escapeHtml(tiMap[row.training_internship_id] || '—')}</td>
+    <td><span class="badge bg-${(row.status || '').toLowerCase() === 'active' ? 'success' : 'secondary'}">
+      ${SIIT.Utils.escapeHtml(row.status || '—')}</span></td>
+    <td class="text-nowrap">
+      <button class="btn btn-sm btn-outline-primary me-1" onclick="openForm(${row.id})"><i class="fas fa-edit"></i></button>
+      <button class="btn btn-sm btn-outline-danger"
+        onclick="deleteRow(${row.id}, '${SIIT.Utils.escapeHtml(row.full_name).replace(/'/g, '')}')">
+        <i class="fas fa-trash"></i>
+      </button>
+    </td>
+  </tr>`).join('');
+}
+
+async function loadData() {
+  try {
+    await loadDropdowns();
+    allRows = await AdminCRUD.list(TABLE);
+    render(allRows);
+  } catch (e) {
+    document.getElementById('dataBody').innerHTML =
+      `<tr><td colspan="9" class="text-danger text-center">${SIIT.Utils.escapeHtml(e.message)}</td></tr>`;
+  }
+}
+
+/* ---------- CRUD ---------- */
+async function openForm(id) {
+  editId = id || null;
+  form.reset();
+  document.getElementById('formError').classList.add('d-none');
+  document.getElementById('photoPreview').classList.add('d-none');
+  document.getElementById('modalTitle').textContent = id ? 'Edit Student' : 'Add Student';
+  await loadDropdowns();
+  if (id) {
+    const row = allRows.find(r => r.id == id);
+    if (row) {
+      AdminCRUD.fillForm(form, row);
+      document.getElementById('selCollege').dispatchEvent(new Event('change'));
+      setTimeout(() => {
+        if (row.department_id) document.getElementById('selDept').value = row.department_id;
+      }, 400);
+      if (row.profile_photo) {
+        document.getElementById('photoUrl').value = row.profile_photo;
+        document.getElementById('photoPreview').src = row.profile_photo;
+        document.getElementById('photoPreview').classList.remove('d-none');
+      }
+    }
+  }
+  modal.show();
+}
+
+async function deleteRow(id, name) {
+  if (!AdminCRUD.confirmDelete(name)) return;
+  try {
+    await AdminCRUD.remove(TABLE, id);
+    SIIT.Utils.toast('Deleted');
+    loadData();
+  } catch (e) {
+    SIIT.Utils.toast(e.message, 'error');
+  }
+}
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('saveBtn');
+  btn.disabled = true;
+  const errEl = document.getElementById('formError');
+  errEl.classList.add('d-none');
+
+  try {
+    const payload = AdminCRUD.formData(form);
+    delete payload.id;
+    delete payload.photo_file;
+
+    const collegeVal = document.getElementById('selCollege')?.value;
+    const deptVal = document.getElementById('selDept')?.value;
+    if (collegeVal) payload.college_id = Number(collegeVal);
+    else delete payload.college_id;
+    if (deptVal) payload.department_id = Number(deptVal);
+    else delete payload.department_id;
+
+    ['course_id', 'batch_id', 'semester', 'short_term_course_id'].forEach(k => {
+      const el = form.elements[k];
+      const raw = el ? el.value : payload[k];
+      if (raw === '' || raw == null) delete payload[k];
+      else payload[k] = Number(raw);
+    });
+
+    // UUID – keep as string
+    const tiVal = document.getElementById('selTI')?.value;
+    if (tiVal) payload.training_internship_id = tiVal;
+    else delete payload.training_internship_id;
+
+    const file = document.getElementById('photoFile').files[0];
+    if (file) {
+      const up = await AdminCRUD.uploadFile(AdminCRUD.BUCKETS.profiles, file, 'students');
+      payload.profile_photo = up.publicUrl;
+    }
+
+    if (editId) await AdminCRUD.update(TABLE, editId, payload);
+    else await AdminCRUD.insert(TABLE, payload);
+
+    try {
+      if (payload.email) {
+        const login = await AdminCRUD.ensureLoginUser({
+          roleName: 'Student',
+          full_name: payload.full_name,
+          email: payload.email,
+          phone: payload.mobile,
+          college_id: payload.college_id || null,
+          forcePassword: !editId
+        });
+        if (login && login.created) {
+          SIIT.Utils.toast('Student saved. Login: ' + payload.email + ' / ' + (login.password || 'SIIT@2026'));
+        } else {
+          SIIT.Utils.toast('Saved');
+        }
+      } else {
+        SIIT.Utils.toast('Saved (no email — login not created)');
+      }
+    } catch (ue) {
+      console.warn(ue);
+      SIIT.Utils.toast('Student saved, login failed: ' + (ue.message || ue), 'error');
+    }
+
+    modal.hide();
+    loadData();
+  } catch (err) {
+    errEl.textContent = err.message;
+    errEl.classList.remove('d-none');
+  }
+  btn.disabled = false;
+});
+
+document.getElementById('searchInput')?.addEventListener('input', () => {
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  render(!q ? allRows : allRows.filter(r => JSON.stringify(r).toLowerCase().includes(q)));
+});
+
+loadData();
+
+/* ===================== Excel Import ===================== */
+async function loadImportDropdowns() {
+  await AdminCRUD.fillSelect('#impCollege', 'colleges', {
+    valueKey: 'id', labelKey: 'college_name', order: 'college_name',
+    extraLabel: 'college_code', placeholder: '— Optional —'
+  });
+  await AdminCRUD.fillSelect('#impCourse', 'courses', {
+    valueKey: 'id', labelKey: 'course_name', order: 'course_name', placeholder: '— Optional —'
+  });
+  await AdminCRUD.fillSelect('#impBatch', 'batches', {
+    valueKey: 'id', labelKey: 'batch_name', order: 'batch_name',
+    placeholder: '— Optional —', extraLabel: 'batch_code'
+  });
+  await loadDropdowns();
+}
+
+document.getElementById('importModal')?.addEventListener('show.bs.modal', () => {
+  document.getElementById('importError').classList.add('d-none');
+  document.getElementById('importSummary').classList.add('d-none');
+  document.getElementById('importProgress').classList.add('d-none');
+  document.getElementById('importErrorTable').style.display = 'none';
+  document.getElementById('impFile').value = '';
+  loadImportDropdowns();
+});
+
+document.getElementById('impCollege')?.addEventListener('change', async function () {
+  const cid = this.value;
+  const sel = document.getElementById('impDept');
+  if (!cid) { sel.innerHTML = '<option value="">— Select college first —</option>'; return; }
+  try {
+    const deps = await AdminCRUD.list('departments', { order: 'department_name', ascending: true });
+    const f = deps.filter(d => String(d.college_id) === String(cid));
+    sel.innerHTML = '<option value="">— Optional —</option>' +
+      f.map(d => `<option value="${d.id}">${SIIT.Utils.escapeHtml(d.department_name)}</option>`).join('');
+  } catch (e) {
+    sel.innerHTML = '<option value="">No departments</option>';
+  }
+});
+
+function downloadImportTemplate() {
+  const ws = XLSX.utils.aoa_to_sheet([
+    ['Roll No', 'Name', 'Mobile', 'Email', 'Gender', 'Academic Year', 'Semester', 'Section', 'Status', 'short_term_course', 'training_internship'],
+    ['DYP-FY-001', 'Student One', '9876543210', '', 'Male', 'FY', '', '', 'Active', '', ''],
+    ['DYP-FY-002', 'Student Two', '9876543211', '', 'Female', 'FY', '', '', 'Active', '', '']
+  ]);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Students');
+  XLSX.writeFile(wb, 'siit_student_import_template.xlsx');
+}
+
+function normalizeHeader(h) {
+  return String(h || '')
+    .trim()
+    .toLowerCase()
+    .replace(/[\s\-\.\/\\]+/g, '_')
+    .replace(/_+/g, '_')
+    .replace(/^_|_$/g, '');
+}
+
+const IMPORT_FIELD_ALIASES = {
+  college_roll_no: [
+    'college_roll_no', 'roll_no', 'roll', 'rollno', 'roll_number',
+    'college_roll', 'student_roll', 'student_roll_no', 'prn', 'prn_no',
+    'enrollment_no', 'enrolment_no', 'reg_no', 'registration_no', 'id', 'sr_no'
+  ],
+  full_name: [
+    'full_name', 'name', 'student_name', 'studentname', 'student',
+    'candidate_name', 'candidate', 'fullname', 's_name', 'stud_name'
+  ],
+  mobile: ['mobile', 'phone', 'mobile_no', 'contact', 'contact_no', 'mobile_number', 'phone_no', 'whatsapp', 'cell', 'mob'],
+  email: ['email', 'email_id', 'e_mail', 'mail', 'emailid'],
+  gender: ['gender', 'sex', 'g'],
+  academic_year: ['academic_year', 'year', 'class', 'batch_year', 'acad_year', 'ay'],
+  semester: ['semester', 'sem', 'semister'],
+  section: ['section', 'sec', 'div', 'division'],
+  university_enrollment_no: ['university_enrollment_no', 'enrollment_no', 'enrolment_no', 'univ_no', 'university_no'],
+  date_of_birth: ['date_of_birth', 'dob', 'birth_date', 'birthdate'],
+  address: ['address', 'addr', 'permanent_address'],
+  guardian_name: ['guardian_name', 'parent_name', 'father_name', 'mother_name', 'guardian'],
+  guardian_mobile: ['guardian_mobile', 'parent_mobile', 'father_mobile', 'guardian_phone'],
+  status: ['status', 'student_status'],
+  short_term_course: ['short_term_course', 'stc', 'stc_name', 'short_term_course_id', 'stc_id', 'short_term', 'st_course'],
+  training_internship: ['training_internship', 'ti', 'training', 'internship', 'training_internship_id', 'ti_id', 'program', 'training_program']
+};
+
+function extractField(rowObj, field) {
+  const aliases = IMPORT_FIELD_ALIASES[field] || [field];
+  const normalizedAliases = aliases.map(a => normalizeHeader(a));
+  for (const key of Object.keys(rowObj)) {
+    if (normalizedAliases.includes(normalizeHeader(key))) {
+      const v = rowObj[key];
+      return v == null ? '' : String(v).trim();
+    }
+  }
+  return '';
+}
+
+async function parseImportFile(file) {
+  const data = await file.arrayBuffer();
+  const wb = XLSX.read(data, { type: 'array', cellDates: true });
+  const sheet = wb.Sheets[wb.SheetNames[0]];
+  return XLSX.utils.sheet_to_json(sheet, { defval: '', raw: false });
+}
+
+async function resolveSTC(value) {
+  if (!value) return null;
+  if (/^\d+$/.test(value)) return Number(value);
+  const list = await AdminCRUD.list('short_term_courses');
+  const found = list.find(c =>
+    String(c.course_name).toLowerCase() === value.toLowerCase() ||
+    String(c.sr_no) === value
+  );
+  return found ? found.id : null;
+}
+
+async function resolveTI(value) {
+  if (!value) return null;
+  if (/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(value)) return value;
+  const list = await AdminCRUD.list('training_internships');
+  const found = list.find(c =>
+    String(c.program_name).toLowerCase() === value.toLowerCase() ||
+    (c.program_type + ': ' + c.program_name).toLowerCase() === value.toLowerCase()
+  );
+  return found ? found.id : null;
+}
+
+async function runImport() {
+  const errEl = document.getElementById('importError');
+  const sumEl = document.getElementById('importSummary');
+  const errTable = document.getElementById('importErrorTable');
+  errEl.classList.add('d-none');
+  sumEl.classList.add('d-none');
+  errTable.style.display = 'none';
+  errTable.querySelector('tbody').innerHTML = '';
+
+  const collegeId = document.getElementById('impCollege').value;
+  const deptId = document.getElementById('impDept').value;
+  const courseId = document.getElementById('impCourse').value;
+  const batchId = document.getElementById('impBatch').value;
+  const stcIdDefault = document.getElementById('impSTC').value;
+  const tiIdDefault = document.getElementById('impTI').value;
+  const defaultYear = document.getElementById('impYear').value.trim();
+  const file = document.getElementById('impFile').files[0];
+
+  if (!file) {
+    errEl.textContent = 'Please choose an Excel/CSV file.';
+    errEl.classList.remove('d-none');
+    return;
+  }
+
+  const btn = document.getElementById('btnRunImport');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Reading file...';
+
+  let rows;
+  try {
+    rows = await parseImportFile(file);
+  } catch (e) {
+    errEl.textContent = 'Could not read the file: ' + e.message;
+    errEl.classList.remove('d-none');
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-upload me-1"></i>Import Students';
+    return;
+  }
+
+  if (!rows.length) {
+    errEl.textContent = 'The file has no data rows.';
+    errEl.classList.remove('d-none');
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-upload me-1"></i>Import Students';
+    return;
+  }
+
+  const detectedHeaders = Object.keys(rows[0] || {}).join(', ');
+  console.log('Detected headers:', detectedHeaders);
+
+  const progressWrap = document.getElementById('importProgress');
+  const progressBar = document.getElementById('importProgressBar');
+  const progressText = document.getElementById('importProgressText');
+  progressWrap.classList.remove('d-none');
+
+  const client = SIIT.initSupabase();
+  let created = 0, updated = 0, failed = 0;
+  const errorRows = [];
+  let missingNameCount = 0;
+
+  for (let i = 0; i < rows.length; i++) {
+    const r = rows[i];
+    const roll = extractField(r, 'college_roll_no');
+    const name = extractField(r, 'full_name');
+
+    progressBar.style.width = Math.round(((i + 1) / rows.length) * 100) + '%';
+    progressText.textContent = `Processing row ${i + 1} of ${rows.length}...`;
+
+    if (!roll || !name) {
+      failed++;
+      missingNameCount++;
+      errorRows.push({ row: i + 2, roll: roll || '—', reason: 'Missing roll no or name' });
+      continue;
+    }
+
+    let stcId = stcIdDefault ? Number(stcIdDefault) : null;
+    let tiId = tiIdDefault || null;
+    try {
+      const stcRaw = extractField(r, 'short_term_course');
+      if (stcRaw) {
+        const resolved = await resolveSTC(stcRaw);
+        if (resolved) stcId = resolved;
+      }
+      const tiRaw = extractField(r, 'training_internship');
+      if (tiRaw) {
+        const resolved = await resolveTI(tiRaw);
+        if (resolved) tiId = resolved;
+      }
+    } catch (e) {}
+
+    const payload = {
+      college_roll_no: roll,
+      full_name: name,
+      mobile: extractField(r, 'mobile') || null,
+      email: extractField(r, 'email') || null,
+      gender: extractField(r, 'gender') || null,
+      academic_year: extractField(r, 'academic_year') || defaultYear || null,
+      semester: extractField(r, 'semester') ? Number(extractField(r, 'semester')) : null,
+      section: extractField(r, 'section') || null,
+      university_enrollment_no: extractField(r, 'university_enrollment_no') || null,
+      date_of_birth: extractField(r, 'date_of_birth') || null,
+      address: extractField(r, 'address') || null,
+      guardian_name: extractField(r, 'guardian_name') || null,
+      guardian_mobile: extractField(r, 'guardian_mobile') || null,
+      status: extractField(r, 'status') || 'Active'
+    };
+
+    if (collegeId) payload.college_id = Number(collegeId);
+    if (deptId) payload.department_id = Number(deptId);
+    if (courseId) payload.course_id = Number(courseId);
+    if (batchId) payload.batch_id = Number(batchId);
+    if (stcId) payload.short_term_course_id = stcId;
+    if (tiId) payload.training_internship_id = tiId; // UUID string – column must be uuid
+
+    try {
+      const { data: existing } = await client
+        .from('students')
+        .select('id')
+        .ilike('college_roll_no', roll)
+        .maybeSingle();
+
+      if (existing) {
+        const { error } = await client.from('students').update(payload).eq('id', existing.id);
+        if (error) throw error;
+        updated++;
+      } else {
+        const { error } = await client.from('students').insert([payload]);
+        if (error) throw error;
+        created++;
+      }
+    } catch (e) {
+      failed++;
+      errorRows.push({ row: i + 2, roll, reason: e.message || 'Insert/Update failed' });
+    }
+  }
+
+  progressWrap.classList.add('d-none');
+  btn.disabled = false;
+  btn.innerHTML = '<i class="fas fa-upload me-1"></i>Import Students';
+
+  let msg = `Import finished — <strong>${created}</strong> created, <strong>${updated}</strong> updated, <strong>${failed}</strong> failed (of ${rows.length} rows).`;
+  if (missingNameCount === rows.length) {
+    msg += `<br><span class="text-danger">Could not find Roll No or Name columns.</span>
+            <br><small>Detected headers: <code>${SIIT.Utils.escapeHtml(detectedHeaders)}</code></small>`;
+  }
+  sumEl.innerHTML = msg;
+  sumEl.classList.remove('d-none');
+
+  if (errorRows.length) {
+    const tbody = errTable.querySelector('tbody');
+    tbody.innerHTML = errorRows.map(e =>
+      `<tr><td>${e.row}</td><td>${SIIT.Utils.escapeHtml(e.roll)}</td>
+       <td class="text-danger small">${SIIT.Utils.escapeHtml(e.reason)}</td></tr>`
+    ).join('');
+    errTable.style.display = '';
+  }
+
+  loadData();
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events | SIIT ERP</title>
+  <link rel="icon" href="../assets/img/logo.png" type="image/png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+<div class="admin-wrapper">
+  <aside class="admin-sidebar" id="sidebar">
+    <a href="dashboard.html" class="sidebar-brand text-decoration-none text-white">
+      <img src="../assets/img/logo.png" alt="Logo"><span>SIIT ERP</span>
+    </a>
+    <div class="nav-section">
+      <div class="nav-section-title">Main</div>
+      <a href="dashboard.html" class="nav-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+      <a href="users.html" class="nav-link"><i class="fas fa-users"></i> Users</a>
+      <a href="colleges.html" class="nav-link"><i class="fas fa-university"></i> Colleges</a>
+      <a href="courses.html" class="nav-link"><i class="fas fa-book"></i> Courses</a>
+      <a href="trainers.html" class="nav-link"><i class="fas fa-chalkboard-teacher"></i> Trainers</a>
+      <a href="students.html" class="nav-link"><i class="fas fa-user-graduate"></i> Students</a>
+      <a href="batches.html" class="nav-link"><i class="fas fa-layer-group"></i> Batches</a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-title">Academic</div>
+      <a href="attendance.html" class="nav-link"><i class="fas fa-qrcode"></i> Attendance</a>
+      <a href="quizzes.html" class="nav-link"><i class="fas fa-question-circle"></i> Quizzes</a>
+      <a href="assessments.html" class="nav-link"><i class="fas fa-clipboard-check"></i> Assessments</a>
+      <a href="tasks.html" class="nav-link"><i class="fas fa-tasks"></i> Tasks</a>
+      <a href="feedback-forms.html" class="nav-link"><i class="fas fa-comment-dots"></i> Feedback Forms</a>
+      <a href="certificates.html" class="nav-link"><i class="fas fa-certificate"></i> Certificates</a>
+      <a href="training-internships.html" class="nav-link"><i class="fas fa-user-tie"></i> Training + Internship</a>
+      <a href="short-term-certificates.html" class="nav-link"><i class="fas fa-award"></i> ST Certificates</a>
+      <a href="short-term-courses.html" class="nav-link"><i class="fas fa-graduation-cap"></i> ST Course Catalog</a>
+      <a href="events.html" class="nav-link active"><i class="fas fa-calendar-alt"></i> Events</a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-title">Finance & Placement</div>
+      <a href="fees.html" class="nav-link"><i class="fas fa-rupee-sign"></i> Fees</a>
+      <a href="finance.html" class="nav-link"><i class="fas fa-chart-pie"></i> Finance</a>
+      <a href="companies.html" class="nav-link"><i class="fas fa-building"></i> Companies</a>
+      <a href="placements.html" class="nav-link"><i class="fas fa-briefcase"></i> Placed Candidates</a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-title">Website</div>
+      <a href="enquiries.html" class="nav-link"><i class="fas fa-envelope-open-text"></i> Enquiries</a>
+      <a href="gallery.html" class="nav-link"><i class="fas fa-images"></i> Gallery</a>
+      <a href="blogs.html" class="nav-link"><i class="fas fa-blog"></i> Blogs</a>
+      <a href="settings.html" class="nav-link"><i class="fas fa-cog"></i> Settings</a>
+    </div>
+  </aside>
+
+  <div class="admin-content">
+    <div class="admin-topbar">
+      <div class="d-flex align-items-center gap-2">
+        <button class="btn btn-sm btn-outline-secondary d-lg-none" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+        <h5 class="mb-0 fw-bold">Events</h5>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+        <span class="text-muted small text-truncate" id="userName" style="max-width:120px">Admin</span>
+        <button class="btn btn-sm btn-outline-danger" onclick="SIIT.logoutUser()"><i class="fas fa-sign-out-alt"></i></button>
+      </div>
+    </div>
+
+    <div class="admin-main">
+      <div class="dashboard-card">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+          <div>
+            <h6 class="fw-bold mb-0">Events</h6>
+            <small class="text-muted" id="recordCount">Loading...</small>
+            <br><small class="text-muted">Workshops, seminars, drives, hackathons, etc. · Table: <code>events</code></small>
+          </div>
+          <div class="d-flex gap-2 flex-wrap">
+            <input type="search" class="form-control form-control-sm" id="searchInput" placeholder="Search..." style="min-width:140px">
+            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="loadData()"><i class="fas fa-sync-alt"></i></button>
+            <button type="button" class="btn btn-sm btn-primary" onclick="openForm()"><i class="fas fa-plus me-1"></i>Add Event</button>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+              <tr>
+                <th>Title</th>
+                <th>Type</th>
+                <th>Date</th>
+                <th>Venue</th>
+                <th>College</th>
+                <th>Status</th>
+                <th width="110">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="dataBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="crudModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
+          <div class="modal-content">
+            <form id="crudForm">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Add Event</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+              <div class="modal-body">
+                <input type="hidden" name="id" id="recordId">
+                <div class="row g-3">
+
+                  <div class="col-12">
+                    <label class="form-label">Event Title *</label>
+                    <input type="text" class="form-control" name="event_title" required>
+                  </div>
+
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">Event Type *</label>
+                    <select class="form-select" name="event_type" required>
+                      <option value="Workshop">Workshop</option>
+                      <option value="Seminar">Seminar</option>
+                      <option value="Guest Lecture">Guest Lecture</option>
+                      <option value="Industrial Visit">Industrial Visit</option>
+                      <option value="Placement Drive">Placement Drive</option>
+                      <option value="Hackathon">Hackathon</option>
+                      <option value="Bootcamp">Bootcamp</option>
+                      <option value="Training">Training</option>
+                      <option value="Competition">Competition</option>
+                      <option value="Certification">Certification</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">Status</label>
+                    <select class="form-select" name="status">
+                      <option value="Upcoming">Upcoming</option>
+                      <option value="Open">Open</option>
+                      <option value="Completed">Completed</option>
+                      <option value="Cancelled">Cancelled</option>
+                    </select>
+                  </div>
+
+                  <!-- College -->
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">College</label>
+                    <select class="form-select" name="college_id" id="selCollege"></select>
+                  </div>
+
+                  <!-- Department -->
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">Department</label>
+                    <select class="form-select" name="department_id" id="selDepartment" disabled>
+                      <option value="">— Select College first —</option>
+                    </select>
+                  </div>
+
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">Course</label>
+                    <select class="form-select" name="course_id" id="selCourse"></select>
+                  </div>
+
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">Trainer</label>
+                    <select class="form-select" name="trainer_id" id="selTrainer"></select>
+                  </div>
+
+                  <!-- Training + Internship -->
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">Training + Internship</label>
+                    <select class="form-select" name="training_internship_id" id="selTrainingInternship"></select>
+                  </div>
+
+                  <!-- Short Term Course -->
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">Short Term Course</label>
+                    <select class="form-select" name="short_term_course_id" id="selShortTermCourse"></select>
+                  </div>
+
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">Venue</label>
+                    <input type="text" class="form-control" name="venue">
+                  </div>
+
+                  <!-- Date / Month / Year -->
+                  <div class="col-12 col-md-4">
+                    <label class="form-label">Event Date</label>
+                    <input type="date" class="form-control" name="event_date">
+                  </div>
+                  <div class="col-6 col-md-4">
+                    <label class="form-label">Month</label>
+                    <select class="form-select" name="event_month" id="selMonth">
+                      <option value="">— Optional —</option>
+                      <option value="1">January</option>
+                      <option value="2">February</option>
+                      <option value="3">March</option>
+                      <option value="4">April</option>
+                      <option value="5">May</option>
+                      <option value="6">June</option>
+                      <option value="7">July</option>
+                      <option value="8">August</option>
+                      <option value="9">September</option>
+                      <option value="10">October</option>
+                      <option value="11">November</option>
+                      <option value="12">December</option>
+                    </select>
+                  </div>
+                  <div class="col-6 col-md-4">
+                    <label class="form-label">Year</label>
+                    <select class="form-select" name="event_year" id="selYear">
+                      <option value="">— Optional —</option>
+                    </select>
+                  </div>
+
+                  <div class="col-6 col-md-4">
+                    <label class="form-label">Start Time</label>
+                    <input type="time" class="form-control" name="start_time">
+                  </div>
+                  <div class="col-6 col-md-4">
+                    <label class="form-label">End Time</label>
+                    <input type="time" class="form-control" name="end_time">
+                  </div>
+
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">Max Participants</label>
+                    <input type="number" class="form-control" name="max_participants" min="0">
+                  </div>
+
+                  <div class="col-6 col-md-3">
+                    <div class="form-check mt-4">
+                      <input class="form-check-input" type="checkbox" name="registration_required" id="f_reg" checked>
+                      <label class="form-check-label" for="f_reg">Registration required</label>
+                    </div>
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <div class="form-check mt-4">
+                      <input class="form-check-input" type="checkbox" name="certificate_enabled" id="f_cert">
+                      <label class="form-check-label" for="f_cert">Certificate enabled</label>
+                    </div>
+                  </div>
+
+                  <!-- ===================== NEW: Certificate Drive Link ===================== -->
+                  <div class="col-12">
+                    <label class="form-label">Certificate Drive Link</label>
+                    <input type="url" class="form-control" name="certificate_drive_link" id="certificateDriveLink"
+                           placeholder="https://drive.google.com/... or any certificate URL">
+                    <small class="text-muted">Paste Google Drive / Dropbox / any public link</small>
+                  </div>
+
+                  <div class="col-12">
+                    <label class="form-label">Or Upload Certificate File</label>
+                    <input type="file" class="form-control" id="certificateFile" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+                    <small class="text-muted">Uploading a file will automatically fill the Drive Link above</small>
+                  </div>
+                  <!-- ====================================================================== -->
+
+                  <div class="col-12">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-control" name="event_description" rows="3"></textarea>
+                  </div>
+
+                  <div class="col-12">
+                    <label class="form-label">Event Banner — bucket: <code>gallery</code></label>
+                    <input type="file" class="form-control" id="bannerFile" accept="image/*">
+                    <input type="hidden" name="event_banner" id="bannerUrl">
+                    <img id="bannerPreview" class="mt-2 rounded" style="max-height:80px;display:none" alt="">
+                  </div>
+                </div>
+                <div id="formError" class="alert alert-danger d-none mt-3 mb-0"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary" id="saveBtn"><i class="fas fa-save me-1"></i>Save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../assets/js/supabase-config.js"></script>
+<script src="../assets/js/admin-crud.js"></script>
+<script src="../assets/js/rbac.js"></script>
+<script>
+if (!SIIT.Session.requireAuth()) {}
+RBAC.enforce();
+const user = SIIT.Session.get();
+if (user) document.getElementById('userName').textContent = user.full_name || user.email;
+
+document.getElementById('sidebarToggle')?.addEventListener('click', () => {
+  document.getElementById('sidebar').classList.toggle('show');
+});
+
+SIIT.initSupabase();
+const TABLE = 'events';
+let allRows = [], editId = null;
+const collegeMap = {};
+const modal = new bootstrap.Modal(document.getElementById('crudModal'));
+const form = document.getElementById('crudForm');
+
+function populateYears() {
+  const sel = document.getElementById('selYear');
+  const current = new Date().getFullYear();
+  sel.innerHTML = '<option value="">— Optional —</option>';
+  for (let y = current + 2; y >= current - 5; y--) {
+    sel.innerHTML += `<option value="${y}">${y}</option>`;
+  }
+}
+
+async function loadDropdowns() {
+  await AdminCRUD.fillSelect('#selCollege', 'colleges', {
+    valueKey: 'id',
+    labelKey: 'college_name',
+    order: 'college_name',
+    placeholder: '— Optional —'
+  });
+
+  await AdminCRUD.fillSelect('#selCourse', 'courses', {
+    valueKey: 'id',
+    labelKey: 'course_name',
+    order: 'course_name',
+    placeholder: '— Optional —',
+    extraLabel: 'course_code'
+  });
+
+  await AdminCRUD.fillSelect('#selTrainer', 'trainers', {
+    valueKey: 'id',
+    labelKey: 'full_name',
+    order: 'full_name',
+    placeholder: '— Optional —'
+  });
+
+  // Change labelKey if needed (program_name / name / training_name etc.)
+  await AdminCRUD.fillSelect('#selTrainingInternship', 'training_internships', {
+    valueKey: 'id',
+    labelKey: 'program_name',
+    order: 'program_name',
+    placeholder: '— Optional —'
+  });
+
+  await AdminCRUD.fillSelect('#selShortTermCourse', 'short_term_courses', {
+    valueKey: 'id',
+    labelKey: 'course_name',
+    order: 'course_name',
+    placeholder: '— Optional —'
+  });
+
+  (await AdminCRUD.list('colleges')).forEach(c => collegeMap[c.id] = c.college_name);
+  populateYears();
+}
+
+// ===================== ONLY DEPARTMENTS OF SELECTED COLLEGE =====================
+async function loadDepartments(collegeId, selectedId = null) {
+  const sel = document.getElementById('selDepartment');
+  sel.innerHTML = '<option value="">— Loading —</option>';
+  sel.disabled = true;
+
+  if (!collegeId) {
+    sel.innerHTML = '<option value="">— Select College first —</option>';
+    return;
+  }
+
+  try {
+    const allDepts = await AdminCRUD.list('departments', { order: 'department_name' });
+    const depts = allDepts.filter(d => String(d.college_id) === String(collegeId));
+
+    if (depts.length === 0) {
+      sel.innerHTML = '<option value="">— No departments for this college —</option>';
+    } else {
+      sel.innerHTML = '<option value="">— Optional —</option>';
+      depts.forEach(d => {
+        const opt = document.createElement('option');
+        opt.value = d.id;
+        opt.textContent = d.department_name || d.name || `Dept #${d.id}`;
+        if (selectedId && String(d.id) === String(selectedId)) opt.selected = true;
+        sel.appendChild(opt);
+      });
+    }
+    sel.disabled = false;
+  } catch (err) {
+    console.error(err);
+    sel.innerHTML = '<option value="">— Error loading departments —</option>';
+  }
+}
+
+document.getElementById('selCollege')?.addEventListener('change', function () {
+  loadDepartments(this.value || null);
+});
+
+// Banner preview
+document.getElementById('bannerFile')?.addEventListener('change', e => {
+  const f = e.target.files[0];
+  const p = document.getElementById('bannerPreview');
+  if (f) {
+    p.src = URL.createObjectURL(f);
+    p.style.display = 'block';
+  }
+});
+
+// Certificate file upload → auto fill the link field
+document.getElementById('certificateFile')?.addEventListener('change', async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  try {
+    SIIT.Utils.toast('Uploading certificate...');
+    const up = await AdminCRUD.uploadFile('gallery', file, 'certificates');
+    document.getElementById('certificateDriveLink').value = up.publicUrl;
+    SIIT.Utils.toast('Certificate uploaded & link filled');
+  } catch (err) {
+    SIIT.Utils.toast(err.message || 'Upload failed', 'error');
+  }
+});
+
+function render(rows) {
+  const tbody = document.getElementById('dataBody');
+  document.getElementById('recordCount').textContent = rows.length + ' events';
+  if (!rows.length) {
+    tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted py-4">No events. Click Add Event.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = rows.map(row => `<tr>
+    <td>${SIIT.Utils.escapeHtml(row.event_title || '—')}</td>
+    <td><span class="badge bg-info text-dark">${SIIT.Utils.escapeHtml(row.event_type || '—')}</span></td>
+    <td>${SIIT.Utils.formatDate(row.event_date)}</td>
+    <td>${SIIT.Utils.escapeHtml(row.venue || '—')}</td>
+    <td>${SIIT.Utils.escapeHtml(String(collegeMap[row.college_id] || '—'))}</td>
+    <td><span class="badge bg-${row.status==='Completed'?'success':row.status==='Cancelled'?'danger':row.status==='Open'?'primary':'secondary'}">${SIIT.Utils.escapeHtml(row.status||'—')}</span></td>
+    <td class="text-nowrap">
+      <button class="btn btn-sm btn-outline-primary me-1" onclick="openForm(${row.id})"><i class="fas fa-edit"></i></button>
+      <button class="btn btn-sm btn-outline-danger" onclick="deleteRow(${row.id}, '${SIIT.Utils.escapeHtml(String(row.event_title||'')).replace(/'/g,'')}')"><i class="fas fa-trash"></i></button>
+    </td>
+  </tr>`).join('');
+}
+
+async function loadData() {
+  try {
+    await loadDropdowns();
+    allRows = await AdminCRUD.list(TABLE, { order: 'event_date', ascending: false });
+    render(allRows);
+  } catch (e) {
+    document.getElementById('dataBody').innerHTML = `<tr><td colspan="7" class="text-danger text-center py-4">
+      <strong>${SIIT.Utils.escapeHtml(e.message)}</strong>
+    </td></tr>`;
+  }
+}
+
+async function openForm(id) {
+  editId = id || null;
+  form.reset();
+  document.getElementById('formError').classList.add('d-none');
+  document.getElementById('bannerPreview').style.display = 'none';
+  document.getElementById('bannerUrl').value = '';
+  document.getElementById('certificateDriveLink').value = '';
+  document.getElementById('certificateFile').value = '';
+  document.getElementById('modalTitle').textContent = id ? 'Edit Event' : 'Add Event';
+  form.elements['registration_required'].checked = true;
+
+  // Reset department
+  const deptSel = document.getElementById('selDepartment');
+  deptSel.innerHTML = '<option value="">— Select College first —</option>';
+  deptSel.disabled = true;
+
+  await loadDropdowns();
+
+  if (id) {
+    const row = allRows.find(r => r.id == id);
+    if (row) {
+      AdminCRUD.fillForm(form, row);
+
+      if (row.start_time) form.elements['start_time'].value = String(row.start_time).slice(0, 5);
+      if (row.end_time) form.elements['end_time'].value = String(row.end_time).slice(0, 5);
+
+      if (row.college_id) {
+        await loadDepartments(row.college_id, row.department_id);
+      }
+
+      if (row.event_banner) {
+        document.getElementById('bannerUrl').value = row.event_banner;
+        document.getElementById('bannerPreview').src = row.event_banner;
+        document.getElementById('bannerPreview').style.display = 'block';
+      }
+
+      // Certificate link
+      if (row.certificate_drive_link) {
+        document.getElementById('certificateDriveLink').value = row.certificate_drive_link;
+      }
+    }
+  }
+  modal.show();
+}
+
+async function deleteRow(id, name) {
+  if (!AdminCRUD.confirmDelete(name)) return;
+  try {
+    await AdminCRUD.remove(TABLE, id);
+    SIIT.Utils.toast('Deleted');
+    loadData();
+  } catch (e) {
+    SIIT.Utils.toast(e.message, 'error');
+  }
+}
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('saveBtn');
+  btn.disabled = true;
+  document.getElementById('formError').classList.add('d-none');
+
+  try {
+    const payload = AdminCRUD.formData(form);
+    delete payload.id;
+
+    // Numeric fields
+    const numericKeys = [
+      'college_id', 'department_id', 'course_id', 'trainer_id',
+      'short_term_course_id', 'max_participants', 'event_month', 'event_year'
+    ];
+    numericKeys.forEach(k => {
+      if (payload[k]) payload[k] = Number(payload[k]);
+      else payload[k] = null;
+    });
+
+    // UUID field
+    if (!payload.training_internship_id) payload.training_internship_id = null;
+
+    if (!payload.start_time) payload.start_time = null;
+    if (!payload.end_time) payload.end_time = null;
+    if (!payload.event_date) payload.event_date = null;
+    if (!payload.certificate_drive_link) payload.certificate_drive_link = null;
+
+    // Banner upload
+    const bannerFile = document.getElementById('bannerFile').files[0];
+    if (bannerFile) {
+      const up = await AdminCRUD.uploadFile('gallery', bannerFile, 'events');
+      payload.event_banner = up.publicUrl;
+    }
+
+    // Certificate file is already handled on change (fills the link field)
+    // No extra code needed here
+
+    if (editId) await AdminCRUD.update(TABLE, editId, payload);
+    else await AdminCRUD.insert(TABLE, payload);
+
+    SIIT.Utils.toast('Saved');
+    modal.hide();
+    loadData();
+  } catch (err) {
+    document.getElementById('formError').textContent = err.message;
+    document.getElementById('formError').classList.remove('d-none');
+  }
+  btn.disabled = false;
+});
+
+document.getElementById('searchInput')?.addEventListener('input', () => {
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  if (!q) return render(allRows);
+  render(allRows.filter(r => JSON.stringify(r).toLowerCase().includes(q)));
+});
+
+loadData();
+</script>
+</body>
+</html>

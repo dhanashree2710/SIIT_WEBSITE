@@ -1,43 +1,35 @@
 # Sujata Institute — Deployment Guide
 
-## Fixed issues
-1. **CSS / logo / images not loading on server**  
-   Public site assets now live inside `public/assets/` and all HTML uses relative paths:
-   - `assets/css/style.css`
-   - `assets/img/logo.png`
-   - `assets/js/...`
+## Document root = `public` folder (recommended)
 
-2. **Responsive on all devices**  
-   Extra CSS rules for mobile, tablet and desktop (navbar, hero, stats, footer, logos).
+Upload the project and point your domain to the **`public`** folder.
 
-## Recommended upload structure
+```
+public/
+  index.html          ← website home
+  assets/             ← CSS, JS, logo, images
+  admin/
+    login.html        ← admin login (double-click logo)
+    dashboard.html
+    ...
+```
 
-Upload the entire `sujata-institute` folder to your host.
+- Website: `https://yoursite.com/`
+- Admin login: `https://yoursite.com/admin/login.html`
+- **Double-click the navbar logo** → opens admin login
 
-### Option A — Document root = `public` (recommended for website)
-Point your domain (e.g. `www.sujatainstitute.com`) to the **`public`** folder.
+## Why you saw 404 before
 
-- Website: `https://yoursite.com/` → `public/index.html`
-- Logo, CSS, JS will load from `public/assets/...`
-- Admin panel: host separately or use a subdomain pointing to parent + `/admin/`
+Double-click used `../admin/login.html`, which is **outside** `public/`.
+When the host only serves `public/`, that path returns **404 NOT_FOUND**.
 
-### Option B — Document root = project root
-Point domain to `sujata-institute/`.
-
-- Website: `https://yoursite.com/public/`
-- Admin: `https://yoursite.com/admin/`
-- Shared assets: `https://yoursite.com/assets/` (used by admin)
+Now admin lives at `public/admin/`, so login works under the same document root.
 
 ## Local test
-Open `public/index.html` in a browser (or use a local server):
 
 ```bash
 cd public
 python3 -m http.server 8080
-# then open http://localhost:8080
 ```
 
-## Notes
-- Keep folder names exact: `assets`, `css`, `img`, `js` (case-sensitive on Linux servers).
-- Do not move `logo.png` out of `public/assets/img/`.
-- CDN links (Bootstrap, Font Awesome, Google Fonts) need internet on the server/client.
+Open http://localhost:8080 — single-click logo = Home, double-click logo = Login.
