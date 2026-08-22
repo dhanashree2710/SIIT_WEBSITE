@@ -22,8 +22,8 @@
 </div>
 <nav class="navbar navbar-expand-lg sticky-top">
   <div class="container">
-    <a class="navbar-brand d-flex align-items-center" href="index.html">
-      <img src="assets/img/logo.png" alt="SIIT Logo">
+    <a class="navbar-brand d-flex align-items-center" href="index.html" id="navBrand" title="Sujata Institute">
+      <img src="assets/img/logo.png" alt="SIIT Logo" id="navLogo">
       <span class="d-none d-lg-inline">Sujata Institute</span>
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,4 +79,28 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/supabase-config.js"></script>
   <script src="assets/js/course-enquiry-popup.js"></script>
+
+<script>
+/* Double-click navbar logo → Admin Login */
+(function () {
+  function goLogin(e) {
+    if (e) { e.preventDefault(); e.stopPropagation(); }
+    window.location.href = "../admin/login.html";
+  }
+  function bind() {
+    var logo = document.getElementById("navLogo");
+    var brand = document.getElementById("navBrand");
+    if (logo) {
+      logo.addEventListener("dblclick", goLogin);
+      logo.style.cursor = "pointer";
+    }
+    if (brand) {
+      brand.addEventListener("dblclick", goLogin);
+    }
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", bind);
+  else bind();
+})();
+</script>
+
 </body></html>
