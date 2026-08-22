@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Placement | Sujata Institute</title>
+  <link rel="icon" href="assets/img/logo.png" type="image/png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+  <style>
+    /* Company cards */
+    .company-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.06);
+      padding: 1.25rem .75rem;
+      height: 100%;
+      transition: transform .2s, box-shadow .2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 140px;
+    }
+    .company-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,.1);
+    }
+    .company-card img {
+      max-height: 56px;
+      max-width: 120px;
+      object-fit: contain;
+      margin-bottom: .75rem;
+    }
+    .company-card .company-name {
+      font-weight: 600;
+      font-size: .9rem;
+      color: #333;
+      text-align: center;
+      line-height: 1.3;
+    }
+    .company-placeholder {
+      width: 56px;
+      height: 56px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #e8f0fe, #f0f4ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: #3b6ef8;
+      margin-bottom: .75rem;
+    }
+
+    /* Placed students – infinite horizontal scroll */
+    .placed-scroll-wrapper {
+      overflow: hidden;
+      position: relative;
+      mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+    }
+    .placed-track {
+      display: flex;
+      gap: 1.25rem;
+      width: max-content;
+      animation: scroll-left 40s linear infinite;
+    }
+    .placed-track:hover {
+      animation-play-state: paused;
+    }
+    @keyframes scroll-left {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .placed-card {
+      width: 280px;
+      flex-shrink: 0;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.07);
+      padding: 1.5rem;
+      text-align: center;
+      transition: transform .2s;
+    }
+    .placed-card:hover {
+      transform: translateY(-3px);
+    }
+    .placed-card .student-photo {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #e8f0fe;
+      margin-bottom: .85rem;
+    }
+    .placed-card .photo-placeholder {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: .85rem;
+    }
+    .placed-card .student-name {
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-bottom: .15rem;
+    }
+    .placed-card .designation {
+      color: #3b6ef8;
+      font-weight: 600;
+      font-size: .9rem;
+      margin-bottom: .1rem;
+    }
+    .placed-card .company {
+      color: #666;
+      font-size: .85rem;
+      margin-bottom: .75rem;
+    }
+    .placed-card .review {
+      font-size: .82rem;
+      color: #555;
+      line-height: 1.45;
+      font-style: italic;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .placed-card .stars {
+      color: #f5a623;
+      font-size: .8rem;
+      margin-bottom: .5rem;
+    }
+
+    /* Stats keep existing look */
+    .stat-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1.5rem 1rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,.05);
+    }
+  </style>
+</head>
+<body>
+<div class="top-bar d-none d-md-block">
+  <div class="container d-flex justify-content-between align-items-center flex-wrap">
+    <div>
+      <a href="mailto:sujatainstitute2016@gmail.com"><i class="fas fa-envelope me-1"></i> sujatainstitute2016@gmail.com</a>
+      <span class="mx-2">|</span>
+      <a href="tel:+919096883042"><i class="fas fa-phone me-1"></i> +91-9096883042 / 9370387303 / 9699544383</a>
+    </div>
+  </div>
+</div>
+
+<nav class="navbar navbar-expand-lg sticky-top">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="index.html">
+      <img src="assets/img/logo.png" alt="SIIT Logo">
+      <span class="d-none d-lg-inline">Sujata Institute</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+            aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Programs</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="training-programs.html">Training Programs</a></li>
+            <li><a class="dropdown-item" href="training-internship.html">Training + Internship</a></li>
+            <li><a class="dropdown-item" href="short-term.html">Short Term Courses</a></li>
+            <li><a class="dropdown-item" href="college-programs.html">College Programs</a></li>
+            <li><a class="dropdown-item" href="corporate.html">Corporate Training</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link active" href="placement.html">Placement</a></li>
+        <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+        <li class="nav-item"><a class="nav-link" href="blogs.html">Blogs</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+      </ul>
+      <a href="enquiry.html" class="btn btn-enquiry">Enquire Now</a>
+    </div>
+  </div>
+</nav>
+
+<section class="page-header">
+  <div class="container text-center">
+    <h1>Placement Support</h1>
+    <p class="mb-0 opacity-75">Industry partners and career outcomes for our students</p>
+  </div>
+</section>
+
+<section class="py-5">
+  <div class="container">
+
+    <!-- Stats -->
+    <div class="row g-4 mb-5 text-center">
+      <div class="col-6 col-md-3">
+        <div class="stat-card">
+          <h3 class="text-primary" >75000</h3>
+          <p class="mb-0">Students Placed</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-card">
+          <h3 class="text-success" >50+</h3>
+          <p class="mb-0">Partner Companies</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-card">
+          <h3 class="text-warning" >4.5</h3>
+          <p class="mb-0">Avg Package</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-card">
+          <h3 class="text-danger">92%</h3>
+          <p class="mb-0">Placement Rate</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== COMPANIES ===================== -->
+    <h4 class="fw-bold text-center mb-2">Our Industry Partners</h4>
+    <p class="text-center text-muted mb-4">Companies that hire our trained students</p>
+
+    <div id="companiesLoader" class="text-center py-4 text-muted">
+      <i class="fas fa-spinner fa-spin me-2"></i>Loading companies...
+    </div>
+    <div class="row g-3 justify-content-center" id="companiesGrid" style="display:none;"></div>
+
+    <!-- ===================== PLACED STUDENTS (scrolling) ===================== -->
+    <h4 class="fw-bold text-center mt-5 mb-2">Our Placed Students</h4>
+    <p class="text-center text-muted mb-4">Success stories from our alumni</p>
+
+    <div id="placedLoader" class="text-center py-4 text-muted">
+      <i class="fas fa-spinner fa-spin me-2"></i>Loading placed students...
+    </div>
+
+    <div class="placed-scroll-wrapper" id="placedWrapper" style="display:none;">
+      <div class="placed-track" id="placedTrack"></div>
+    </div>
+
+    <div class="text-center mt-5">
+      <a href="enquiry.html" class="btn btn-primary rounded-pill px-4">Enquire About Placement Programs</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <div class="brand-info">
+          <img src="assets/img/logo.png" alt="SIIT">
+          <p>Sujata Institute of Information and Technology — quality education, skill development and placement support in Pune.</p>
+        </div>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h5>Quick Links</h5>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="training-programs.html">Courses</a>
+        <a href="placement.html">Placement</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h5>Programs</h5>
+        <a href="training-programs.html">Training Programs</a>
+        <a href="training-internship.html">Training + Internship</a>
+        <a href="short-term.html">Short Term</a>
+        <a href="college-programs.html">College Programs</a>
+        <a href="corporate.html">Corporate</a>
+      </div>
+      <div class="col-lg-4">
+        <h5>Get In Touch</h5>
+        <div class="contact-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>Office No.03, First Floor, Sagar Apartment, Parihar Chowk, Sanghvi Nagar, Ward No. 8, Sadhu Vasvani Nagar, Aundh, Pune, Maharashtra 411067</span>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-envelope"></i>
+          <span>sujatainstitute2016@gmail.com</span>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-phone"></i>
+          <span>+(91)-9096883042 / 9370387303 / 9699544383</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="mb-0">&copy; 2026 <a href="index.html" class="ft-siit">Sujata Institute of Information and Technology</a>. All Rights Reserved. | Design by <a href="https://kdrtitsolutions.com" target="_blank" rel="noopener" class="ft-kdrt">KDRT IT Solutions LLP</a></p>
+    </div>
+  </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-config.js"></script>
+<script>
+(async function () {
+  /* ---------- 1. Get client ---------- */
+  let client = null;
+  if (typeof SIIT !== 'undefined' && typeof SIIT.initSupabase === 'function') {
+    client = SIIT.initSupabase();
+  }
+  if (!client && typeof initSupabase === 'function') {
+    client = initSupabase();
+  }
+
+  if (!client || typeof client.from !== 'function') {
+    console.error('Supabase client not available');
+    document.getElementById('companiesLoader').innerHTML =
+      '<span class="text-danger">Database not connected</span>';
+    document.getElementById('placedLoader').innerHTML =
+      '<span class="text-danger">Database not connected</span>';
+    return;
+  }
+
+  console.log('Valid Supabase client ready');
+
+  /* ---------- helpers ---------- */
+  function escapeHtml(str) {
+    if (str == null) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function initials(name) {
+    if (!name) return '?';
+    return name.trim().split(/\s+/).slice(0, 2).map(w => w[0]).join('').toUpperCase();
+  }
+
+  function showError(id, msg) {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = `<span class="text-danger"><i class="fas fa-exclamation-circle me-1"></i>${msg}</span>`;
+  }
+
+  /* ---------- 2. Companies ---------- */
+  async function loadCompanies() {
+    const loader = document.getElementById('companiesLoader');
+    const grid   = document.getElementById('companiesGrid');
+
+    try {
+      const { data, error } = await client
+        .from('companies')
+        .select('id, company_name, logo_url, status')
+        .order('company_name', { ascending: true });
+
+      if (error) {
+        console.error('Companies error:', error);
+        showError('companiesLoader', error.message || 'Could not load companies (check RLS)');
+        return {};
+      }
+
+      const list = (data || []).filter(c => c.status !== false);
+
+      if (loader) loader.style.display = 'none';
+      if (grid)  grid.style.display = '';
+
+      if (!list.length) {
+        if (grid) grid.innerHTML = '<div class="col-12 text-center text-muted py-3">No companies found.</div>';
+        return {};
+      }
+
+      const map = {};
+      grid.innerHTML = list.map(c => {
+        map[c.id] = c.company_name;
+        const logo = c.logo_url
+          ? `<img src="${escapeHtml(c.logo_url)}" alt="${escapeHtml(c.company_name)}" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
+          : '';
+        const placeholder = `<div class="company-placeholder" style="${c.logo_url ? 'display:none' : ''}">${escapeHtml(initials(c.company_name))}</div>`;
+        return `
+          <div class="col-4 col-sm-3 col-md-2">
+            <div class="company-card">
+              ${logo}${placeholder}
+              <div class="company-name">${escapeHtml(c.company_name)}</div>
+            </div>
+          </div>`;
+      }).join('');
+
+      // Stats are hardcoded – do NOT update them
+      return map;
+    } catch (err) {
+      console.error(err);
+      showError('companiesLoader', err.message || 'Error loading companies');
+      return {};
+    }
+  }
+
+  /* ---------- 3. Placed Students ---------- */
+  async function loadPlacedStudents(companiesMap) {
+    const loader  = document.getElementById('placedLoader');
+    const wrapper = document.getElementById('placedWrapper');
+    const track   = document.getElementById('placedTrack');
+
+    try {
+      const { data, error } = await client
+        .from('placed_students')
+        .select(`
+          id,
+          manual_student_name,
+          designation,
+          student_review,
+          student_photo_url,
+          annual_package,
+          placement_status,
+          company_id
+        `)
+        .order('id', { ascending: false })
+        .limit(50);
+
+      if (error) {
+        console.error('Placed students error:', error);
+        showError('placedLoader', error.message || 'Could not load students (check RLS)');
+        return;
+      }
+
+      const rows = (data || []).filter(r =>
+        !r.placement_status ||
+        ['Selected', 'Offer Issued', 'Accepted', 'Joined'].includes(r.placement_status)
+      );
+
+      if (!rows.length) {
+        if (loader) loader.innerHTML = '<span class="text-muted">No placed students to display yet.</span>';
+        return;
+      }
+
+      if (loader)  loader.style.display = 'none';
+      if (wrapper) wrapper.style.display = '';
+
+      // Stats are hardcoded – do NOT update them
+
+      function cardHtml(row) {
+        const name = row.manual_student_name || 'Student';
+        const companyName = companiesMap[row.company_id] || 'Company';
+        const photo = row.student_photo_url
+          ? `<img src="${escapeHtml(row.student_photo_url)}" class="student-photo" alt="${escapeHtml(name)}" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex'">`
+          : '';
+        const placeholder = `<div class="photo-placeholder" style="${row.student_photo_url ? 'display:none' : ''}">${escapeHtml(initials(name))}</div>`;
+        const review = row.student_review
+          ? `<div class="review">"${escapeHtml(row.student_review)}"</div>`
+          : `<div class="review text-muted">Proud to be placed through SIIT.</div>`;
+
+        return `
+          <div class="placed-card">
+            ${photo}${placeholder}
+            <div class="student-name">${escapeHtml(name)}</div>
+            <div class="designation">${escapeHtml(row.designation || '')}</div>
+            <div class="company"><i class="fas fa-building me-1"></i>${escapeHtml(companyName)}</div>
+            <div class="stars">★★★★★</div>
+            ${review}
+          </div>`;
+      }
+
+      // Duplicate for seamless infinite scroll
+      const html = rows.map(cardHtml).join('');
+      if (track) {
+        track.innerHTML = html + html;
+        track.style.animationDuration = Math.max(30, rows.length * 4) + 's';
+      }
+
+    } catch (err) {
+      console.error(err);
+      showError('placedLoader', err.message || 'Error loading students');
+    }
+  }
+
+  /* ---------- run ---------- */
+  const companiesMap = await loadCompanies();
+  await loadPlacedStudents(companiesMap);
+})();
+</script>

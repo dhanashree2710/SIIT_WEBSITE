@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Training + Internship | Sujata Institute</title>
+  <link rel="icon" href="assets/img/logo.png" type="image/png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+<div class="top-bar d-none d-md-block">
+  <div class="container d-flex justify-content-between align-items-center flex-wrap">
+    <div>
+      <a href="mailto:sujatainstitute2016@gmail.com"><i class="fas fa-envelope me-1"></i> sujatainstitute2016@gmail.com</a>
+      <span class="mx-2">|</span>
+      <a href="tel:+919096883042"><i class="fas fa-phone me-1"></i> +91-9096883042 / 9370387303 / 9699544383</a>
+    </div>
+  </div>
+</div>
+<nav class="navbar navbar-expand-lg sticky-top">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="index.html">
+      <img src="assets/img/logo.png" alt="SIIT Logo">
+      <span class="d-none d-lg-inline">Sujata Institute</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">Programs</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="training-programs.html">Training Programs</a></li>
+            <li><a class="dropdown-item" href="training-internship.html">Training + Internship</a></li>
+            <li><a class="dropdown-item" href="short-term.html">Short Term Courses</a></li>
+            <li><a class="dropdown-item" href="college-programs.html">College Programs</a></li>
+            <li><a class="dropdown-item" href="corporate.html">Corporate Training</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="placement.html">Placement</a></li>
+        <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+        <li class="nav-item"><a class="nav-link" href="blogs.html">Blogs</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+      </ul>
+      <a href="enquiry.html" class="btn btn-enquiry">Enquire Now</a>
+    </div>
+  </div>
+</nav>
+<section class="page-header"><div class="container text-center"><h1>Training + Internship</h1></div></section>
+<section class="py-5"><div class="container">
+    <h3 class="fw-bold mb-3">Training + Internship Programs</h3>
+    <p>Combine classroom training with real project exposure and internship opportunities. Ideal for college students who want industry experience along with certification.</p>
+    <ul>
+      <li>Structured skill training (Full Stack, Python, Digital Marketing, Tally, etc.)</li>
+      <li>Internship guidance and project work</li>
+      <li>Resume, interview prep and placement support</li>
+      <li>MoU college students welcome</li>
+    </ul>
+    <a href="enquiry.html?course=Training%20%2B%20Internship" class="btn btn-primary rounded-pill px-4 mb-4">Enquire Now</a>
+
+    <div class="row g-4" id="ti-grid">
+      <div class="col-12 text-center text-muted py-4"><span class="spinner-border spinner-border-sm me-2"></span>Loading programs…</div>
+    </div>
+  </div></section>
+
+<!-- Program modules view modal -->
+<div class="modal fade" id="tiModuleModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="fas fa-list-ol text-primary me-2"></i><span id="tiModProgramName"></span> — Full Syllabus</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body" id="tiModBody"></div>
+      <div class="modal-footer">
+        <a href="enquiry.html" class="btn btn-primary rounded-pill px-4">Enquire About This Program</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4"><div class="brand-info"><img src="assets/img/logo.png" alt="SIIT"><p>Sujata Institute of Information and Technology — quality education, skill development and placement support in Pune.</p></div></div>
+      <div class="col-6 col-lg-2"><h5>Quick Links</h5><a href="index.html">Home</a><a href="about.html">About</a><a href="training-programs.html">Courses</a><a href="placement.html">Placement</a><a href="contact.html">Contact</a></div>
+      <div class="col-6 col-lg-2"><h5>Programs</h5><a href="training-programs.html">Training Programs</a><a href="training-internship.html">Training + Internship</a><a href="short-term.html">Short Term</a><a href="college-programs.html">College Programs</a><a href="corporate.html">Corporate</a></div>
+      <div class="col-lg-4"><h5>Get In Touch</h5>
+        <div class="contact-item"><i class="fas fa-map-marker-alt"></i><span>Office No.03, First Floor, Sagar Apartment, Parihar Chowk, Sanghvi Nagar, Ward No. 8, Sadhu Vasvani Nagar, Aundh, Pune, Maharashtra 411067</span></div>
+        <div class="contact-item"><i class="fas fa-envelope"></i><span>sujatainstitute2016@gmail.com</span></div>
+        <div class="contact-item"><i class="fas fa-phone"></i><span>+(91)-9096883042 / 9370387303 / 9699544383</span></div>
+      </div>
+    </div>
+    <div class="footer-bottom"><p class="mb-0">&copy; 2026 <a href="index.html" class="ft-siit">Sujata Institute of Information and Technology</a>. All Rights Reserved. | Design by <a href="https://kdrtitsolutions.com" target="_blank" rel="noopener" class="ft-kdrt">KDRT IT Solutions LLP</a></p></div>
+  </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-config.js"></script>
+<script>
+function escapeHtml(str) { return SIIT.Utils.escapeHtml(str); }
+
+(async function () {
+  const grid = document.getElementById('ti-grid');
+  try {
+    SIIT.initSupabase();
+    const client = SIIT.initSupabase();
+    const { data, error } = await client
+      .from('training_internships')
+      .select('*')
+      .in('status', ['Active', 'Upcoming'])
+      .order('created_at', { ascending: false });
+    if (error) throw error;
+    if (!data || !data.length) {
+      grid.innerHTML = '<div class="col-12 text-center text-muted py-4">Programs will be listed here soon. Please enquire for current offerings.</div>';
+      return;
+    }
+    grid.innerHTML = data.map(p => `
+      <div class="col-md-6 col-lg-4">
+        <div class="card course-card h-100 border-0 shadow-sm rounded-4" role="button" onclick="showTiModules(${p.id}, '${escapeHtml(p.program_name).replace(/'/g,"\\'")}')">
+          <div class="p-4 d-flex flex-column h-100">
+            <span class="badge bg-${p.program_type==='Internship'?'info text-dark':'primary'} mb-2 align-self-start">${escapeHtml(p.program_type||'Program')}</span>
+            <h5 class="fw-bold">${escapeHtml(p.program_name)}</h5>
+            <p class="text-muted small flex-grow-1">${escapeHtml((p.description||'').slice(0,140))}${(p.description||'').length>140?'…':''}</p>
+            <div class="d-flex justify-content-between align-items-center mt-2">
+              <small class="text-muted">${escapeHtml(p.duration||'Flexible')} · <i class="fas fa-list-ol"></i> View syllabus</small>
+              <a href="enquiry.html?course=${encodeURIComponent(p.program_name)}" class="btn btn-sm btn-outline-primary rounded-pill" onclick="event.stopPropagation()">Enquire</a>
+            </div>
+          </div>
+        </div>
+      </div>`).join('');
+  } catch (e) {
+    console.error(e);
+    grid.innerHTML = `<div class="col-12 text-center text-muted py-4">Could not load programs right now. Please use Enquire Now.</div>`;
+  }
+})();
+
+async function showTiModules(programId, programName) {
+  const modalEl = document.getElementById('tiModuleModal');
+  const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+  document.getElementById('tiModProgramName').textContent = programName;
+  document.getElementById('tiModBody').innerHTML = '<div class="text-center py-4"><div class="spinner-border spinner-border-sm text-primary"></div></div>';
+  modal.show();
+  try {
+    const client = SIIT.initSupabase();
+    const { data, error } = await client.from('training_internship_modules').select('*').eq('training_internship_id', programId).order('module_order', { ascending: true });
+    if (error) throw error;
+    if (!data || !data.length) {
+      document.getElementById('tiModBody').innerHTML = '<p class="text-muted mb-0">Detailed module list coming soon. Please contact us for the full syllabus.</p>';
+      return;
+    }
+    document.getElementById('tiModBody').innerHTML = '<ol class="list-group list-group-numbered">' + data.map(m => `
+      <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+          <div class="fw-semibold">${escapeHtml(m.module_name)}</div>
+          ${m.description ? `<div class="small text-muted">${escapeHtml(m.description)}</div>` : ''}
+        </div>
+        ${m.duration_hours ? `<span class="badge bg-primary rounded-pill">${m.duration_hours} hrs</span>` : ''}
+      </li>`).join('') + '</ol>';
+  } catch (e) {
+    document.getElementById('tiModBody').innerHTML = `<p class="text-danger mb-0">Could not load modules: ${escapeHtml(e.message)}</p>`;
+  }
+}
+</script>
+  <script src="assets/js/course-enquiry-popup.js"></script>
+</body></html>

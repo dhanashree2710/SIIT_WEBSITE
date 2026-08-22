@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>College Programs | Sujata Institute</title>
+  <meta name="description" content="College collaboration programs and partner colleges of Sujata Institute of Information and Technology, Pune.">
+  <link rel="icon" href="assets/img/logo.png" type="image/png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+  <style>
+    .college-card {
+      border: 0;
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,.06);
+      transition: transform .2s, box-shadow .2s;
+      height: 100%;
+      background: #fff;
+      cursor: pointer;
+      text-align: left;
+    }
+    .college-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,.12);
+    }
+    .college-logo-wrap {
+      height: 140px;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem;
+    }
+    .college-logo-wrap img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+    }
+    .college-logo-placeholder {
+      font-size: 2.75rem;
+      color: #adb5bd;
+    }
+    .college-name {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #0d1b2a;
+      line-height: 1.35;
+    }
+    .college-meta {
+      font-size: .85rem;
+      color: #6c757d;
+    }
+    .college-meta i {
+      width: 18px;
+      color: #0d6efd;
+    }
+    #collegeDetailView,
+    #programDetailView { display: none; }
+    #collegeDetailView.is-open,
+    #programDetailView.is-open { display: block !important; }
+    #collegeListView.is-hidden { display: none !important; }
+
+    .detail-logo {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      background: #f8f9fa;
+      border-radius: 1rem;
+      padding: .75rem;
+    }
+    .program-card {
+      border: 0;
+      border-radius: .85rem;
+      box-shadow: 0 6px 18px rgba(0,0,0,.06);
+      height: 100%;
+      background: #fff;
+      transition: transform .15s;
+      cursor: pointer;
+    }
+    .program-card:hover { transform: translateY(-3px); }
+    .program-badge {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+      border-radius: 50px;
+      padding: .2rem .65rem;
+    }
+    .badge-event { background: #e7f1ff; color: #0d6efd; }
+    .badge-course { background: #f3e8ff; color: #6610f2; }
+
+    .verify-box {
+      background: #f8f9fa;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      border: 1px solid #e9ecef;
+    }
+    .cert-result {
+      border-radius: 1rem;
+      padding: 1.5rem;
+      background: #fff;
+      border: 1px solid #d1e7dd;
+      box-shadow: 0 4px 16px rgba(25,135,84,.08);
+    }
+    .cert-result.error {
+      border-color: #f5c2c7;
+      box-shadow: 0 4px 16px rgba(220,53,69,.08);
+    }
+  </style>
+</head>
+<body>
+<div class="top-bar d-none d-md-block">
+  <div class="container d-flex justify-content-between align-items-center flex-wrap">
+    <div>
+      <a href="mailto:sujatainstitute2016@gmail.com"><i class="fas fa-envelope me-1"></i> sujatainstitute2016@gmail.com</a>
+      <span class="mx-2">|</span>
+      <a href="tel:+919096883042"><i class="fas fa-phone me-1"></i> +91-9096883042 / 9370387303 / 9699544383</a>
+    </div>
+  </div>
+</div>
+
+<nav class="navbar navbar-expand-lg sticky-top">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="index.html">
+      <img src="assets/img/logo.png" alt="SIIT Logo">
+      <span class="d-none d-lg-inline">Sujata Institute</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">Programs</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="training-programs.html">Training Programs</a></li>
+            <li><a class="dropdown-item" href="training-internship.html">Training + Internship</a></li>
+            <li><a class="dropdown-item" href="short-term.html">Short Term Courses</a></li>
+            <li><a class="dropdown-item active" href="college-programs.html">College Programs</a></li>
+            <li><a class="dropdown-item" href="corporate.html">Corporate Training</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="placement.html">Placement</a></li>
+        <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+        <li class="nav-item"><a class="nav-link" href="blogs.html">Blogs</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+      </ul>
+      <a href="enquiry.html" class="btn btn-enquiry">Enquire Now</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================== LIST VIEW ===================== -->
+<div id="collegeListView">
+  <section class="page-header">
+    <div class="container text-center">
+      <h1>College Programs</h1>
+    </div>
+  </section>
+
+  <section class="py-5">
+    <div class="container">
+      <div class="row align-items-center mb-5">
+        <div class="col-lg-8">
+          <h3 class="fw-bold mb-3">College Collaboration Programs</h3>
+          <p class="mb-2">We run add-on skill courses and workshops in partnership with colleges under MoU.</p>
+          <p class="text-muted mb-0">Click a partner college to see events and short-term courses conducted there.</p>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+        <h4 class="fw-bold mb-0">Our Partner Colleges</h4>
+        <span class="text-muted small" id="collegeCount"></span>
+      </div>
+
+      <div id="collegeList" class="row g-4">
+        <div class="col-12 text-center text-muted py-5">
+          <div class="spinner-border text-primary" role="status"></div>
+          <p class="mt-3 mb-0">Loading partner colleges…</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ===================== COLLEGE DETAIL ===================== -->
+<div id="collegeDetailView">
+  <section class="py-4">
+    <div class="container" style="max-width:920px">
+      <button type="button" class="btn btn-outline-primary btn-sm mb-4" id="btnBackToColleges">
+        <i class="fas fa-arrow-left me-2"></i>Back to all colleges
+      </button>
+
+      <div class="d-flex flex-wrap gap-4 align-items-start mb-4" id="collegeHeader"></div>
+
+      <div class="mb-2">
+        <h4 class="fw-bold mb-1">Events &amp; Short Term Courses</h4>
+        <p class="text-muted small mb-3">Click any program to view details and verify certificates</p>
+      </div>
+      <div id="programsList" class="row g-3"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ===================== PROGRAM DETAIL + CERTIFICATE VERIFY ===================== -->
+<div id="programDetailView">
+  <section class="py-4">
+    <div class="container" style="max-width:800px">
+      <button type="button" class="btn btn-outline-primary btn-sm mb-4" id="btnBackToPrograms">
+        <i class="fas fa-arrow-left me-2"></i>Back to programs
+      </button>
+
+      <div id="programHeader" class="mb-4"></div>
+
+      <!-- Verify Certificate -->
+      <div class="verify-box mb-4">
+        <h5 class="fw-bold mb-3"><i class="fas fa-search me-2"></i>Verify Certificate</h5>
+        <p class="text-muted small mb-3">Enter the Certificate Number printed on the certificate to verify its authenticity.</p>
+        
+        <div class="row g-2 align-items-end">
+          <div class="col-md-8">
+            <label class="form-label small fw-semibold">Certificate Number</label>
+            <input type="text" class="form-control form-control-lg" id="certNoInput"
+                   placeholder="e.g. SIIT/2025/EVT/0123" autocomplete="off">
+          </div>
+          <div class="col-md-4">
+            <button type="button" class="btn btn-primary btn-lg w-100" id="btnVerifyCert">
+              <i class="fas fa-check-circle me-1"></i> Verify
+            </button>
+          </div>
+        </div>
+
+        <div id="certResult" class="mt-4" style="display:none;"></div>
+      </div>
+
+      <!-- Certificate Link – shown ONLY after successful verification -->
+      <div id="certLinkBox" class="mb-4" style="display:none;">
+        <a id="certDriveLink" href="#" target="_blank" rel="noopener"
+           class="btn btn-success rounded-pill btn-lg">
+          <i class="fas fa-certificate me-2"></i>Open Certificate Link
+        </a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <div class="brand-info">
+          <img src="assets/img/logo.png" alt="SIIT">
+          <p>Sujata Institute of Information and Technology — quality education, skill development and placement support in Pune.</p>
+        </div>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h5>Quick Links</h5>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="training-programs.html">Courses</a>
+        <a href="placement.html">Placement</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h5>Programs</h5>
+        <a href="training-programs.html">Training Programs</a>
+        <a href="training-internship.html">Training + Internship</a>
+        <a href="short-term.html">Short Term</a>
+        <a href="college-programs.html">College Programs</a>
+        <a href="corporate.html">Corporate</a>
+      </div>
+      <div class="col-lg-4">
+        <h5>Get In Touch</h5>
+        <div class="contact-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>Office No.03, First Floor, Sagar Apartment, Parihar Chowk, Sanghvi Nagar, Ward No. 8, Sadhu Vasvani Nagar, Aundh, Pune, Maharashtra 411067</span>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-envelope"></i>
+          <span>sujatainstitute2016@gmail.com</span>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-phone"></i>
+          <span>+(91)-9096883042 / 9370387303 / 9699544383</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="mb-0">&copy; 2026 <a href="index.html" class="ft-siit">Sujata Institute of Information and Technology</a>. All Rights Reserved. | Design by <a href="https://kdrtitsolutions.com" target="_blank" rel="noopener" class="ft-kdrt">KDRT IT Solutions LLP</a></p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-config.js"></script>
+<script src="assets/js/course-enquiry-popup.js"></script>
+<script>
+(function () {
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function fmtDate(d) {
+    if (!d) return '';
+    try {
+      return new Date(d).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+    } catch (_) {
+      return String(d).slice(0, 10);
+    }
+  }
+
+  function locationText(c) {
+    var parts = [];
+    if (c.city) parts.push(c.city);
+    if (c.state) parts.push(c.state);
+    if (c.pincode) parts.push(c.pincode);
+    return parts.join(', ');
+  }
+
+  var collegesById = {};
+  var currentCollege = null;
+  var currentProgram = null;
+
+  // ---------- View helpers ----------
+  function showList() {
+    document.getElementById('collegeListView').classList.remove('is-hidden');
+    document.getElementById('collegeDetailView').classList.remove('is-open');
+    document.getElementById('programDetailView').classList.remove('is-open');
+    document.title = 'College Programs | Sujata Institute';
+  }
+
+  function showCollegeDetail() {
+    document.getElementById('collegeListView').classList.add('is-hidden');
+    document.getElementById('collegeDetailView').classList.add('is-open');
+    document.getElementById('programDetailView').classList.remove('is-open');
+    window.scrollTo(0, 0);
+  }
+
+  function showProgramDetail() {
+    document.getElementById('collegeListView').classList.add('is-hidden');
+    document.getElementById('collegeDetailView').classList.remove('is-open');
+    document.getElementById('programDetailView').classList.add('is-open');
+    window.scrollTo(0, 0);
+  }
+
+  // ---------- Renderers ----------
+  function renderCollegeCard(c) {
+    var logo = c.logo_url
+      ? '<img src="' + esc(c.logo_url) + '" alt="' + esc(c.college_name) + '" loading="lazy">'
+      : '<div class="college-logo-placeholder"><i class="fas fa-university"></i></div>';
+    var loc = locationText(c);
+
+    return (
+      '<div class="col-md-6 col-lg-4">' +
+        '<div class="college-card" role="button" tabindex="0" data-college-id="' + esc(String(c.id)) + '">' +
+          '<div class="college-logo-wrap">' + logo + '</div>' +
+          '<div class="p-4">' +
+            '<div class="college-name mb-2">' + esc(c.college_name) + '</div>' +
+            (loc ? '<div class="college-meta mb-1"><i class="fas fa-map-marker-alt me-1"></i>' + esc(loc) + '</div>' : '') +
+            '<div class="mt-3"><span class="btn btn-sm btn-primary rounded-pill">View programs <i class="fas fa-arrow-right ms-1"></i></span></div>' +
+          '</div>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function renderCollegeHeader(c) {
+    var logoHtml = c.logo_url
+      ? '<img src="' + esc(c.logo_url) + '" class="detail-logo" alt="' + esc(c.college_name) + '">'
+      : '<div class="detail-logo d-flex align-items-center justify-content-center"><i class="fas fa-university fa-2x text-muted"></i></div>';
+
+    var loc = locationText(c);
+    var meta = [];
+    if (loc) meta.push('<span class="college-meta me-3"><i class="fas fa-map-marker-alt me-1"></i>' + esc(loc) + '</span>');
+    if (c.principal_name) meta.push('<span class="college-meta me-3"><i class="fas fa-user-tie me-1"></i>' + esc(c.principal_name) + '</span>');
+    if (c.contact_number) meta.push('<span class="college-meta me-3"><i class="fas fa-phone me-1"></i>' + esc(c.contact_number) + '</span>');
+    if (c.email) meta.push('<span class="college-meta me-3"><i class="fas fa-envelope me-1"></i>' + esc(c.email) + '</span>');
+
+    return (
+      logoHtml +
+      '<div class="flex-grow-1">' +
+        '<h2 class="fw-bold mb-2">' + esc(c.college_name) + '</h2>' +
+        (c.address ? '<p class="text-muted small mb-2">' + esc(c.address) + '</p>' : '') +
+        '<div class="d-flex flex-wrap gap-1 mb-3">' + meta.join('') + '</div>' +
+        (c.website
+          ? '<a href="' + esc(c.website) + '" target="_blank" rel="noopener" class="btn btn-sm btn-outline-primary rounded-pill me-2"><i class="fas fa-globe me-1"></i>Website</a>'
+          : '') +
+      '</div>'
+    );
+  }
+
+  function renderProgramCard(p, type) {
+    var isEvent = type === 'event';
+    var title = p.event_title || p.course_name || p.title || p.name || 'Untitled';
+    var desc = p.event_description || p.short_description || p.description || '';
+    desc = String(desc).replace(/<[^>]+>/g, '').slice(0, 120);
+    var dateStr = fmtDate(p.event_date || p.start_date || p.created_at);
+    var badge = isEvent
+      ? '<span class="program-badge badge-event">Event</span>'
+      : '<span class="program-badge badge-course">Short Term</span>';
+
+    return (
+      '<div class="col-md-6">' +
+        '<div class="program-card p-3" data-program-type="' + type + '" data-program-id="' + esc(String(p.id)) + '">' +
+          '<div class="d-flex justify-content-between align-items-start mb-2">' +
+            badge +
+            (dateStr ? '<span class="small text-muted"><i class="far fa-calendar me-1"></i>' + esc(dateStr) + '</span>' : '') +
+          '</div>' +
+          '<h6 class="fw-bold mb-2">' + esc(title) + '</h6>' +
+          (desc ? '<p class="small text-muted mb-2">' + esc(desc) + (String(p.event_description || p.short_description || p.description || '').length > 120 ? '…' : '') + '</p>' : '') +
+          '<div class="mt-2"><span class="btn btn-sm btn-outline-primary rounded-pill">View & Verify Certificate <i class="fas fa-arrow-right ms-1"></i></span></div>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  // ---------- Load Programs for a college ----------
+  async function loadProgramsForCollege(collegeId) {
+    var el = document.getElementById('programsList');
+    el.innerHTML = '<div class="col-12 text-center text-muted py-4"><div class="spinner-border spinner-border-sm text-primary"></div><span class="ms-2">Loading programs…</span></div>';
+
+    var items = [];
+    try {
+      var client = SIIT.initSupabase();
+
+      // Events of this college
+      var ev = await client
+        .from('events')
+        .select('*')
+        .eq('college_id', collegeId)
+        .order('event_date', { ascending: false });
+      if (!ev.error && ev.data) {
+        ev.data.forEach(function (row) {
+          items.push({ type: 'event', data: row });
+        });
+      }
+
+      // Short-term courses of this college
+      var st = await client
+        .from('short_term_courses')
+        .select('*')
+        .eq('college_id', collegeId)
+        .order('created_at', { ascending: false });
+      if (!st.error && st.data) {
+        st.data.forEach(function (row) {
+          items.push({ type: 'course', data: row });
+        });
+      }
+    } catch (e) {
+      console.warn(e);
+    }
+
+    if (!items.length) {
+      el.innerHTML =
+        '<div class="col-12">' +
+          '<div class="text-center text-muted py-5 border rounded-3 bg-light">' +
+            '<i class="fas fa-calendar-alt fa-2x mb-3 opacity-50"></i>' +
+            '<p class="mb-1 fw-semibold">No events or short-term courses listed yet</p>' +
+            '<p class="small mb-0">Programs conducted at this college will appear here.</p>' +
+          '</div>' +
+        '</div>';
+      return;
+    }
+
+    el.innerHTML = items.map(function (item) {
+      return renderProgramCard(item.data, item.type);
+    }).join('');
+  }
+
+  // ---------- Open Program Detail ----------
+  function openProgram(type, id) {
+    var client = SIIT.initSupabase();
+    var table = type === 'event' ? 'events' : 'short_term_courses';
+
+    client.from(table).select('*').eq('id', id).maybeSingle()
+      .then(function (res) {
+        if (res.error || !res.data) {
+          alert('Program not found');
+          return;
+        }
+        currentProgram = { type: type, data: res.data };
+        renderProgramDetail(currentProgram);
+        showProgramDetail();
+      });
+  }
+
+  function renderProgramDetail(prog) {
+    var p = prog.data;
+    var isEvent = prog.type === 'event';
+    var title = p.event_title || p.course_name || p.title || 'Program';
+    var desc = p.event_description || p.description || p.short_description || '';
+    var dateStr = fmtDate(p.event_date || p.start_date);
+    var venue = p.venue || '';
+    var status = p.status || '';
+
+    var html =
+      '<div class="mb-3">' +
+        (isEvent
+          ? '<span class="program-badge badge-event me-2">Event</span>'
+          : '<span class="program-badge badge-course me-2">Short Term Course</span>') +
+        (status ? '<span class="badge bg-secondary">' + esc(status) + '</span>' : '') +
+      '</div>' +
+      '<h2 class="fw-bold mb-3">' + esc(title) + '</h2>' +
+      (dateStr ? '<p class="text-muted mb-1"><i class="far fa-calendar me-2"></i>' + esc(dateStr) + '</p>' : '') +
+      (venue ? '<p class="text-muted mb-3"><i class="fas fa-map-marker-alt me-2"></i>' + esc(venue) + '</p>' : '') +
+      (desc ? '<div class="mb-4 text-secondary">' + esc(desc) + '</div>' : '');
+
+    document.getElementById('programHeader').innerHTML = html;
+
+    // Always hide Drive Link and reset form until verification succeeds
+    document.getElementById('certLinkBox').style.display = 'none';
+    document.getElementById('certNoInput').value = '';
+    document.getElementById('certResult').style.display = 'none';
+    document.getElementById('certResult').innerHTML = '';
+  }
+
+  // ---------- Certificate Verification (both tables) ----------
+  async function verifyCertificate() {
+    var certNo = (document.getElementById('certNoInput').value || '').trim();
+    var resultEl = document.getElementById('certResult');
+    var linkBox  = document.getElementById('certLinkBox');
+    var linkEl   = document.getElementById('certDriveLink');
+
+    // Always hide the link until verified
+    linkBox.style.display = 'none';
+
+    if (!certNo) {
+      resultEl.style.display = 'block';
+      resultEl.className = 'cert-result error mt-4';
+      resultEl.innerHTML = '<div class="text-danger"><i class="fas fa-exclamation-circle me-2"></i>Please enter a Certificate Number.</div>';
+      return;
+    }
+
+    resultEl.style.display = 'block';
+    resultEl.className = 'cert-result mt-4';
+    resultEl.innerHTML = '<div class="text-center text-muted py-3"><div class="spinner-border spinner-border-sm"></div> Verifying…</div>';
+
+    try {
+      var client = SIIT.initSupabase();
+      var cert = null;
+
+      // 1. Try main certificates table
+      var res1 = await client
+        .from('certificates')
+        .select('*')
+        .eq('certificate_number', certNo)
+        .maybeSingle();
+
+      if (res1.data) {
+        cert = res1.data;
+      }
+
+      // 2. If not found → try short_term_certificates
+      if (!cert) {
+        var res2 = await client
+          .from('short_term_certificates')
+          .select('*')
+          .eq('certificate_no', certNo)
+          .maybeSingle();
+
+        if (res2.data) {
+          cert = res2.data;
+        }
+      }
+
+      // Not found
+      if (!cert) {
+        resultEl.className = 'cert-result error mt-4';
+        resultEl.innerHTML =
+          '<div class="text-danger">' +
+            '<i class="fas fa-times-circle me-2"></i>' +
+            '<strong>Certificate not found</strong><br>' +
+            '<span class="small">No certificate matches the number <code>' + esc(certNo) + '</code>.</span>' +
+          '</div>';
+        return;
+      }
+
+      // ===== SUCCESS =====
+      var studentName = cert.student_name || '—';
+      var courseName  = cert.course_name || cert.certificate_title || '—';
+      var issueDate   = cert.issue_date ? fmtDate(cert.issue_date) : '—';
+      var grade       = cert.grade || '';
+      var percentage  = cert.percentage || cert.completion_percentage || '';
+      var status      = cert.status || 'Issued';
+
+      resultEl.className = 'cert-result mt-4';
+      resultEl.innerHTML =
+        '<div class="d-flex align-items-center mb-3">' +
+          '<i class="fas fa-check-circle text-success fa-2x me-3"></i>' +
+          '<div>' +
+            '<h5 class="fw-bold mb-0 text-success">Certificate Verified</h5>' +
+            '<small class="text-muted">Genuine certificate issued by Sujata Institute</small>' +
+          '</div>' +
+        '</div>' +
+        '<hr>' +
+        '<div class="row g-2 small">' +
+          '<div class="col-sm-4 text-muted">Certificate No</div><div class="col-sm-8 fw-semibold">' + esc(certNo) + '</div>' +
+          '<div class="col-sm-4 text-muted">Student Name</div><div class="col-sm-8 fw-semibold">' + esc(studentName) + '</div>' +
+          '<div class="col-sm-4 text-muted">Course / Title</div><div class="col-sm-8">' + esc(courseName) + '</div>' +
+          '<div class="col-sm-4 text-muted">Issue Date</div><div class="col-sm-8">' + esc(issueDate) + '</div>' +
+          (grade ? '<div class="col-sm-4 text-muted">Grade</div><div class="col-sm-8">' + esc(grade) + '</div>' : '') +
+          (percentage ? '<div class="col-sm-4 text-muted">Percentage</div><div class="col-sm-8">' + esc(percentage) + '%</div>' : '') +
+          '<div class="col-sm-4 text-muted">Status</div><div class="col-sm-8"><span class="badge bg-success">' + esc(status) + '</span></div>' +
+        '</div>';
+
+      // ========== SHOW LINK AFTER VERIFICATION ==========
+      // Priority:
+      // 1. Link from the certificate record itself
+      // 2. Link from the current Event / Program
+      var driveLink = cert.certificate_url 
+                   || cert.certificate_file 
+                   || cert.qr_code_url 
+                   || null;
+
+      if (!driveLink && currentProgram && currentProgram.data) {
+        driveLink = currentProgram.data.certificate_drive_link 
+                 || currentProgram.data.certificate_link 
+                 || null;
+      }
+
+      if (driveLink) {
+        linkEl.href = driveLink;
+        linkBox.style.display = 'block';
+      } else {
+        linkBox.style.display = 'none';
+      }
+
+    } catch (err) {
+      console.error(err);
+      resultEl.className = 'cert-result error mt-4';
+      resultEl.innerHTML =
+        '<div class="text-danger">' +
+          '<i class="fas fa-exclamation-triangle me-2"></i>' +
+          '<strong>Error verifying certificate</strong><br>' +
+          '<small>' + esc(err.message || err) + '</small>' +
+        '</div>';
+    }
+  }
+
+  // ---------- Event listeners ----------
+  document.addEventListener('click', function (e) {
+    var collegeCard = e.target.closest('[data-college-id]');
+    if (collegeCard && !e.target.closest('a[href^="http"]')) {
+      e.preventDefault();
+      openCollege(collegeCard.getAttribute('data-college-id'));
+      return;
+    }
+
+    var progCard = e.target.closest('[data-program-type]');
+    if (progCard) {
+      e.preventDefault();
+      openProgram(
+        progCard.getAttribute('data-program-type'),
+        progCard.getAttribute('data-program-id')
+      );
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    var card = e.target.closest('[data-college-id]');
+    if (card) {
+      e.preventDefault();
+      openCollege(card.getAttribute('data-college-id'));
+    }
+  });
+
+  document.getElementById('btnBackToColleges').addEventListener('click', showList);
+  document.getElementById('btnBackToPrograms').addEventListener('click', function () {
+    if (currentCollege) {
+      showCollegeDetail();
+    } else {
+      showList();
+    }
+  });
+
+  document.getElementById('btnVerifyCert').addEventListener('click', verifyCertificate);
+  document.getElementById('certNoInput').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') verifyCertificate();
+  });
+
+  // ---------- Open College ----------
+  function openCollege(id) {
+    var c = collegesById[String(id)];
+    if (!c) return;
+    currentCollege = c;
+    document.getElementById('collegeHeader').innerHTML = renderCollegeHeader(c);
+    document.title = (c.college_name || 'College') + ' | Sujata Institute';
+    showCollegeDetail();
+    loadProgramsForCollege(c.id);
+  }
+
+  // ---------- Load Colleges ----------
+  async function loadColleges() {
+    var el = document.getElementById('collegeList');
+    var countEl = document.getElementById('collegeCount');
+
+    try {
+      var client = SIIT.initSupabase();
+      var res = await client
+        .from('colleges')
+        .select('*')
+        .eq('status', true)
+        .order('college_name', { ascending: true });
+
+      if (res.error) throw res.error;
+      var rows = res.data || [];
+      collegesById = {};
+      rows.forEach(function (c) { collegesById[String(c.id)] = c; });
+
+      if (!rows.length) {
+        el.innerHTML = '<div class="col-12 text-center text-muted py-5">No partner colleges listed yet.</div>';
+        if (countEl) countEl.textContent = '';
+        return;
+      }
+
+      if (countEl) countEl.textContent = rows.length + ' partner' + (rows.length === 1 ? '' : 's');
+      el.innerHTML = rows.map(renderCollegeCard).join('');
+    } catch (e) {
+      console.error(e);
+      el.innerHTML =
+        '<div class="col-12 text-center text-danger py-5">Unable to load colleges.<br><small>' +
+        esc(e.message || e) +
+        '</small></div>';
+    }
+  }
+
+  loadColleges();
+})();
+</script>
+</body>
+</html>

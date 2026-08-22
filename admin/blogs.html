@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blogs | SIIT ERP</title>
+  <link rel="icon" href="../assets/img/logo.png" type="image/png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+<div class="admin-wrapper">
+  <aside class="admin-sidebar" id="sidebar">
+    <a href="dashboard.html" class="sidebar-brand text-decoration-none text-white"><img src="../assets/img/logo.png" alt="Logo"><span>SIIT ERP</span></a>
+    <div class="nav-section"><div class="nav-section-title">Main</div>
+      <a href="dashboard.html" class="nav-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+      <a href="users.html" class="nav-link"><i class="fas fa-users"></i> Users</a>
+      <a href="colleges.html" class="nav-link"><i class="fas fa-university"></i> Colleges</a>
+      <a href="courses.html" class="nav-link"><i class="fas fa-book"></i> Courses</a>
+      <a href="trainers.html" class="nav-link"><i class="fas fa-chalkboard-teacher"></i> Trainers</a>
+      <a href="students.html" class="nav-link"><i class="fas fa-user-graduate"></i> Students</a>
+      <a href="batches.html" class="nav-link"><i class="fas fa-layer-group"></i> Batches</a>
+    </div>
+    <div class="nav-section"><div class="nav-section-title">Academic</div>
+      <a href="attendance.html" class="nav-link"><i class="fas fa-qrcode"></i> Attendance</a>
+      <a href="quizzes.html" class="nav-link"><i class="fas fa-question-circle"></i> Quizzes</a>
+      <a href="assessments.html" class="nav-link"><i class="fas fa-clipboard-check"></i> Assessments</a>
+      <a href="tasks.html" class="nav-link"><i class="fas fa-tasks"></i> Tasks</a>
+      <a href="feedback-forms.html" class="nav-link"><i class="fas fa-comment-dots"></i> Feedback Forms</a>
+      <a href="certificates.html" class="nav-link"><i class="fas fa-certificate"></i> Certificates</a>
+      <a href="training-internships.html" class="nav-link"><i class="fas fa-user-tie"></i> Training + Internship</a>
+      <a href="short-term-certificates.html" class="nav-link"><i class="fas fa-award"></i> ST Certificates</a>
+      <a href="short-term-courses.html" class="nav-link"><i class="fas fa-graduation-cap"></i> ST Course Catalog</a>
+      <a href="events.html" class="nav-link"><i class="fas fa-calendar-alt"></i> Events</a>
+    </div>
+    <div class="nav-section"><div class="nav-section-title">Finance & Placement</div>
+      <a href="fees.html" class="nav-link"><i class="fas fa-rupee-sign"></i> Fees</a>
+      <a href="finance.html" class="nav-link"><i class="fas fa-chart-pie"></i> Finance</a>
+      <a href="companies.html" class="nav-link"><i class="fas fa-building"></i> Companies</a>
+      <a href="placements.html" class="nav-link"><i class="fas fa-briefcase"></i> Placed Candidates</a>
+    </div>
+    <div class="nav-section"><div class="nav-section-title">Website</div>
+      <a href="enquiries.html" class="nav-link"><i class="fas fa-envelope-open-text"></i> Enquiries</a>
+      <a href="gallery.html" class="nav-link"><i class="fas fa-images"></i> Gallery</a>
+      <a href="blogs.html" class="nav-link active"><i class="fas fa-blog"></i> Blogs</a>
+      <a href="settings.html" class="nav-link"><i class="fas fa-cog"></i> Settings</a>
+    </div>
+  </aside>
+  <div class="admin-content">
+    <div class="admin-topbar">
+      <div class="d-flex align-items-center gap-2">
+        <button class="btn btn-sm btn-outline-secondary d-lg-none" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+        <h5 class="mb-0 fw-bold">Blogs</h5>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+        <span class="text-muted small text-truncate" id="userName" style="max-width:120px">Admin</span>
+        <button class="btn btn-sm btn-outline-danger" onclick="SIIT.logoutUser()"><i class="fas fa-sign-out-alt"></i></button>
+      </div>
+    </div>
+    <div class="admin-main">
+      <div class="dashboard-card">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+          <div>
+            <h6 class="fw-bold mb-0">Blogs</h6>
+            <small class="text-muted" id="recordCount">Loading...</small>
+          </div>
+          <div class="d-flex gap-2 flex-wrap w-100 w-md-auto">
+            <input type="search" class="form-control form-control-sm flex-grow-1" id="searchInput" placeholder="Search title, author, category..." style="min-width:140px;max-width:100%">
+            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="loadData()"><i class="fas fa-sync-alt"></i></button>
+            <button type="button" class="btn btn-sm btn-primary" onclick="openForm()"><i class="fas fa-plus me-1"></i>Add</button>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+              <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Category</th>
+                <th>Status</th>
+                <th>Published</th>
+                <th width="110">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="dataBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="modal fade" id="crudModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
+          <div class="modal-content">
+            <form id="crudForm">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Add Blog</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+              <div class="modal-body">
+                <input type="hidden" name="id" id="recordId">
+                <div class="row g-3">
+                  <div class="col-12">
+                    <label class="form-label">Title *</label>
+                    <input type="text" class="form-control" name="title" id="f_title" required>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">Slug *</label>
+                    <input type="text" class="form-control" name="slug" id="f_slug" placeholder="auto-from-title-if-empty">
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">Author (name from Users)</label>
+                    <select class="form-select" name="author" id="selAuthor">
+                      <option value="">— Select author —</option>
+                    </select>
+                    <div class="form-text">Shows user full name; saved as author id (FK to users).</div>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">Category</label>
+                    <input type="text" class="form-control" name="category" placeholder="e.g. Technology, Placement">
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">Status</label>
+                    <select class="form-select" name="status" id="f_status">
+                      <option value="Draft">Draft</option>
+                      <option value="Published">Published</option>
+                      <option value="Archived">Archived</option>
+                    </select>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">Tags</label>
+                    <input type="text" class="form-control" name="tags" placeholder="comma,separated,tags">
+                  </div>
+                  <div class="col-12 col-md-3">
+                    <label class="form-label">Reading time (min)</label>
+                    <input type="number" class="form-control" name="reading_time" min="1" placeholder="5">
+                  </div>
+                  <div class="col-12 col-md-3">
+                    <div class="form-check mt-4">
+                      <input class="form-check-input" type="checkbox" name="is_featured" id="f_featured" value="true">
+                      <label class="form-check-label" for="f_featured">Featured</label>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label">Short description</label>
+                    <textarea class="form-control" name="short_description" rows="2"></textarea>
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label">Content</label>
+                    <textarea class="form-control" name="content" rows="6"></textarea>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">Featured image (bucket: <code>blogs</code>)</label>
+                    <input type="file" class="form-control" id="featuredFile" accept="image/*">
+                    <input type="hidden" name="featured_image" id="featuredUrl">
+                    <img id="featuredPreview" class="mt-2 rounded" style="max-height:100px;display:none" alt="">
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">Banner image (optional)</label>
+                    <input type="file" class="form-control" id="bannerFile" accept="image/*">
+                    <input type="hidden" name="banner_image" id="bannerUrl">
+                    <img id="bannerPreview" class="mt-2 rounded" style="max-height:100px;display:none" alt="">
+                  </div>
+                  <div class="col-12"><hr class="my-1"><small class="text-muted fw-semibold">SEO (optional)</small></div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">Meta title</label>
+                    <input type="text" class="form-control" name="meta_title">
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">Keywords</label>
+                    <input type="text" class="form-control" name="keywords">
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label">Meta description</label>
+                    <textarea class="form-control" name="meta_description" rows="2"></textarea>
+                  </div>
+                </div>
+                <div id="formError" class="alert alert-danger d-none mt-3 mb-0"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary" id="saveBtn"><i class="fas fa-save me-1"></i>Save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../assets/js/supabase-config.js"></script>
+<script src="../assets/js/admin-crud.js"></script>
+<script src="../assets/js/rbac.js"></script>
+<script>
+if (!SIIT.Session.requireAuth()) {}
+RBAC.enforce();
+const user = SIIT.Session.get();
+if (user) document.getElementById('userName').textContent = user.full_name || user.email;
+document.getElementById('sidebarToggle')?.addEventListener('click', () => document.getElementById('sidebar').classList.toggle('show'));
+SIIT.initSupabase();
+
+const TABLE = 'blogs';
+const ALLOWED = [
+  'title','slug','short_description','content','featured_image','banner_image',
+  'category','tags','author','reading_time','meta_title','meta_description','keywords',
+  'is_featured','status','published_at'
+];
+let allRows = [];
+let editId = null;
+let authorMap = {}; // id -> full_name
+const modal = new bootstrap.Modal(document.getElementById('crudModal'));
+const form = document.getElementById('crudForm');
+
+function slugify(s) {
+  return String(s || '').toLowerCase().trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 280);
+}
+
+document.getElementById('f_title')?.addEventListener('input', function() {
+  const slug = document.getElementById('f_slug');
+  if (slug && !editId) slug.value = slugify(this.value);
+});
+
+function bindPreview(fileId, previewId) {
+  document.getElementById(fileId)?.addEventListener('change', e => {
+    const f = e.target.files[0];
+    const p = document.getElementById(previewId);
+    if (f && p) { p.src = URL.createObjectURL(f); p.style.display = 'block'; }
+  });
+}
+bindPreview('featuredFile', 'featuredPreview');
+bindPreview('bannerFile', 'bannerPreview');
+
+async function loadAuthors() {
+  try {
+    const users = await AdminCRUD.list('users', { order: 'full_name', ascending: true, limit: 500 });
+    authorMap = {};
+    const sel = document.getElementById('selAuthor');
+    if (!sel) return;
+    sel.innerHTML = '<option value="">— Select author —</option>' +
+      (users || []).map(u => {
+        authorMap[u.id] = u.full_name || u.email || String(u.id);
+        return `<option value="${u.id}">${SIIT.Utils.escapeHtml(u.full_name || u.email || u.id)}</option>`;
+      }).join('');
+  } catch (e) {
+    console.warn('Authors load failed', e);
+  }
+}
+
+function render(rows) {
+  const tbody = document.getElementById('dataBody');
+  document.getElementById('recordCount').textContent = rows.length + ' record' + (rows.length !== 1 ? 's' : '');
+  if (!rows.length) {
+    tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted py-4">No blogs yet. Click Add.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = rows.map(row => {
+    const authorName = authorMap[row.author] || (row.author ? String(row.author).slice(0, 8) + '…' : '—');
+    const st = row.status || 'Draft';
+    const badge = st === 'Published' ? 'success' : st === 'Archived' ? 'secondary' : 'warning';
+    return `<tr>
+      <td>
+        <strong>${SIIT.Utils.escapeHtml(row.title || '—')}</strong>
+        ${row.is_featured ? ' <span class="badge bg-info">Featured</span>' : ''}
+        <div class="small text-muted">${SIIT.Utils.escapeHtml(row.slug || '')}</div>
+      </td>
+      <td>${SIIT.Utils.escapeHtml(authorName)}</td>
+      <td>${SIIT.Utils.escapeHtml(row.category || '—')}</td>
+      <td><span class="badge bg-${badge}">${SIIT.Utils.escapeHtml(st)}</span></td>
+      <td class="small text-muted">${SIIT.Utils.formatDate(row.published_at || row.created_at)}</td>
+      <td class="text-nowrap">
+        <button type="button" class="btn btn-sm btn-outline-primary me-1" onclick="openForm('${row.id}')"><i class="fas fa-edit"></i></button>
+        <button type="button" class="btn btn-sm btn-outline-danger" onclick="deleteRow('${row.id}', '${SIIT.Utils.escapeHtml(String(row.title||'')).replace(/'/g,"\\'")}')"><i class="fas fa-trash"></i></button>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+async function loadData() {
+  try {
+    await loadAuthors();
+    allRows = await AdminCRUD.list(TABLE, { order: 'created_at', ascending: false });
+    render(allRows);
+  } catch (e) {
+    document.getElementById('dataBody').innerHTML = `<tr><td colspan="6" class="text-danger text-center py-4">
+      <strong>${SIIT.Utils.escapeHtml(e.message)}</strong>
+    </td></tr>`;
+  }
+}
+
+async function openForm(id) {
+  editId = id || null;
+  form.reset();
+  document.getElementById('formError').classList.add('d-none');
+  document.getElementById('featuredPreview').style.display = 'none';
+  document.getElementById('bannerPreview').style.display = 'none';
+  document.getElementById('featuredUrl').value = '';
+  document.getElementById('bannerUrl').value = '';
+  document.getElementById('modalTitle').textContent = id ? 'Edit Blog' : 'Add Blog';
+  await loadAuthors();
+
+  // default author = current logged-in user
+  if (!id && user && user.id) {
+    const sel = document.getElementById('selAuthor');
+    if (sel) sel.value = String(user.id);
+  }
+
+  if (id) {
+    const row = allRows.find(r => String(r.id) === String(id));
+    if (row) {
+      AdminCRUD.fillForm(form, {
+        ...row,
+        is_featured: !!row.is_featured
+      });
+      if (row.author != null) document.getElementById('selAuthor').value = String(row.author);
+      if (row.status) document.getElementById('f_status').value = row.status;
+      if (row.featured_image) {
+        document.getElementById('featuredUrl').value = row.featured_image;
+        document.getElementById('featuredPreview').src = row.featured_image;
+        document.getElementById('featuredPreview').style.display = 'block';
+      }
+      if (row.banner_image) {
+        document.getElementById('bannerUrl').value = row.banner_image;
+        document.getElementById('bannerPreview').src = row.banner_image;
+        document.getElementById('bannerPreview').style.display = 'block';
+      }
+    }
+  }
+  modal.show();
+}
+
+async function deleteRow(id, name) {
+  if (!AdminCRUD.confirmDelete(name)) return;
+  try {
+    await AdminCRUD.remove(TABLE, id);
+    SIIT.Utils.toast('Deleted');
+    loadData();
+  } catch (e) {
+    SIIT.Utils.toast(e.message, 'error');
+  }
+}
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('saveBtn');
+  const errEl = document.getElementById('formError');
+  errEl.classList.add('d-none');
+  btn.disabled = true;
+  try {
+    const raw = AdminCRUD.formData(form);
+    delete raw.id;
+    delete raw.cover_file;
+
+    const payload = {};
+    ALLOWED.forEach(k => {
+      if (raw[k] !== undefined) payload[k] = raw[k];
+    });
+
+    if (!payload.title) throw new Error('Title is required');
+    if (!payload.slug) payload.slug = slugify(payload.title);
+    if (!payload.slug) throw new Error('Slug is required');
+
+    // author from select
+    const authorVal = document.getElementById('selAuthor')?.value;
+    if (authorVal) payload.author = authorVal;
+    else delete payload.author;
+
+    if (payload.reading_time === '' || payload.reading_time == null) delete payload.reading_time;
+    else payload.reading_time = Number(payload.reading_time);
+
+    payload.is_featured = !!(document.getElementById('f_featured')?.checked);
+    payload.status = document.getElementById('f_status')?.value || 'Draft';
+
+    if (payload.status === 'Published' && !payload.published_at) {
+      // keep existing published_at on edit if already set
+      const existing = editId ? allRows.find(r => String(r.id) === String(editId)) : null;
+      payload.published_at = (existing && existing.published_at) || new Date().toISOString();
+    }
+
+    // uploads
+    const featFile = document.getElementById('featuredFile')?.files[0];
+    if (featFile) {
+      const up = await AdminCRUD.uploadFile('blogs', featFile, 'featured');
+      payload.featured_image = up.publicUrl;
+    } else if (document.getElementById('featuredUrl')?.value) {
+      payload.featured_image = document.getElementById('featuredUrl').value;
+    }
+
+    const banFile = document.getElementById('bannerFile')?.files[0];
+    if (banFile) {
+      const up = await AdminCRUD.uploadFile('blogs', banFile, 'banners');
+      payload.banner_image = up.publicUrl;
+    } else if (document.getElementById('bannerUrl')?.value) {
+      payload.banner_image = document.getElementById('bannerUrl').value;
+    }
+
+    // strip empties that should be null
+    Object.keys(payload).forEach(k => {
+      if (payload[k] === '') payload[k] = null;
+    });
+
+    if (editId) await AdminCRUD.update(TABLE, editId, payload);
+    else await AdminCRUD.insert(TABLE, payload);
+    SIIT.Utils.toast('Saved');
+    modal.hide();
+    loadData();
+  } catch (err) {
+    errEl.textContent = err.message || 'Save failed';
+    errEl.classList.remove('d-none');
+  }
+  btn.disabled = false;
+});
+
+document.getElementById('searchInput')?.addEventListener('input', () => {
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  if (!q) return render(allRows);
+  render(allRows.filter(r => {
+    const authorName = (authorMap[r.author] || '').toLowerCase();
+    return [r.title, r.slug, r.category, r.tags, r.status, authorName]
+      .some(v => String(v || '').toLowerCase().includes(q));
+  }));
+});
+
+loadData();
+</script>
+</body>
+</html>

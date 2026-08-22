@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blogs | Sujata Institute of Information and Technology</title>
+  <meta name="description" content="Latest articles, tips and updates from Sujata Institute — training, placement, technology and career guidance in Pune.">
+  <meta name="keywords" content="Sujata Institute blogs, IT training Pune, placement tips, skill development">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Blogs | Sujata Institute">
+  <meta property="og:description" content="Latest articles and updates from Sujata Institute.">
+  <meta property="og:image" content="assets/img/logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/img/logo.png" type="image/png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+  <style>
+    .blog-hero { background: linear-gradient(135deg, #0d6efd 0%, #6610f2 100%); color:#fff; padding: 2.5rem 0 2rem; }
+    .blog-card { border:0; border-radius: 1rem; overflow:hidden; box-shadow: 0 8px 24px rgba(0,0,0,.06); transition: transform .2s, box-shadow .2s; height:100%; background:#fff; cursor:pointer; text-align:left; }
+    .blog-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,.12); }
+    .blog-card-img { height: 200px; object-fit: cover; width: 100%; display:block; background:#e9ecef; }
+    .blog-card-img-placeholder { height: 200px; background: linear-gradient(135deg,#e9ecef,#dee2e6); display:flex; align-items:center; justify-content:center; color:#adb5bd; font-size:2.5rem; }
+    .blog-category { font-size:.75rem; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:#0d6efd; }
+    .blog-detail-cover { width:100%; max-height:420px; object-fit:cover; border-radius: 1rem; display:block; }
+    .blog-detail-content { line-height: 1.85; font-size: 1.08rem; color:#212529; white-space: normal; }
+    .blog-detail-content p { margin-bottom: 1.15rem; }
+    .blog-detail-content .lead { font-size: 1.15rem; color:#495057; border-left: 4px solid #0d6efd; padding-left: 1rem; margin-bottom: 1.5rem; }
+    .blog-detail-content img { max-width:100%; height:auto; border-radius:.5rem; margin:1rem 0; }
+    .blog-detail-content h2 { margin-top: 2rem; margin-bottom: .85rem; font-weight:800; font-size:1.45rem; color:#0d1b2a; border-bottom: 2px solid #e9ecef; padding-bottom: .4rem; }
+    .blog-detail-content h3 { margin-top: 1.5rem; margin-bottom: .65rem; font-weight:700; font-size:1.2rem; color:#1b263b; }
+    .blog-detail-content ul, .blog-detail-content ol { margin: 0 0 1.25rem 1.25rem; padding: 0; }
+    .blog-detail-content li { margin-bottom: .45rem; }
+    .blog-detail-content strong { font-weight: 700; }
+    .blog-detail-content blockquote { border-left: 4px solid #6610f2; background:#f8f9fa; margin: 1.25rem 0; padding: 1rem 1.25rem; border-radius: 0 .75rem .75rem 0; color:#495057; }
+    .blog-meta { color:#6c757d; font-size:.9rem; }
+    .blog-tags span { display:inline-block; background:#f1f3f5; border-radius:50px; padding:.25rem .8rem; font-size:.8rem; margin:.15rem; }
+    #blogDetailView { display: none; }
+    #blogDetailView.is-open { display: block !important; }
+    #blogListView.is-hidden { display: none !important; }
+    .share-box { background: linear-gradient(135deg, #f8f9ff 0%, #eef2ff 50%, #f5f0ff 100%); border: 1px solid #e0e7ff; border-radius: 1rem; padding: 1.25rem 1.5rem; }
+    .share-box h6 { font-weight: 700; margin-bottom: .75rem; }
+    .share-btn { min-width:42px; height:42px; padding: 0 .85rem; border-radius: 50px; display:inline-flex; align-items:center; justify-content:center; gap:.4rem; border:0; color:#fff; text-decoration:none; font-size:.85rem; font-weight:600; box-shadow: 0 4px 12px rgba(0,0,0,.08); transition: transform .15s, box-shadow .15s; }
+    .share-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,.14); color:#fff; }
+    .share-btn.wa { background: #25D366; }
+    .share-btn.fb { background: #1877F2; }
+    .share-btn.tw { background: #0f1419; }
+    .share-btn.li { background: #0A66C2; }
+    .share-btn.copy { background: #6c757d; }
+    .google-card { border:0; border-radius: .85rem; background:#fff; box-shadow: 0 6px 18px rgba(0,0,0,.06); height:100%; transition: transform .15s; text-decoration:none; color:inherit; display:block; }
+    .google-card:hover { transform: translateY(-3px); color:inherit; }
+    .google-badge { font-size:.7rem; font-weight:700; color:#4285F4; letter-spacing:.03em; text-transform:uppercase; }
+  </style>
+</head>
+<body>
+<div class="top-bar d-none d-md-block">
+  <div class="container d-flex justify-content-between align-items-center flex-wrap">
+    <div>
+      <a href="mailto:sujatainstitute2016@gmail.com"><i class="fas fa-envelope me-1"></i> sujatainstitute2016@gmail.com</a>
+      <span class="mx-2">|</span>
+      <a href="tel:+919096883042"><i class="fas fa-phone me-1"></i> +91-9096883042 / 9370387303 / 9699544383</a>
+    </div>
+  </div>
+</div>
+<nav class="navbar navbar-expand-lg sticky-top">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="index.html">
+      <img src="assets/img/logo.png" alt="SIIT Logo">
+      <span class="d-none d-lg-inline">Sujata Institute</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Programs</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="training-programs.html">Training Programs</a></li>
+            <li><a class="dropdown-item" href="training-internship.html">Training + Internship</a></li>
+            <li><a class="dropdown-item" href="short-term.html">Short Term Courses</a></li>
+            <li><a class="dropdown-item" href="college-programs.html">College Programs</a></li>
+            <li><a class="dropdown-item" href="corporate.html">Corporate Training</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="placement.html">Placement</a></li>
+        <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+        <li class="nav-item"><a class="nav-link active" href="blogs.html">Blogs</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+      </ul>
+      <a href="enquiry.html" class="btn btn-enquiry">Enquire Now</a>
+    </div>
+  </div>
+</nav>
+
+<!-- LIST -->
+<div id="blogListView">
+  <section class="blog-hero">
+    <div class="container">
+      <h1 class="fw-bold mb-2">Our Blog</h1>
+      <p class="mb-0 opacity-75">Insights on training, careers, placement and technology from Sujata Institute.</p>
+    </div>
+  </section>
+  <section class="py-5">
+    <div class="container">
+      <div class="d-flex flex-wrap gap-2 mb-4" id="categoryFilters">
+        <button type="button" class="btn btn-sm btn-primary cat-btn active" data-cat="">All</button>
+      </div>
+      <div id="blogList" class="row g-4">
+        <div class="col-12 text-center text-muted py-5">
+          <div class="spinner-border text-primary"></div>
+          <p class="mt-3 mb-0">Loading posts…</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- DETAIL -->
+<div id="blogDetailView">
+  <section class="py-4">
+    <div class="container" style="max-width:860px">
+      <button type="button" class="btn btn-outline-primary btn-sm mb-3" id="btnBackToList">
+        <i class="fas fa-arrow-left me-2"></i>Back to all blogs
+      </button>
+      <article id="articleRoot">
+        <div id="detailCategory" class="blog-category mb-2"></div>
+        <h1 class="fw-bold mb-3" id="detailTitle">—</h1>
+        <div class="blog-meta d-flex flex-wrap gap-3 mb-4" id="detailMeta"></div>
+        <div class="mb-4" id="detailCoverWrap"></div>
+        <div class="blog-detail-content mb-4" id="detailContent"></div>
+        <div id="detailTags" class="blog-tags mb-4"></div>
+        <div class="share-box mt-4 mb-2">
+          <h6><i class="fas fa-share-nodes me-2 text-primary"></i>Share this article</h6>
+          <p class="small text-muted mb-3">Help other students discover this guide — share on your favourite app.</p>
+          <div class="d-flex flex-wrap gap-2" id="shareButtons"></div>
+        </div>
+      </article>
+      <div class="mt-5 pt-4 border-top" id="relatedSection" style="display:none">
+        <h5 class="fw-bold mb-1">More from our blog</h5>
+        <p class="text-muted small mb-3">Related posts published by Sujata Institute</p>
+        <div class="row g-3" id="relatedPosts"></div>
+      </div>
+      <div class="mt-5 pt-4 border-top">
+        <h5 class="fw-bold mb-1"><i class="fab fa-google me-2" style="color:#4285F4"></i>More articles on Google</h5>
+        <p class="text-muted small mb-3">Explore related reading from across the web</p>
+        <div class="row g-3" id="googleRelated"></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4"><div class="brand-info"><img src="assets/img/logo.png" alt="SIIT"><p>Sujata Institute of Information and Technology — quality education, skill development and placement support in Pune.</p></div></div>
+      <div class="col-6 col-lg-2"><h5>Quick Links</h5><a href="index.html">Home</a><a href="about.html">About</a><a href="training-programs.html">Courses</a><a href="placement.html">Placement</a><a href="contact.html">Contact</a></div>
+      <div class="col-6 col-lg-2"><h5>Programs</h5><a href="training-programs.html">Training Programs</a><a href="training-internship.html">Training + Internship</a><a href="short-term.html">Short Term</a><a href="college-programs.html">College Programs</a><a href="corporate.html">Corporate</a></div>
+      <div class="col-lg-4"><h5>Get In Touch</h5>
+        <div class="contact-item"><i class="fas fa-map-marker-alt"></i><span>Office No.03, First Floor, Sagar Apartment, Parihar Chowk, Aundh, Pune, Maharashtra 411067</span></div>
+        <div class="contact-item"><i class="fas fa-envelope"></i><span>sujatainstitute2016@gmail.com</span></div>
+        <div class="contact-item"><i class="fas fa-phone"></i><span>+(91)-9096883042 / 9370387303 / 9699544383</span></div>
+      </div>
+    </div>
+    <div class="footer-bottom"><p class="mb-0">&copy; 2026 <a href="index.html" class="ft-siit">Sujata Institute of Information and Technology</a>. All Rights Reserved. | Design by <a href="https://kdrtitsolutions.com" target="_blank" rel="noopener" class="ft-kdrt">KDRT IT Solutions LLP</a></p></div>
+  </div>
+</footer>
+
+<script type="application/ld+json" id="jsonLd">
+{"@context":"https://schema.org","@type":"Blog","name":"Sujata Institute Blog"}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-config.js"></script>
+<script>
+(function () {
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+  function fmt(d) {
+    if (!d) return '';
+    try {
+      if (window.SIIT && SIIT.Utils && SIIT.Utils.formatDate) return SIIT.Utils.formatDate(d);
+      return new Date(d).toLocaleDateString();
+    } catch (_) { return String(d).slice(0, 10); }
+  }
+
+  let allPosts = [];
+  let activeCat = '';
+  let postsById = {};
+  let postsBySlug = {};
+
+  function coverUrl(b) {
+    return (b && (b.featured_image || b.banner_image)) || '';
+  }
+
+  function authorName(b) {
+    if (!b) return '';
+    if (b.users && b.users.full_name) return b.users.full_name;
+    if (Array.isArray(b.users) && b.users[0] && b.users[0].full_name) return b.users[0].full_name;
+    return b.author_name || b.author || '';
+  }
+
+  function getSlugFromUrl() {
+    try {
+      const q = new URLSearchParams(location.search);
+      return q.get('slug') || '';
+    } catch (_) { return ''; }
+  }
+
+  function setUrlSlug(slug) {
+    try {
+      if (slug) history.pushState({ slug: slug }, '', 'blogs.html?slug=' + encodeURIComponent(slug));
+      else history.pushState({}, '', 'blogs.html');
+    } catch (_) {}
+  }
+
+  function showList() {
+    document.getElementById('blogListView').classList.remove('is-hidden');
+    document.getElementById('blogDetailView').classList.remove('is-open');
+    document.title = 'Blogs | Sujata Institute of Information and Technology';
+  }
+
+  function showDetail() {
+    document.getElementById('blogListView').classList.add('is-hidden');
+    document.getElementById('blogDetailView').classList.add('is-open');
+    window.scrollTo(0, 0);
+  }
+
+  function formatContent(raw) {
+    if (raw == null || String(raw).trim() === '') {
+      return '<p class="text-muted"><em>Full content is not available for this post yet.</em></p>';
+    }
+    var s = String(raw);
+    s = s.replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, '');
+    // Already structured HTML
+    if (/<(p|h[1-6]|ul|ol|li|div|br)\b/i.test(s)) {
+      return s;
+    }
+    // Normalize line endings
+    s = s.replace(/\r\n/g, '\n').replace(/\r/g, '\n').trim();
+    var lines = s.split('\n');
+    var html = [];
+    var listBuf = [];
+    function flushList() {
+      if (!listBuf.length) return;
+      html.push('<ul>' + listBuf.map(function (li) {
+        return '<li>' + esc(li) + '</li>';
+      }).join('') + '</ul>');
+      listBuf = [];
+    }
+    function isHeading(line) {
+      var t = line.trim();
+      if (t.length < 4 || t.length > 90) return false;
+      if (/[.?:]$/.test(t) && t.length > 60) return false;
+      if (/^(why|how|what|best|top|career|introduction|conclusion|salary|skills|tips)\b/i.test(t)) return true;
+      if (t === t.toUpperCase() && /[A-Z]/.test(t) && t.length < 60) return true;
+      if (!/[.!?]$/.test(t) && t.split(' ').length <= 10) return true;
+      return false;
+    }
+    for (var i = 0; i < lines.length; i++) {
+      var line = lines[i].trim();
+      if (!line) { flushList(); continue; }
+      var bullet = line.match(/^([•\-\*\u2022]|\d+[\.\)])\s+(.*)$/);
+      if (bullet) {
+        listBuf.push(bullet[2]);
+        continue;
+      }
+      flushList();
+      if (isHeading(line) && line.length < 80) {
+        html.push('<h2>' + esc(line) + '</h2>');
+      } else {
+        html.push('<p>' + esc(line) + '</p>');
+      }
+    }
+    flushList();
+    return html.join('') || '<p class="text-muted"><em>No content.</em></p>';
+  }
+
+  function renderCard(b) {
+    var img = coverUrl(b);
+    var imgHtml = img
+      ? '<img src="' + esc(img) + '" class="blog-card-img" alt="' + esc(b.title) + '" loading="lazy">'
+      : '<div class="blog-card-img-placeholder"><i class="fas fa-newspaper"></i></div>';
+    var plain = String(b.short_description || b.content || '').replace(/<[^>]+>/g, '');
+    var desc = plain.slice(0, 140);
+    var author = authorName(b);
+    var idAttr = esc(String(b.id));
+    var slugAttr = esc(String(b.slug || ''));
+    return (
+      '<div class="col-md-6 col-lg-4">' +
+        '<div class="blog-card w-100" role="button" tabindex="0" data-blog-id="' + idAttr + '" data-blog-slug="' + slugAttr + '">' +
+          imgHtml +
+          '<div class="p-4">' +
+            (b.category ? '<div class="blog-category mb-1">' + esc(b.category) + '</div>' : '') +
+            '<h5 class="fw-bold mb-2">' + esc(b.title) + '</h5>' +
+            '<p class="text-muted small mb-3">' + esc(desc) + (plain.length > 140 ? '…' : '') + '</p>' +
+            '<div class="d-flex justify-content-between align-items-center small text-muted">' +
+              '<span>' + (author ? '<i class="fas fa-user me-1"></i>' + esc(author) : '') + '</span>' +
+              '<span>' + esc(fmt(b.published_at || b.created_at)) + '</span>' +
+            '</div>' +
+            (b.reading_time ? '<div class="small text-muted mt-2"><i class="far fa-clock me-1"></i>' + esc(b.reading_time) + ' min read</div>' : '') +
+            '<div class="mt-3"><span class="btn btn-sm btn-primary blog-read-btn">Read full article <i class="fas fa-arrow-right ms-1"></i></span></div>' +
+          '</div>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function renderList() {
+    var el = document.getElementById('blogList');
+    var rows = allPosts;
+    if (activeCat) rows = rows.filter(function (b) { return (b.category || '') === activeCat; });
+    if (!rows.length) {
+      el.innerHTML = '<div class="col-12 text-center text-muted py-5">No published blogs in this category yet.</div>';
+      return;
+    }
+    el.innerHTML = rows.map(renderCard).join('');
+  }
+
+  function buildCategoryFilters() {
+    var cats = [];
+    allPosts.forEach(function (b) {
+      if (b.category && cats.indexOf(b.category) === -1) cats.push(b.category);
+    });
+    cats.sort();
+    var wrap = document.getElementById('categoryFilters');
+    wrap.innerHTML = '<button type="button" class="btn btn-sm btn-primary cat-btn active" data-cat="">All</button>' +
+      cats.map(function (c) {
+        return '<button type="button" class="btn btn-sm btn-outline-primary cat-btn" data-cat="' + esc(c) + '">' + esc(c) + '</button>';
+      }).join('');
+  }
+
+  function updateSeo(b) {
+    var title = (b.meta_title || b.title || 'Blog') + ' | Sujata Institute';
+    var desc = b.meta_description || b.short_description || String(b.content || '').replace(/<[^>]+>/g, '').slice(0, 160);
+    var img = coverUrl(b) || 'assets/img/logo.png';
+    document.title = title;
+    var md = document.querySelector('meta[name="description"]');
+    if (md) md.setAttribute('content', desc);
+    var ogt = document.querySelector('meta[property="og:title"]');
+    if (ogt) ogt.setAttribute('content', title);
+    var ogd = document.querySelector('meta[property="og:description"]');
+    if (ogd) ogd.setAttribute('content', desc);
+    var ogi = document.querySelector('meta[property="og:image"]');
+    if (ogi) ogi.setAttribute('content', img);
+    document.getElementById('jsonLd').textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BlogPosting',
+      headline: b.title,
+      description: desc,
+      image: img,
+      datePublished: b.published_at || b.created_at,
+      author: { '@type': 'Person', name: authorName(b) || 'Sujata Institute' },
+      publisher: {
+        '@type': 'Organization',
+        name: 'Sujata Institute of Information and Technology',
+        logo: { '@type': 'ImageObject', url: 'assets/img/logo.png' }
+      }
+    });
+  }
+
+  function findPost(id, slug) {
+    if (slug && postsBySlug[slug]) return postsBySlug[slug];
+    if (id != null && postsById[String(id)]) return postsById[String(id)];
+    if (slug && postsById[String(slug)]) return postsById[String(slug)];
+    return null;
+  }
+
+  function renderDetail(b) {
+    if (!b) return;
+    document.getElementById('detailCategory').textContent = b.category || '';
+    document.getElementById('detailTitle').textContent = b.title || 'Untitled';
+
+    var author = authorName(b);
+    var viewCount = Number(b.views) || 0;
+    var meta = [];
+    if (author) meta.push('<span><i class="fas fa-user me-1"></i>' + esc(author) + '</span>');
+    meta.push('<span><i class="far fa-calendar me-1"></i>' + esc(fmt(b.published_at || b.created_at)) + '</span>');
+    if (b.reading_time) meta.push('<span><i class="far fa-clock me-1"></i>' + esc(b.reading_time) + ' min read</span>');
+    meta.push('<span id="viewCountLabel"><i class="far fa-eye me-1"></i>' + esc(viewCount) + ' views</span>');
+    document.getElementById('detailMeta').innerHTML = meta.join('');
+
+    var cover = coverUrl(b);
+    document.getElementById('detailCoverWrap').innerHTML = cover
+      ? '<img src="' + esc(cover) + '" class="blog-detail-cover shadow-sm" alt="' + esc(b.title) + '">'
+      : '';
+
+    var body = '';
+    if (b.short_description && b.content && String(b.content).trim() &&
+        String(b.content).trim() !== String(b.short_description).trim()) {
+      body += '<p class="lead">' + esc(String(b.short_description)).replace(/\n/g, '<br>') + '</p>';
+    }
+    body += formatContent(b.content || b.short_description || '');
+    document.getElementById('detailContent').innerHTML = body;
+
+    var tags = String(b.tags || '').split(/[,;]/).map(function (t) { return t.trim(); }).filter(Boolean);
+    document.getElementById('detailTags').innerHTML = tags.length
+      ? tags.map(function (t) { return '<span>#' + esc(t) + '</span>'; }).join('')
+      : '';
+
+    var pageUrl = location.href.split('?')[0] + (b.slug ? ('?slug=' + encodeURIComponent(b.slug)) : ('?id=' + encodeURIComponent(b.id)));
+    var shareUrl = encodeURIComponent(pageUrl);
+    var shareText = encodeURIComponent(b.title || 'Read this article');
+    document.getElementById('shareButtons').innerHTML =
+      '<a class="share-btn wa" target="_blank" rel="noopener" href="https://wa.me/?text=' + shareText + '%20' + shareUrl + '"><i class="fab fa-whatsapp"></i> WhatsApp</a>' +
+      '<a class="share-btn fb" target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=' + shareUrl + '"><i class="fab fa-facebook-f"></i> Facebook</a>' +
+      '<a class="share-btn tw" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=' + shareText + '&url=' + shareUrl + '"><i class="fab fa-x-twitter"></i> X</a>' +
+      '<a class="share-btn li" target="_blank" rel="noopener" href="https://www.linkedin.com/sharing/share-offsite/?url=' + shareUrl + '"><i class="fab fa-linkedin-in"></i> LinkedIn</a>' +
+      '<button type="button" class="share-btn copy" id="btnCopyLink"><i class="fas fa-link"></i> Copy link</button>';
+    var copyBtn = document.getElementById('btnCopyLink');
+    if (copyBtn) {
+      copyBtn.onclick = function () {
+        navigator.clipboard.writeText(pageUrl).then(function () {
+          copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied';
+          setTimeout(function () { copyBtn.innerHTML = '<i class="fas fa-link"></i> Copy link'; }, 2000);
+        });
+      };
+    }
+
+    // Related posts
+    var relatedSection = document.getElementById('relatedSection');
+    var related = allPosts.filter(function (x) { return String(x.id) !== String(b.id); });
+    related.sort(function (a, c) {
+      var as = (a.category && a.category === b.category) ? 0 : 1;
+      var cs = (c.category && c.category === b.category) ? 0 : 1;
+      return as - cs;
+    });
+    related = related.slice(0, 3);
+    if (related.length && relatedSection) {
+      relatedSection.style.display = '';
+      document.getElementById('relatedPosts').innerHTML = related.map(function (r) {
+        return '<div class="col-md-4"><div class="card border-0 shadow-sm h-100 rounded-3 overflow-hidden" role="button" data-blog-id="' + esc(String(r.id)) + '" data-blog-slug="' + esc(String(r.slug || '')) + '">' +
+          (coverUrl(r) ? '<img src="' + esc(coverUrl(r)) + '" style="height:120px;object-fit:cover;width:100%" alt="">' : '') +
+          '<div class="p-3"><strong class="small">' + esc(r.title) + '</strong></div></div></div>';
+      }).join('');
+    } else if (relatedSection) {
+      relatedSection.style.display = 'none';
+      document.getElementById('relatedPosts').innerHTML = '';
+    }
+
+    // Google related
+    var topics = [];
+    if (b.title) topics.push(b.title);
+    if (b.category) topics.push(b.category + ' career guide');
+    String(b.tags || '').split(/[,;]/).forEach(function (t) {
+      t = t.trim();
+      if (t) topics.push(t);
+    });
+    while (topics.length < 3) {
+      topics.push(['best career options after 12th', 'job oriented courses after 12th', 'skill development courses Pune'][topics.length]);
+    }
+    topics = topics.slice(0, 6);
+    var gEl = document.getElementById('googleRelated');
+    if (gEl) {
+      var colors = ['#4285F4', '#EA4335', '#FBBC05', '#34A853', '#4285F4', '#EA4335'];
+      gEl.innerHTML = topics.map(function (topic, idx) {
+        var q = encodeURIComponent(topic);
+        return '<div class="col-md-4">' +
+          '<a class="google-card p-3" target="_blank" rel="noopener noreferrer" href="https://www.google.com/search?q=' + q + '&hl=en">' +
+            '<div class="google-badge mb-2"><i class="fab fa-google me-1"></i>Google</div>' +
+            '<div class="fw-semibold mb-1" style="color:' + colors[idx % colors.length] + '">' + esc(topic) + '</div>' +
+            '<div class="small text-muted">Search related articles on Google <i class="fas fa-external-link-alt ms-1"></i></div>' +
+          '</a></div>';
+      }).join('');
+    }
+
+    updateSeo(b);
+    setUrlSlug(b.slug || '');
+    showDetail();
+  }
+
+  async function openPost(id, slug) {
+    // 1) Open immediately from cache
+    var b = findPost(id, slug);
+    if (b) {
+      renderDetail(b);
+    }
+
+    // 2) Refresh full row from server (with author join)
+    try {
+      var client = SIIT.initSupabase();
+      var res = null;
+      if (slug) {
+        res = await client.from('blogs').select('*, users(full_name)').eq('slug', slug).maybeSingle();
+      }
+      if ((!res || !res.data) && id) {
+        res = await client.from('blogs').select('*, users(full_name)').eq('id', id).maybeSingle();
+      }
+      if (res && res.data) {
+        b = res.data;
+        if (b.status && b.status !== 'Published' && b.status !== 'published') {
+          // keep cached if any
+        } else {
+          postsById[String(b.id)] = b;
+          if (b.slug) postsBySlug[b.slug] = b;
+          renderDetail(b);
+        }
+      }
+    } catch (e) {
+      console.warn('blog fetch', e);
+    }
+
+    if (!b) {
+      alert('Post not found. Make sure Status is Published in Admin → Blogs.');
+      return;
+    }
+
+    // 3) Real views increment
+    try {
+      var client2 = SIIT.initSupabase();
+      var next = (Number(b.views) || 0) + 1;
+      await client2.from('blogs').update({ views: next }).eq('id', b.id);
+      b.views = next;
+      var el = document.getElementById('viewCountLabel');
+      if (el) el.innerHTML = '<i class="far fa-eye me-1"></i>' + esc(next) + ' views';
+    } catch (_) {}
+  }
+
+  window.__openBlog = openPost;
+
+  // Event delegation
+  document.addEventListener('click', function (e) {
+    var card = e.target.closest('[data-blog-id]');
+    if (!card) return;
+    if (e.target.closest('a[href^="http"]')) return;
+    e.preventDefault();
+    var id = card.getAttribute('data-blog-id');
+    var slug = card.getAttribute('data-blog-slug') || '';
+    openPost(id, slug);
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    var card = e.target.closest('[data-blog-id]');
+    if (!card) return;
+    e.preventDefault();
+    openPost(card.getAttribute('data-blog-id'), card.getAttribute('data-blog-slug') || '');
+  });
+
+  document.getElementById('categoryFilters').addEventListener('click', function (e) {
+    var btn = e.target.closest('.cat-btn');
+    if (!btn) return;
+    activeCat = btn.getAttribute('data-cat') || '';
+    document.querySelectorAll('.cat-btn').forEach(function (b) {
+      var on = b === btn;
+      b.classList.toggle('active', on);
+      b.classList.toggle('btn-primary', on);
+      b.classList.toggle('btn-outline-primary', !on);
+    });
+    renderList();
+  });
+
+  document.getElementById('btnBackToList').addEventListener('click', function () {
+    setUrlSlug('');
+    showList();
+  });
+
+  window.addEventListener('popstate', function () {
+    var slug = getSlugFromUrl();
+    var id = new URLSearchParams(location.search).get('id');
+    if (slug || id) openPost(id, slug);
+    else showList();
+  });
+
+  async function init() {
+    try {
+      SIIT.initSupabase();
+      var client = SIIT.initSupabase();
+      var res = await client
+        .from('blogs')
+        .select('*, users(full_name)')
+        .eq('status', 'Published')
+        .order('published_at', { ascending: false })
+        .limit(50);
+      if (res.error) throw res.error;
+      allPosts = res.data || [];
+      postsById = {};
+      postsBySlug = {};
+      allPosts.forEach(function (b) {
+        postsById[String(b.id)] = b;
+        if (b.slug) postsBySlug[b.slug] = b;
+      });
+
+      if (!allPosts.length) {
+        document.getElementById('blogList').innerHTML = '<div class="col-12 text-center text-muted py-5">No published blogs yet. In Admin → Blogs set Status = <strong>Published</strong> and fill the Content field.</div>';
+        return;
+      }
+      buildCategoryFilters();
+      renderList();
+
+      var slug = getSlugFromUrl();
+      var id = new URLSearchParams(location.search).get('id');
+      if (slug || id) openPost(id, slug);
+    } catch (e) {
+      console.error(e);
+      document.getElementById('blogList').innerHTML = '<div class="col-12 text-center text-danger py-5">Unable to load blogs.<br><small>' + esc(e.message || e) + '</small></div>';
+    }
+  }
+
+  init();
+})();
+</script>
+</body>
+</html>

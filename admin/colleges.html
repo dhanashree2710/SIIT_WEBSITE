@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Colleges | SIIT ERP</title>
+  <link rel="icon" href="../assets/img/logo.png" type="image/png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="../assets/css/style.css" rel="stylesheet">
+  <style>
+    .dept-row { background: #f8f9fa; border-radius: 8px; padding: 12px; margin-bottom: 10px; }
+    .dept-row .remove-dept { opacity: 0.6; }
+    .dept-row .remove-dept:hover { opacity: 1; }
+  </style>
+</head>
+<body>
+<div class="admin-wrapper">
+  <aside class="admin-sidebar" id="sidebar">
+    <a href="dashboard.html" class="sidebar-brand text-decoration-none text-white">
+      <img src="../assets/img/logo.png" alt="Logo">
+      <span>SIIT ERP</span>
+    </a>
+    <div class="nav-section">
+      <div class="nav-section-title">Main</div>
+      <a href="dashboard.html" class="nav-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+      <a href="users.html" class="nav-link"><i class="fas fa-users"></i> Users</a>
+      <a href="colleges.html" class="nav-link active"><i class="fas fa-university"></i> Colleges</a>
+      <a href="courses.html" class="nav-link"><i class="fas fa-book"></i> Courses</a>
+      <a href="trainers.html" class="nav-link"><i class="fas fa-chalkboard-teacher"></i> Trainers</a>
+      <a href="students.html" class="nav-link"><i class="fas fa-user-graduate"></i> Students</a>
+      <a href="batches.html" class="nav-link"><i class="fas fa-layer-group"></i> Batches</a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-title">Academic</div>
+      <a href="attendance.html" class="nav-link"><i class="fas fa-qrcode"></i> Attendance</a>
+      <a href="quizzes.html" class="nav-link"><i class="fas fa-question-circle"></i> Quizzes</a>
+      <a href="assessments.html" class="nav-link"><i class="fas fa-clipboard-check"></i> Assessments</a>
+      <a href="tasks.html" class="nav-link"><i class="fas fa-tasks"></i> Tasks</a>
+      <a href="feedback-forms.html" class="nav-link"><i class="fas fa-comment-dots"></i> Feedback Forms</a>
+      <a href="certificates.html" class="nav-link"><i class="fas fa-certificate"></i> Certificates</a>
+      <a href="training-internships.html" class="nav-link"><i class="fas fa-user-tie"></i> Training + Internship</a>
+      <a href="short-term-certificates.html" class="nav-link"><i class="fas fa-award"></i> ST Certificates</a>
+      <a href="short-term-courses.html" class="nav-link"><i class="fas fa-graduation-cap"></i> ST Course Catalog</a>
+      <a href="events.html" class="nav-link"><i class="fas fa-calendar-alt"></i> Events</a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-title">Finance & Placement</div>
+      <a href="fees.html" class="nav-link"><i class="fas fa-rupee-sign"></i> Fees</a>
+      <a href="finance.html" class="nav-link"><i class="fas fa-chart-pie"></i> Finance</a>
+      <a href="companies.html" class="nav-link"><i class="fas fa-building"></i> Companies</a>
+      <a href="placements.html" class="nav-link"><i class="fas fa-briefcase"></i> Placed Candidates</a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-title">Website</div>
+      <a href="enquiries.html" class="nav-link"><i class="fas fa-envelope-open-text"></i> Enquiries</a>
+      <a href="gallery.html" class="nav-link"><i class="fas fa-images"></i> Gallery</a>
+      <a href="blogs.html" class="nav-link"><i class="fas fa-blog"></i> Blogs</a>
+      <a href="settings.html" class="nav-link"><i class="fas fa-cog"></i> Settings</a>
+    </div>
+  </aside>
+
+  <div class="admin-content">
+    <div class="admin-topbar">
+      <div class="d-flex align-items-center gap-3">
+        <button class="btn btn-sm btn-outline-secondary d-lg-none" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+        <h5 class="mb-0 fw-bold">Colleges</h5>
+      </div>
+      <div class="d-flex align-items-center gap-3">
+        <span class="text-muted small" id="userName">Admin</span>
+        <button class="btn btn-sm btn-outline-danger" onclick="SIIT.logoutUser()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+      </div>
+    </div>
+
+    <div class="admin-main">
+      <div class="dashboard-card">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+          <div>
+            <h6 class="fw-bold mb-0">Colleges</h6>
+            <small class="text-muted" id="recordCount">Loading...</small>
+          </div>
+          <div class="d-flex gap-2 flex-wrap">
+            <input type="search" class="form-control form-control-sm" id="searchInput" placeholder="Search..." style="min-width:180px">
+            <button class="btn btn-sm btn-outline-secondary" onclick="loadData()" title="Refresh"><i class="fas fa-sync-alt"></i></button>
+            <button class="btn btn-sm btn-primary" onclick="openForm()"><i class="fas fa-plus me-1"></i>Add New</button>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+              <tr>
+                <th width="60">Logo</th>
+                <th>Code</th>
+                <th>Name</th>
+                <th>City</th>
+                <th>Principal</th>
+                <th>Contact</th>
+                <th>Departments</th>
+                <th>Status</th>
+                <th width="120">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="dataBody">
+              <tr><td colspan="9" class="text-center py-4">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Modal Form -->
+      <div class="modal fade" id="crudModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
+          <div class="modal-content">
+            <form id="crudForm">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Add College</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+              <div class="modal-body">
+                <input type="hidden" name="id" id="recordId">
+                <div class="row g-3">
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">College Code *</label>
+                    <input type="text" class="form-control" name="college_code" required>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">College Name *</label>
+                    <input type="text" class="form-control" name="college_name" required>
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label">Address</label>
+                    <textarea class="form-control" name="address" rows="2"></textarea>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">City</label>
+                    <input type="text" class="form-control" name="city">
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">State</label>
+                    <input type="text" class="form-control" name="state">
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">Pincode</label>
+                    <input type="text" class="form-control" name="pincode">
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">Principal Name</label>
+                    <input type="text" class="form-control" name="principal_name">
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">Contact Number</label>
+                    <input type="text" class="form-control" name="contact_number">
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" name="email">
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">Website</label>
+                    <input type="text" class="form-control" name="website">
+                  </div>
+
+                  <!-- Logo upload -->
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">College Logo — bucket: <code>college</code></label>
+                    <input type="file" class="form-control" id="logoFile" accept="image/*">
+                    <input type="hidden" name="logo_url" id="logoUrl">
+                    <img id="logoPreview" class="mt-2 rounded border" style="max-height:70px;display:none" alt="Logo preview">
+                  </div>
+
+                  <div class="col-12 col-md-6">
+                    <div class="form-check mt-4">
+                      <input class="form-check-input" type="checkbox" name="status" id="f_status" value="true">
+                      <label class="form-check-label" for="f_status">Active</label>
+                    </div>
+                  </div>
+
+                  <!-- ========== DEPARTMENTS SECTION ========== -->
+                  <div class="col-12">
+                    <hr class="my-2">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <label class="form-label fw-semibold mb-0">
+                        <i class="fas fa-building me-1"></i> Departments
+                      </label>
+                      <button type="button" class="btn btn-sm btn-outline-primary" onclick="addDepartmentRow()">
+                        <i class="fas fa-plus me-1"></i>Add Department
+                      </button>
+                    </div>
+                    <div id="departmentsContainer">
+                      <!-- dynamic department rows go here -->
+                    </div>
+                    <small class="text-muted">Examples: BSc IT, BCA, MCA, MSc, etc.</small>
+                  </div>
+                </div>
+                <div id="formError" class="alert alert-danger d-none mt-3 mb-0"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary" id="saveBtn">
+                  <i class="fas fa-save me-1"></i>Save
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../assets/js/supabase-config.js"></script>
+<script src="../assets/js/admin-crud.js"></script>
+<script src="../assets/js/rbac.js"></script>
+<script>
+if (!SIIT.Session.requireAuth()) {}
+RBAC.enforce();
+const user = SIIT.Session.get();
+if (user) document.getElementById('userName').textContent = user.full_name || user.email;
+document.getElementById('sidebarToggle')?.addEventListener('click', () => {
+  document.getElementById('sidebar').classList.toggle('show');
+});
+SIIT.initSupabase();
+
+const TABLE = 'colleges';
+const DEPT_TABLE = 'departments';
+const NAME_KEY = 'college_name';
+const SEARCH_KEYS = ['college_code', 'college_name', 'city'];
+let allRows = [];
+let collegeDepts = {};          // { collegeId: [dept objects] }
+let editId = null;
+let existingDeptIds = [];       // ids currently in the form when editing
+
+const modal = new bootstrap.Modal(document.getElementById('crudModal'));
+const form = document.getElementById('crudForm');
+
+/* Logo preview */
+document.getElementById('logoFile')?.addEventListener('change', e => {
+  const f = e.target.files[0];
+  const p = document.getElementById('logoPreview');
+  if (f) {
+    p.src = URL.createObjectURL(f);
+    p.style.display = 'block';
+  } else {
+    p.style.display = 'none';
+  }
+});
+
+/* ========== Department rows ========== */
+function addDepartmentRow(dept = null) {
+  const container = document.getElementById('departmentsContainer');
+  const idx = container.children.length;
+  const div = document.createElement('div');
+  div.className = 'dept-row';
+  div.dataset.deptId = dept?.id || '';
+
+  div.innerHTML = `
+    <div class="row g-2 align-items-end">
+      <div class="col-md-5">
+        <label class="form-label small mb-1">Department Name *</label>
+        <input type="text" class="form-control form-control-sm dept-name" 
+               placeholder="e.g. BSc IT, BCA, MCA" 
+               value="${dept ? SIIT.Utils.escapeHtml(dept.department_name || '') : ''}" required>
+      </div>
+      <div class="col-md-5">
+        <label class="form-label small mb-1">HOD Name</label>
+        <input type="text" class="form-control form-control-sm dept-hod" 
+               placeholder="Head of Department" 
+               value="${dept ? SIIT.Utils.escapeHtml(dept.hod_name || '') : ''}">
+      </div>
+      <div class="col-md-2 text-end">
+        <button type="button" class="btn btn-sm btn-outline-danger remove-dept" title="Remove">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+    </div>
+  `;
+
+  div.querySelector('.remove-dept').addEventListener('click', () => {
+    div.remove();
+  });
+
+  container.appendChild(div);
+}
+
+function clearDepartmentRows() {
+  document.getElementById('departmentsContainer').innerHTML = '';
+  existingDeptIds = [];
+}
+
+function getDepartmentRows() {
+  const rows = [];
+  document.querySelectorAll('#departmentsContainer .dept-row').forEach(row => {
+    const name = row.querySelector('.dept-name').value.trim();
+    const hod  = row.querySelector('.dept-hod').value.trim();
+    const id   = row.dataset.deptId || null;
+    if (name) {
+      rows.push({
+        id: id ? Number(id) : null,
+        department_name: name,
+        hod_name: hod || null,
+        status: true
+      });
+    }
+  });
+  return rows;
+}
+
+/* ========== Render table ========== */
+function render(rows) {
+  const tbody = document.getElementById('dataBody');
+  const countEl = document.getElementById('recordCount');
+  if (!rows.length) {
+    tbody.innerHTML = '<tr><td colspan="9" class="text-center text-muted py-4">No records. Click Add New.</td></tr>';
+    countEl.textContent = '0 records';
+    return;
+  }
+  tbody.innerHTML = rows.map(row => {
+    const logo = row.logo_url
+      ? `<img src="${SIIT.Utils.escapeHtml(row.logo_url)}" alt="" style="width:40px;height:40px;object-fit:contain;border-radius:6px">`
+      : '<span class="text-muted">—</span>';
+
+    const depts = collegeDepts[row.id] || [];
+    const deptBadges = depts.length
+      ? depts.map(d => `<span class="badge bg-info text-dark me-1 mb-1">${SIIT.Utils.escapeHtml(d.department_name)}</span>`).join('')
+      : '<span class="text-muted small">—</span>';
+
+    const cells =
+      `<td>${logo}</td>` +
+      `<td>${SIIT.Utils.escapeHtml(row.college_code != null ? String(row.college_code) : '—')}</td>` +
+      `<td>${SIIT.Utils.escapeHtml(row.college_name != null ? String(row.college_name) : '—')}</td>` +
+      `<td>${SIIT.Utils.escapeHtml(row.city != null ? String(row.city) : '—')}</td>` +
+      `<td>${SIIT.Utils.escapeHtml(row.principal_name != null ? String(row.principal_name) : '—')}</td>` +
+      `<td>${SIIT.Utils.escapeHtml(row.contact_number != null ? String(row.contact_number) : '—')}</td>` +
+      `<td style="max-width:220px">${deptBadges}</td>` +
+      `<td><span class="badge bg-${row.status ? 'success' : 'secondary'}">${row.status ? 'Active' : 'Inactive'}</span></td>`;
+    const actions = `<td class="text-nowrap">
+      <button class="btn btn-sm btn-outline-primary me-1" onclick="openForm(${row.id})" title="Edit"><i class="fas fa-edit"></i></button>
+      <button class="btn btn-sm btn-outline-danger" onclick="deleteRow(${row.id}, '${SIIT.Utils.escapeHtml(String(row[NAME_KEY] || row.id)).replace(/'/g, "\\'")}')" title="Delete"><i class="fas fa-trash"></i></button>
+    </td>`;
+    return '<tr>' + cells + actions + '</tr>';
+  }).join('');
+  countEl.textContent = rows.length + ' record' + (rows.length !== 1 ? 's' : '');
+}
+
+/* ========== Load data ========== */
+async function loadData() {
+  const tbody = document.getElementById('dataBody');
+  tbody.innerHTML = '<tr><td colspan="9" class="text-center py-4"><div class="spinner-border spinner-border-sm text-primary"></div></td></tr>';
+  try {
+    allRows = await AdminCRUD.list(TABLE, { order: 'id', ascending: false });
+
+    // Load all departments and group by college_id
+    const allDepts = await AdminCRUD.list(DEPT_TABLE, { order: 'department_name', ascending: true });
+    collegeDepts = {};
+    allDepts.forEach(d => {
+      if (!collegeDepts[d.college_id]) collegeDepts[d.college_id] = [];
+      collegeDepts[d.college_id].push(d);
+    });
+
+    render(allRows);
+  } catch (e) {
+    console.error(e);
+    tbody.innerHTML = `<tr><td colspan="9" class="text-center text-danger">Error: ${SIIT.Utils.escapeHtml(e.message)}</td></tr>`;
+  }
+}
+
+/* ========== Open form ========== */
+function openForm(id) {
+  editId = id || null;
+  form.reset();
+  document.getElementById('formError').classList.add('d-none');
+  document.getElementById('recordId').value = '';
+  document.getElementById('logoUrl').value = '';
+  document.getElementById('logoPreview').style.display = 'none';
+  document.getElementById('logoFile').value = '';
+  document.getElementById('modalTitle').textContent = id ? 'Edit College' : 'Add College';
+
+  clearDepartmentRows();
+
+  const st = form.elements['status'];
+  if (st && st.type === 'checkbox' && !id) st.checked = true;
+
+  if (id) {
+    const row = allRows.find(r => r.id == id);
+    if (row) {
+      AdminCRUD.fillForm(form, row);
+      document.getElementById('recordId').value = id;
+      if (row.logo_url) {
+        document.getElementById('logoUrl').value = row.logo_url;
+        const preview = document.getElementById('logoPreview');
+        preview.src = row.logo_url;
+        preview.style.display = 'block';
+      }
+
+      // Load existing departments
+      const depts = collegeDepts[id] || [];
+      existingDeptIds = depts.map(d => d.id);
+      if (depts.length) {
+        depts.forEach(d => addDepartmentRow(d));
+      } else {
+        addDepartmentRow(); // at least one empty row
+      }
+    }
+  } else {
+    addDepartmentRow(); // one empty row for new college
+  }
+  modal.show();
+}
+
+/* ========== Delete college ========== */
+async function deleteRow(id, name) {
+  if (!AdminCRUD.confirmDelete(name)) return;
+  try {
+    // Departments will be deleted automatically because of ON DELETE CASCADE
+    await AdminCRUD.remove(TABLE, id);
+    SIIT.Utils.toast('Deleted successfully');
+    loadData();
+  } catch (e) {
+    SIIT.Utils.toast(e.message || 'Delete failed', 'error');
+  }
+}
+
+/* ========== Save (college + departments) ========== */
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('saveBtn');
+  const errEl = document.getElementById('formError');
+  errEl.classList.add('d-none');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Saving...';
+
+  try {
+    const payload = AdminCRUD.formData(form);
+    delete payload.id;
+
+    // Upload logo if a new file was chosen
+    const logoFile = document.getElementById('logoFile').files[0];
+    if (logoFile) {
+      const up = await AdminCRUD.uploadFile('college', logoFile, 'logos');
+      payload.logo_url = up.publicUrl;
+    } else if (document.getElementById('logoUrl').value) {
+      payload.logo_url = document.getElementById('logoUrl').value;
+    } else {
+      payload.logo_url = null;
+    }
+
+    let collegeId = editId;
+
+    if (editId) {
+      await AdminCRUD.update(TABLE, editId, payload);
+      SIIT.Utils.toast('College updated');
+    } else {
+      const inserted = await AdminCRUD.insert(TABLE, payload);
+      // AdminCRUD.insert usually returns the inserted row or { id }
+      collegeId = inserted?.id || inserted?.[0]?.id;
+      if (!collegeId) throw new Error('Could not get new college id');
+      SIIT.Utils.toast('College created');
+    }
+
+    // ---------- Sync departments ----------
+    const deptRows = getDepartmentRows();
+    const currentIds = deptRows.filter(d => d.id).map(d => d.id);
+
+    // 1. Delete departments that were removed from the form
+    const toDelete = existingDeptIds.filter(id => !currentIds.includes(id));
+    for (const did of toDelete) {
+      await AdminCRUD.remove(DEPT_TABLE, did);
+    }
+
+    // 2. Insert / Update remaining
+    for (const d of deptRows) {
+      const deptPayload = {
+        college_id: collegeId,
+        department_name: d.department_name,
+        hod_name: d.hod_name,
+        status: true
+      };
+
+      if (d.id) {
+        await AdminCRUD.update(DEPT_TABLE, d.id, deptPayload);
+      } else {
+        await AdminCRUD.insert(DEPT_TABLE, deptPayload);
+      }
+    }
+
+    modal.hide();
+    loadData();
+  } catch (err) {
+    console.error(err);
+    errEl.textContent = err.message || 'Save failed';
+    errEl.classList.remove('d-none');
+  }
+  btn.disabled = false;
+  btn.innerHTML = '<i class="fas fa-save me-1"></i>Save';
+});
+
+/* Search */
+document.getElementById('searchInput')?.addEventListener('input', () => {
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  if (!q) return render(allRows);
+  render(allRows.filter(r => SEARCH_KEYS.some(k => String(r[k] || '').toLowerCase().includes(q))));
+});
+
+loadData();
+</script>
+</body>
+</html>

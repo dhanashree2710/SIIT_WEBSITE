@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Training + Internship | SIIT ERP</title>
+  <link rel="icon" href="../assets/img/logo.png" type="image/png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+<div class="admin-wrapper">
+  <aside class="admin-sidebar" id="sidebar">    <a href="dashboard.html" class="sidebar-brand text-decoration-none text-white"><img src="../assets/img/logo.png" alt="Logo"><span>SIIT ERP</span></a>
+    <div class="nav-section"><div class="nav-section-title">Main</div>
+      <a href="dashboard.html" class="nav-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+      <a href="users.html" class="nav-link"><i class="fas fa-users"></i> Users</a>
+      <a href="colleges.html" class="nav-link"><i class="fas fa-university"></i> Colleges</a>
+      <a href="courses.html" class="nav-link"><i class="fas fa-book"></i> Courses</a>
+      <a href="trainers.html" class="nav-link"><i class="fas fa-chalkboard-teacher"></i> Trainers</a>
+      <a href="students.html" class="nav-link"><i class="fas fa-user-graduate"></i> Students</a>
+      <a href="batches.html" class="nav-link"><i class="fas fa-layer-group"></i> Batches</a>
+    </div>
+    <div class="nav-section"><div class="nav-section-title">Academic</div>
+      <a href="attendance.html" class="nav-link"><i class="fas fa-qrcode"></i> Attendance</a>
+      <a href="quizzes.html" class="nav-link"><i class="fas fa-question-circle"></i> Quizzes</a>
+      <a href="assessments.html" class="nav-link"><i class="fas fa-clipboard-check"></i> Assessments</a>
+      <a href="tasks.html" class="nav-link"><i class="fas fa-tasks"></i> Tasks</a>
+      <a href="feedback-forms.html" class="nav-link"><i class="fas fa-comment-dots"></i> Feedback Forms</a>
+      <a href="certificates.html" class="nav-link"><i class="fas fa-certificate"></i> Certificates</a>
+      <a href="events.html" class="nav-link"><i class="fas fa-calendar-alt"></i> Events</a>
+      <a href="training-internships.html" class="nav-link active"><i class="fas fa-user-tie"></i> Training + Internship</a>
+      <a href="short-term-certificates.html" class="nav-link"><i class="fas fa-award"></i> ST Certificates</a>
+      <a href="short-term-courses.html" class="nav-link"><i class="fas fa-graduation-cap"></i> ST Course Catalog</a>
+    </div>
+    <div class="nav-section"><div class="nav-section-title">Finance & Placement</div>
+      <a href="fees.html" class="nav-link"><i class="fas fa-rupee-sign"></i> Fees</a>
+      <a href="finance.html" class="nav-link"><i class="fas fa-chart-pie"></i> Finance</a>
+      <a href="companies.html" class="nav-link"><i class="fas fa-building"></i> Companies</a>
+      <a href="placements.html" class="nav-link"><i class="fas fa-briefcase"></i> Placed Candidates</a>
+    </div>
+    <div class="nav-section"><div class="nav-section-title">Website</div>
+      <a href="enquiries.html" class="nav-link"><i class="fas fa-envelope-open-text"></i> Enquiries</a>
+      <a href="gallery.html" class="nav-link"><i class="fas fa-images"></i> Gallery</a>
+      <a href="blogs.html" class="nav-link"><i class="fas fa-blog"></i> Blogs</a>
+      <a href="settings.html" class="nav-link"><i class="fas fa-cog"></i> Settings</a>
+    </div>
+</aside>
+  <div class="admin-content">
+    <div class="admin-topbar">
+      <div class="d-flex align-items-center gap-2">
+        <button class="btn btn-sm btn-outline-secondary d-lg-none" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+        <h5 class="mb-0 fw-bold">Training + Internship</h5>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+        <span class="text-muted small text-truncate" id="userName" style="max-width:120px">Admin</span>
+        <button class="btn btn-sm btn-outline-danger" onclick="SIIT.logoutUser()"><i class="fas fa-sign-out-alt"></i></button>
+      </div>
+    </div>
+    <div class="admin-main">
+      <div class="dashboard-card">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+          <div>
+            <h6 class="fw-bold mb-0">Training + Internship Programs</h6>
+            <small class="text-muted" id="recordCount">Loading...</small>
+          </div>
+          <div class="d-flex gap-2 flex-wrap">
+            <select id="filterType" class="form-select form-select-sm" style="width:auto">
+              <option value="">All types</option>
+              <option>Training</option>
+              <option>Internship</option>
+            </select>
+            <input type="search" class="form-control form-control-sm" id="searchInput" placeholder="Search..." style="min-width:140px">
+            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="loadData()"><i class="fas fa-sync-alt"></i></button>
+            <button type="button" class="btn btn-sm btn-primary" onclick="openForm()"><i class="fas fa-plus me-1"></i>Add</button>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+              <tr><th>Type</th><th>Name</th><th>Duration</th><th>Mode</th><th>Fees</th><th>Status</th><th width="110">Actions</th></tr>
+            </thead>
+            <tbody id="dataBody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal fade" id="crudModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
+          <div class="modal-content">
+            <form id="crudForm">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Add Program</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+              <div class="modal-body">
+                <input type="hidden" name="id" id="recordId">
+                <div class="row g-3">
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">Program Type *</label>
+                    <select class="form-select" name="program_type" required>
+                      <option value="Training">Training</option>
+                      <option value="Internship">Internship</option>
+                    </select>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">Program Name *</label>
+                    <input type="text" class="form-control" name="program_name" required>
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-control" name="description" rows="2"></textarea>
+                  </div>
+                  <div class="col-12 col-md-4"><label class="form-label">Duration</label><input type="text" class="form-control" name="duration" placeholder="e.g. 3 Months"></div>
+                  <div class="col-6 col-md-4"><label class="form-label">Start Date</label><input type="date" class="form-control" name="start_date"></div>
+                  <div class="col-6 col-md-4"><label class="form-label">End Date</label><input type="date" class="form-control" name="end_date"></div>
+                  <div class="col-12 col-md-4">
+                    <label class="form-label">Mode</label>
+                    <select class="form-select" name="mode">
+                      <option value="">—</option>
+                      <option>Online</option>
+                      <option>Offline</option>
+                      <option>Hybrid</option>
+                    </select>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <label class="form-label">Level</label>
+                    <select class="form-select" name="level">
+                      <option value="">—</option>
+                      <option>Beginner</option>
+                      <option>Intermediate</option>
+                      <option>Advanced</option>
+                    </select>
+                  </div>
+                  <div class="col-12 col-md-4"><label class="form-label">Capacity</label><input type="number" class="form-control" name="capacity" min="0"></div>
+                  <div class="col-12 col-md-6"><label class="form-label">Fees (₹)</label><input type="number" class="form-control" name="fees" step="0.01" min="0" value="0"></div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">Status</label>
+                    <select class="form-select" name="status">
+                      <option>Active</option>
+                      <option>Upcoming</option>
+                      <option>Completed</option>
+                      <option>Cancelled</option>
+                    </select>
+                  </div>
+                </div>
+                <div id="formError" class="alert alert-danger d-none mt-3 mb-0"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary" id="saveBtn"><i class="fas fa-save me-1"></i>Save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="modulesModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Modules — <span id="modulesProgramName"></span></h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+              <form id="moduleForm" class="row g-2 align-items-end mb-3 border-bottom pb-3">
+                <input type="hidden" id="moduleId">
+                <div class="col-12 col-md-4"><label class="form-label small mb-1">Module Name *</label><input type="text" class="form-control form-control-sm" id="moduleName" required></div>
+                <div class="col-6 col-md-2"><label class="form-label small mb-1">Order</label><input type="number" class="form-control form-control-sm" id="moduleOrder"></div>
+                <div class="col-6 col-md-2"><label class="form-label small mb-1">Duration (hrs)</label><input type="number" step="0.5" class="form-control form-control-sm" id="moduleDuration"></div>
+                <div class="col-12 col-md-3"><label class="form-label small mb-1">Description</label><input type="text" class="form-control form-control-sm" id="moduleDescription"></div>
+                <div class="col-12 col-md-1 d-flex gap-1"><button type="submit" class="btn btn-sm btn-primary w-100" id="moduleSaveBtn" title="Save"><i class="fas fa-plus"></i></button></div>
+              </form>
+              <div id="moduleFormError" class="alert alert-danger d-none py-2 mb-3"></div>
+              <div class="table-responsive">
+                <table class="table table-sm table-hover align-middle mb-0">
+                  <thead class="table-light"><tr><th width="60">#</th><th>Module</th><th width="90">Hours</th><th>Description</th><th width="90">Actions</th></tr></thead>
+                  <tbody id="modulesBody"><tr><td colspan="5" class="text-center text-muted py-3">Loading...</td></tr></tbody>
+                </table>
+              </div>
+              <p class="small text-muted mb-0">Shown to visitors when they click this program on the public website.</p>
+            </div>
+            <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button></div>
+          </div>
+        </div>
+      </div>
+</div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../assets/js/supabase-config.js"></script>
+<script src="../assets/js/admin-crud.js"></script>
+<script src="../assets/js/rbac.js"></script>
+<script>
+if (!SIIT.Session.requireAuth()) {}
+RBAC.enforce();
+const user = SIIT.Session.get();
+if (user) document.getElementById('userName').textContent = user.full_name || user.email;
+document.getElementById('sidebarToggle')?.addEventListener('click', () => document.getElementById('sidebar').classList.toggle('show'));
+SIIT.initSupabase();
+
+const TABLE = 'training_internships';
+let allRows = [], editId = null;
+const modal = new bootstrap.Modal(document.getElementById('crudModal'));
+const form = document.getElementById('crudForm');
+
+function render(rows) {
+  const tbody = document.getElementById('dataBody');
+  document.getElementById('recordCount').textContent = rows.length + ' programs';
+  if (!rows.length) { tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted py-4">No programs. Click Add.</td></tr>'; return; }
+  tbody.innerHTML = rows.map(row => `<tr>
+    <td><span class="badge bg-${row.program_type==='Internship'?'info':'primary'}">${SIIT.Utils.escapeHtml(row.program_type||'')}</span></td>
+    <td>${SIIT.Utils.escapeHtml(row.program_name||'')}</td>
+    <td>${SIIT.Utils.escapeHtml(row.duration||'—')}</td>
+    <td>${SIIT.Utils.escapeHtml(row.mode||'—')}</td>
+    <td>${row.fees!=null?SIIT.Utils.formatCurrency(row.fees):'—'}</td>
+    <td><span class="badge bg-secondary">${SIIT.Utils.escapeHtml(row.status||'')}</span></td>
+    <td class="text-nowrap">
+      <button class="btn btn-sm btn-outline-secondary me-1" onclick="openModules('${row.id}', '${SIIT.Utils.escapeHtml(row.program_name||'').replace(/'/g,"\\'")}')" title="Modules"><i class="fas fa-list-ol"></i></button>
+      <button class="btn btn-sm btn-outline-primary me-1" onclick="openForm('${row.id}')"><i class="fas fa-edit"></i></button>
+      <button class="btn btn-sm btn-outline-danger" onclick="deleteRow('${row.id}', '${SIIT.Utils.escapeHtml(row.program_name||'').replace(/'/g,'')}')"><i class="fas fa-trash"></i></button>
+    </td>
+  </tr>`).join('');
+}
+
+async function loadData() {
+  try {
+    allRows = await AdminCRUD.list(TABLE, { order: 'created_at', ascending: false });
+    applyFilter();
+  } catch (e) {
+    document.getElementById('dataBody').innerHTML = `<tr><td colspan="7" class="text-danger text-center py-4">${SIIT.Utils.escapeHtml(e.message)}<br><small>Create table training_internships</small></td></tr>`;
+  }
+}
+
+function applyFilter() {
+  const type = document.getElementById('filterType').value;
+  const q = (document.getElementById('searchInput').value||'').trim().toLowerCase();
+  let rows = allRows;
+  if (type) rows = rows.filter(r => r.program_type === type);
+  if (q) rows = rows.filter(r => JSON.stringify(r).toLowerCase().includes(q));
+  render(rows);
+}
+
+function openForm(id) {
+  editId = id || null;
+  form.reset();
+  document.getElementById('formError').classList.add('d-none');
+  document.getElementById('modalTitle').textContent = id ? 'Edit Program' : 'Add Program';
+  if (id) {
+    const row = allRows.find(r => String(r.id) === String(id));
+    if (row) AdminCRUD.fillForm(form, row);
+  }
+  modal.show();
+}
+
+async function deleteRow(id, name) {
+  if (!AdminCRUD.confirmDelete(name)) return;
+  try { await AdminCRUD.remove(TABLE, id); SIIT.Utils.toast('Deleted'); loadData(); }
+  catch (e) { SIIT.Utils.toast(e.message, 'error'); }
+}
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('saveBtn');
+  btn.disabled = true;
+  try {
+    const payload = AdminCRUD.formData(form);
+    delete payload.id;
+    if (payload.capacity) payload.capacity = Number(payload.capacity); else payload.capacity = null;
+    if (payload.fees !== null && payload.fees !== '') payload.fees = Number(payload.fees); else payload.fees = 0;
+    if (!payload.start_date) payload.start_date = null;
+    if (!payload.end_date) payload.end_date = null;
+    if (editId) await AdminCRUD.update(TABLE, editId, payload);
+    else await AdminCRUD.insert(TABLE, payload);
+    SIIT.Utils.toast('Saved'); modal.hide(); loadData();
+  } catch (err) {
+    document.getElementById('formError').textContent = err.message;
+    document.getElementById('formError').classList.remove('d-none');
+  }
+  btn.disabled = false;
+});
+
+document.getElementById('filterType')?.addEventListener('change', applyFilter);
+document.getElementById('searchInput')?.addEventListener('input', applyFilter);
+loadData();
+
+/* ---------------- Program Modules ---------------- */
+const modulesModal = new bootstrap.Modal(document.getElementById('modulesModal'));
+const moduleForm = document.getElementById('moduleForm');
+let currentProgramId = null;
+let currentModules = [];
+
+async function openModules(programId, programName) {
+  currentProgramId = programId;
+  document.getElementById('modulesProgramName').textContent = programName || ('#' + programId);
+  resetModuleForm();
+  modulesModal.show();
+  await loadModules();
+}
+
+function resetModuleForm() {
+  moduleForm.reset();
+  document.getElementById('moduleId').value = '';
+  document.getElementById('moduleFormError').classList.add('d-none');
+  document.getElementById('moduleSaveBtn').innerHTML = '<i class="fas fa-plus"></i>';
+}
+
+async function loadModules() {
+  const tbody = document.getElementById('modulesBody');
+  tbody.innerHTML = '<tr><td colspan="5" class="text-center py-3"><div class="spinner-border spinner-border-sm text-primary"></div></td></tr>';
+  try {
+    const client = SIIT.initSupabase();
+    const { data, error } = await client.from('training_internship_modules').select('*').eq('training_internship_id', currentProgramId).order('module_order', { ascending: true });
+    if (error) throw error;
+    currentModules = data || [];
+    renderModules();
+  } catch (e) {
+    tbody.innerHTML = `<tr><td colspan="5" class="text-danger text-center py-3">${SIIT.Utils.escapeHtml(e.message)}<br><small>Run supabase/feature_additions_2026.sql to create this table.</small></td></tr>`;
+  }
+}
+
+function renderModules() {
+  const tbody = document.getElementById('modulesBody');
+  if (!currentModules.length) {
+    tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted py-3">No modules yet. Add the first one above.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = currentModules.map((m, i) => `
+    <tr>
+      <td>${m.module_order != null ? m.module_order : (i + 1)}</td>
+      <td>${SIIT.Utils.escapeHtml(m.module_name)}</td>
+      <td>${m.duration_hours != null ? m.duration_hours : '—'}</td>
+      <td class="small text-muted">${SIIT.Utils.escapeHtml(m.description || '—')}</td>
+      <td class="text-nowrap">
+        <button class="btn btn-sm btn-outline-primary me-1" onclick="editModule(${m.id})" title="Edit"><i class="fas fa-edit"></i></button>
+        <button class="btn btn-sm btn-outline-danger" onclick="deleteModule(${m.id})" title="Delete"><i class="fas fa-trash"></i></button>
+      </td>
+    </tr>`).join('');
+}
+
+function editModule(id) {
+  const m = currentModules.find(x => x.id === id);
+  if (!m) return;
+  document.getElementById('moduleId').value = m.id;
+  document.getElementById('moduleName').value = m.module_name || '';
+  document.getElementById('moduleOrder').value = m.module_order != null ? m.module_order : '';
+  document.getElementById('moduleDuration').value = m.duration_hours != null ? m.duration_hours : '';
+  document.getElementById('moduleDescription').value = m.description || '';
+  document.getElementById('moduleSaveBtn').innerHTML = '<i class="fas fa-save"></i>';
+}
+
+async function deleteModule(id) {
+  if (!confirm('Delete this module?')) return;
+  try {
+    await AdminCRUD.remove('training_internship_modules', id);
+    SIIT.Utils.toast('Module deleted');
+    await loadModules();
+  } catch (e) { SIIT.Utils.toast(e.message || 'Delete failed', 'error'); }
+}
+
+moduleForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const errEl = document.getElementById('moduleFormError');
+  errEl.classList.add('d-none');
+  const id = document.getElementById('moduleId').value;
+  const payload = {
+    training_internship_id: Number(currentProgramId),
+    module_name: document.getElementById('moduleName').value.trim(),
+    module_order: document.getElementById('moduleOrder').value ? Number(document.getElementById('moduleOrder').value) : (currentModules.length + 1),
+    duration_hours: document.getElementById('moduleDuration').value ? Number(document.getElementById('moduleDuration').value) : null,
+    description: document.getElementById('moduleDescription').value.trim() || null
+  };
+  if (!payload.module_name) { errEl.textContent = 'Module name is required'; errEl.classList.remove('d-none'); return; }
+  try {
+    if (id) await AdminCRUD.update('training_internship_modules', Number(id), payload);
+    else await AdminCRUD.insert('training_internship_modules', payload);
+    SIIT.Utils.toast('Module saved');
+    resetModuleForm();
+    await loadModules();
+  } catch (e) {
+    errEl.textContent = e.message || 'Save failed';
+    errEl.classList.remove('d-none');
+  }
+});
+
+</script>
+</body></html>

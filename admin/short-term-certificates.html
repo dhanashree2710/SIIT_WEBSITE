@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Short Term Certificates | SIIT ERP</title>
+  <link rel="icon" href="../assets/img/logo.png" type="image/png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+<div class="admin-wrapper">
+  <aside class="admin-sidebar" id="sidebar">
+    <a href="dashboard.html" class="sidebar-brand text-decoration-none text-white">
+      <img src="../assets/img/logo.png" alt="Logo"><span>SIIT ERP</span>
+    </a>
+    <div class="nav-section">
+      <div class="nav-section-title">Main</div>
+      <a href="dashboard.html" class="nav-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+      <a href="users.html" class="nav-link"><i class="fas fa-users"></i> Users</a>
+      <a href="colleges.html" class="nav-link"><i class="fas fa-university"></i> Colleges</a>
+      <a href="courses.html" class="nav-link"><i class="fas fa-book"></i> Courses</a>
+      <a href="trainers.html" class="nav-link"><i class="fas fa-chalkboard-teacher"></i> Trainers</a>
+      <a href="students.html" class="nav-link"><i class="fas fa-user-graduate"></i> Students</a>
+      <a href="batches.html" class="nav-link"><i class="fas fa-layer-group"></i> Batches</a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-title">Academic</div>
+      <a href="attendance.html" class="nav-link"><i class="fas fa-qrcode"></i> Attendance</a>
+      <a href="quizzes.html" class="nav-link"><i class="fas fa-question-circle"></i> Quizzes</a>
+      <a href="assessments.html" class="nav-link"><i class="fas fa-clipboard-check"></i> Assessments</a>
+      <a href="tasks.html" class="nav-link"><i class="fas fa-tasks"></i> Tasks</a>
+      <a href="feedback-forms.html" class="nav-link"><i class="fas fa-comment-dots"></i> Feedback Forms</a>
+      <a href="certificates.html" class="nav-link"><i class="fas fa-certificate"></i> Certificates</a>
+      <a href="events.html" class="nav-link"><i class="fas fa-calendar-alt"></i> Events</a>
+      <a href="training-internships.html" class="nav-link"><i class="fas fa-user-tie"></i> Training + Internship</a>
+      <a href="short-term-certificates.html" class="nav-link active"><i class="fas fa-award"></i> ST Certificates</a>
+      <a href="short-term-courses.html" class="nav-link"><i class="fas fa-graduation-cap"></i> ST Course Catalog</a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-title">Finance & Placement</div>
+      <a href="fees.html" class="nav-link"><i class="fas fa-rupee-sign"></i> Fees</a>
+      <a href="finance.html" class="nav-link"><i class="fas fa-chart-pie"></i> Finance</a>
+      <a href="companies.html" class="nav-link"><i class="fas fa-building"></i> Companies</a>
+      <a href="placements.html" class="nav-link"><i class="fas fa-briefcase"></i> Placed Candidates</a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-title">Website</div>
+      <a href="enquiries.html" class="nav-link"><i class="fas fa-envelope-open-text"></i> Enquiries</a>
+      <a href="gallery.html" class="nav-link"><i class="fas fa-images"></i> Gallery</a>
+      <a href="blogs.html" class="nav-link"><i class="fas fa-blog"></i> Blogs</a>
+      <a href="settings.html" class="nav-link"><i class="fas fa-cog"></i> Settings</a>
+    </div>
+  </aside>
+
+  <div class="admin-content">
+    <div class="admin-topbar">
+      <div class="d-flex align-items-center gap-2">
+        <button class="btn btn-sm btn-outline-secondary d-lg-none" id="sidebarToggle">
+          <i class="fas fa-bars"></i>
+        </button>
+        <h5 class="mb-0 fw-bold">Short Term Certificates</h5>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+        <span class="text-muted small text-truncate" id="userName" style="max-width:120px">Admin</span>
+        <button class="btn btn-sm btn-outline-danger" onclick="SIIT.logoutUser()">
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="admin-main">
+      <div class="dashboard-card">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+          <div>
+            <h6 class="fw-bold mb-0">Short Term / Certificates</h6>
+            <small class="text-muted" id="recordCount">Loading...</small>
+          </div>
+          <div class="d-flex gap-2 flex-wrap">
+            <input type="search" class="form-control form-control-sm" id="searchInput"
+                   placeholder="Search..." style="min-width:140px">
+            <label class="btn btn-sm btn-outline-success mb-0">
+              <i class="fas fa-file-excel me-1"></i>Import Excel
+              <input type="file" id="excelFile" accept=".xlsx,.xls,.csv" hidden>
+            </label>
+            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="loadData()">
+              <i class="fas fa-sync-alt"></i>
+            </button>
+            <button type="button" class="btn btn-sm btn-primary" onclick="openForm()">
+              <i class="fas fa-plus me-1"></i>Add
+            </button>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+              <tr>
+                <th>Cert No</th>
+                <th>Student</th>
+                <th>Title</th>
+                <th>Issue Date</th>
+                <th>Grade</th>
+                <th>File</th>
+                <th>Status</th>
+                <th width="110">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="dataBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="crudModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
+          <div class="modal-content">
+            <form id="crudForm">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Add Certificate</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+              <div class="modal-body">
+                <input type="hidden" name="id" id="recordId">
+                <div class="row g-3">
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">Certificate No *</label>
+                    <input type="text" class="form-control" name="certificate_no" required>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">Certificate Title</label>
+                    <input type="text" class="form-control" name="certificate_title">
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">Student *</label>
+                    <select class="form-select" name="student_id" id="selStudent" required></select>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">Student Name *</label>
+                    <input type="text" class="form-control" name="student_name" id="studentName" required>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">Course *</label>
+                    <select class="form-select" name="course_id" id="selCourse" required></select>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">Short Term Course</label>
+                    <select class="form-select" name="short_term_course_id" id="selSTC"></select>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">Batch</label>
+                    <select class="form-select" name="batch_id" id="selBatch"></select>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">Trainer</label>
+                    <select class="form-select" name="trainer_id" id="selTrainer"></select>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">College</label>
+                    <select class="form-select" name="college_id" id="selCollege"></select>
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <label class="form-label">Issue Date *</label>
+                    <input type="date" class="form-control" name="issue_date" required>
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <label class="form-label">Completion</label>
+                    <input type="date" class="form-control" name="completion_date">
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <label class="form-label">Duration (days)</label>
+                    <input type="number" class="form-control" name="duration_days">
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <label class="form-label">Grade</label>
+                    <input type="text" class="form-control" name="grade">
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <label class="form-label">Percentage</label>
+                    <input type="number" class="form-control" name="percentage" step="0.01" min="0" max="100">
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <label class="form-label">Status</label>
+                    <select class="form-select" name="status">
+                      <option>Issued</option>
+                      <option>Downloaded</option>
+                      <option>Verified</option>
+                      <option>Cancelled</option>
+                    </select>
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label">Certificate File — bucket: <code>certificates</code></label>
+                    <input type="file" class="form-control" id="certFile" accept=".pdf,.jpg,.jpeg,.png">
+                    <input type="hidden" name="certificate_file" id="certUrl">
+                    <small class="text-muted" id="certFileName"></small>
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label">Remarks</label>
+                    <textarea class="form-control" name="remarks" rows="2"></textarea>
+                  </div>
+                </div>
+                <div id="formError" class="alert alert-danger d-none mt-3 mb-0"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary" id="saveBtn">Save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+<script src="../assets/js/supabase-config.js"></script>
+<script src="../assets/js/admin-crud.js"></script>
+<script src="../assets/js/rbac.js"></script>
+
+<script>
+if (!SIIT.Session.requireAuth()) {}
+RBAC.enforce();
+
+const user = SIIT.Session.get();
+if (user) document.getElementById('userName').textContent = user.full_name || user.email;
+
+document.getElementById('sidebarToggle')?.addEventListener('click', () => {
+  document.getElementById('sidebar').classList.toggle('show');
+});
+
+SIIT.initSupabase();
+
+const TABLE = 'short_term_certificates';
+let allRows = [], editId = null, studentMap = {};
+const modal = new bootstrap.Modal(document.getElementById('crudModal'));
+const form = document.getElementById('crudForm');
+
+async function loadDropdowns() {
+  await AdminCRUD.fillSelect('#selStudent', 'students', {
+    valueKey: 'id',
+    labelKey: 'full_name',
+    order: 'full_name',
+    placeholder: '— Select —',
+    extraLabel: 'college_roll_no'
+  });
+  await AdminCRUD.fillSelect('#selCourse', 'courses', {
+    valueKey: 'id',
+    labelKey: 'course_name',
+    order: 'course_name',
+    placeholder: '— Select —'
+  });
+  await AdminCRUD.fillSelect('#selBatch', 'batches', {
+    valueKey: 'id',
+    labelKey: 'batch_name',
+    order: 'batch_name',
+    placeholder: '— Optional —'
+  });
+  await AdminCRUD.fillSelect('#selTrainer', 'trainers', {
+    valueKey: 'id',
+    labelKey: 'full_name',
+    order: 'full_name',
+    placeholder: '— Optional —'
+  });
+  await AdminCRUD.fillSelect('#selCollege', 'colleges', {
+    valueKey: 'id',
+    labelKey: 'college_name',
+    order: 'college_name',
+    placeholder: '— Optional —'
+  });
+
+  try {
+    const stc = await AdminCRUD.list('short_term_courses', { order: 'sr_no', ascending: true });
+    const sel = document.getElementById('selSTC');
+    if (sel) {
+      sel.innerHTML = '<option value="">— Optional —</option>' +
+        stc.map(c => `<option value="${c.id}">${SIIT.Utils.escapeHtml(c.course_name)}</option>`).join('');
+    }
+  } catch (_) {}
+
+  (await AdminCRUD.list('students')).forEach(s => studentMap[s.id] = s.full_name);
+}
+
+document.getElementById('selStudent')?.addEventListener('change', function () {
+  const id = this.value;
+  if (id && studentMap[id]) document.getElementById('studentName').value = studentMap[id];
+});
+
+document.getElementById('certFile')?.addEventListener('change', e => {
+  document.getElementById('certFileName').textContent = e.target.files[0]?.name || '';
+});
+
+function render(rows) {
+  const tbody = document.getElementById('dataBody');
+  document.getElementById('recordCount').textContent = rows.length + ' certificates';
+
+  if (!rows.length) {
+    tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted py-4">No certificates</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = rows.map(row => `<tr>
+    <td>${SIIT.Utils.escapeHtml(row.certificate_no || '')}</td>
+    <td>${SIIT.Utils.escapeHtml(row.student_name || studentMap[row.student_id] || '—')}</td>
+    <td>${SIIT.Utils.escapeHtml(row.certificate_title || '—')}</td>
+    <td>${SIIT.Utils.formatDate(row.issue_date)}</td>
+    <td>${SIIT.Utils.escapeHtml(row.grade || '—')}</td>
+    <td>${row.certificate_file
+      ? `<a href="${SIIT.Utils.escapeHtml(row.certificate_file)}" target="_blank" class="btn btn-sm btn-outline-success"><i class="fas fa-file"></i></a>`
+      : '—'}</td>
+    <td><span class="badge bg-success">${SIIT.Utils.escapeHtml(row.status || '')}</span></td>
+    <td class="text-nowrap">
+      <button class="btn btn-sm btn-outline-primary me-1" onclick="openForm(${row.id})">
+        <i class="fas fa-edit"></i>
+      </button>
+      <button class="btn btn-sm btn-outline-danger" onclick="deleteRow(${row.id})">
+        <i class="fas fa-trash"></i>
+      </button>
+    </td>
+  </tr>`).join('');
+}
+
+async function loadData() {
+  try {
+    await loadDropdowns();
+    allRows = await AdminCRUD.list(TABLE, { order: 'id', ascending: false });
+    render(allRows);
+  } catch (e) {
+    document.getElementById('dataBody').innerHTML =
+      `<tr><td colspan="8" class="text-danger text-center">${SIIT.Utils.escapeHtml(e.message)}</td></tr>`;
+  }
+}
+
+async function openForm(id) {
+  editId = id || null;
+  form.reset();
+  document.getElementById('formError').classList.add('d-none');
+  document.getElementById('certFileName').textContent = '';
+  document.getElementById('modalTitle').textContent = id ? 'Edit Certificate' : 'Add Certificate';
+
+  await loadDropdowns();
+
+  if (id) {
+    const row = allRows.find(r => r.id == id);
+    if (row) {
+      AdminCRUD.fillForm(form, row);
+      if (row.certificate_file) document.getElementById('certUrl').value = row.certificate_file;
+    }
+  } else {
+    form.elements['issue_date'].value = new Date().toISOString().slice(0, 10);
+    form.elements['certificate_no'].value = 'STC-' + Date.now().toString().slice(-8);
+  }
+  modal.show();
+}
+
+async function deleteRow(id) {
+  if (!AdminCRUD.confirmDelete('certificate')) return;
+  try {
+    await AdminCRUD.remove(TABLE, id);
+    SIIT.Utils.toast('Deleted');
+    loadData();
+  } catch (e) {
+    SIIT.Utils.toast(e.message, 'error');
+  }
+}
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('saveBtn');
+  btn.disabled = true;
+
+  try {
+    const payload = AdminCRUD.formData(form);
+    delete payload.id;
+    delete payload.short_term_course_id;
+
+    ['student_id', 'course_id', 'batch_id', 'trainer_id', 'college_id', 'duration_days'].forEach(k => {
+      if (payload[k]) payload[k] = Number(payload[k]);
+      else if (!['student_id', 'course_id'].includes(k)) payload[k] = null;
+    });
+
+    if (payload.percentage) payload.percentage = Number(payload.percentage);
+    else payload.percentage = null;
+
+    if (!payload.completion_date) payload.completion_date = null;
+
+    const file = document.getElementById('certFile').files[0];
+    if (file) {
+      const up = await AdminCRUD.uploadFile('certificates', file, 'short-term');
+      payload.certificate_file = up.publicUrl;
+    }
+
+    if (editId) await AdminCRUD.update(TABLE, editId, payload);
+    else await AdminCRUD.insert(TABLE, payload);
+
+    SIIT.Utils.toast('Saved');
+    modal.hide();
+    loadData();
+  } catch (err) {
+    document.getElementById('formError').textContent = err.message;
+    document.getElementById('formError').classList.remove('d-none');
+  }
+  btn.disabled = false;
+});
+
+/* ============================================================
+   FIND OR CREATE STUDENT BY NAME
+   ============================================================ */
+async function findOrCreateStudent(fullName, rollNo = '') {
+  if (!fullName) throw new Error('Student name is required');
+
+  // 1. Try exact / case-insensitive match
+  try {
+    const existing = await AdminCRUD.list('students', {
+      filter: { full_name: { ilike: fullName } },
+      limit: 1
+    });
+    if (existing && existing.length) return existing[0].id;
+  } catch (_) {}
+
+  // fallback: fetch all and match in JS (in case AdminCRUD filter syntax differs)
+  try {
+    const all = await AdminCRUD.list('students');
+    const found = all.find(s =>
+      (s.full_name || '').trim().toLowerCase() === fullName.trim().toLowerCase()
+    );
+    if (found) return found.id;
+  } catch (_) {}
+
+  // 2. Create new student
+  const newStudent = {
+    full_name: fullName.trim(),
+    college_roll_no: rollNo || null,
+    status: 'Active'
+  };
+
+  const created = await AdminCRUD.insert('students', newStudent);
+  // AdminCRUD.insert usually returns the inserted row or { id }
+  return created?.id || created?.[0]?.id || created;
+}
+
+/* ============================================================
+   GET A DEFAULT COURSE ID (first course in the system)
+   ============================================================ */
+async function getDefaultCourseId() {
+  try {
+    const courses = await AdminCRUD.list('courses', { order: 'id', ascending: true, limit: 1 });
+    if (courses && courses.length) return courses[0].id;
+  } catch (_) {}
+  return null;
+}
+
+/* ============================================================
+   IMPROVED EXCEL / CSV IMPORT
+   ============================================================ */
+document.getElementById('excelFile')?.addEventListener('change', async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  try {
+    SIIT.Utils.toast('Reading file…');
+
+    const data = await file.arrayBuffer();
+    const workbook = XLSX.read(data, { type: 'array' });
+    const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+    const rows = XLSX.utils.sheet_to_json(firstSheet, { defval: '' });
+
+    if (!rows.length) throw new Error('Empty file');
+
+    // Get a default course once (required by NOT NULL / FK)
+    const defaultCourseId = await getDefaultCourseId();
+    if (!defaultCourseId) {
+      throw new Error('No course found in the system. Please add at least one course first.');
+    }
+
+    let ok = 0, fail = 0;
+
+    for (const raw of rows) {
+      // Normalize keys
+      const row = {};
+      Object.keys(raw).forEach(k => {
+        row[k.trim().toLowerCase()] = String(raw[k]).trim();
+      });
+
+      const certificate_no =
+        row['certificate no.'] ||
+        row['certificate no'] ||
+        row['certificate_no'] ||
+        row['cert no'] ||
+        ('IMP-' + Date.now() + '-' + Math.floor(Math.random() * 1000));
+
+      const student_name =
+        row['name of candiates'] ||          // exact spelling in Excel
+        row['name of candidates'] ||
+        row['student name'] ||
+        row['name'] ||
+        '';
+
+      const rollNo =
+        row['roll no'] ||
+        row['roll_no'] ||
+        row['roll'] ||
+        '';
+
+      if (!student_name) {
+        fail++;
+        continue;
+      }
+
+      try {
+        // Find or create the student → get real student_id
+        const studentId = await findOrCreateStudent(student_name, rollNo);
+
+        const payload = {
+          certificate_no: certificate_no,
+          student_name: student_name,
+          student_id: Number(studentId),
+          course_id: Number(defaultCourseId),
+          certificate_title: 'MSC SC Certificate',
+          grade: null,
+          issue_date: new Date().toISOString().slice(0, 10),
+          status: 'Issued',
+          remarks: rollNo ? `Roll No: ${rollNo}` : null
+        };
+
+        await AdminCRUD.insert(TABLE, payload);
+        ok++;
+      } catch (err) {
+        console.warn('Row failed:', student_name, err);
+        fail++;
+      }
+    }
+
+    SIIT.Utils.toast(`Imported ${ok} certificates` + (fail ? `, ${fail} skipped` : ''));
+    loadData();
+  } catch (err) {
+    console.error(err);
+    SIIT.Utils.toast(err.message || 'Import failed', 'error');
+  }
+
+  e.target.value = '';
+});
+
+document.getElementById('searchInput')?.addEventListener('input', () => {
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  render(!q ? allRows : allRows.filter(r => JSON.stringify(r).toLowerCase().includes(q)));
+});
+
+loadData();
+</script>
+</body>
+</html>

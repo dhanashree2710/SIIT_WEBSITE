@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sujata Institute of Information and Technology | Empowering Through Education</title>
+  <meta name="description" content="Sujata Institute offers quality education, skill development, training & internship programs, and placement support in Pune, Maharashtra.">
+  <link rel="icon" href="assets/img/logo.png" type="image/png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+  <style>
+    .placed-scroll-wrapper {
+      overflow: hidden;
+      position: relative;
+      mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+    }
+    .placed-track {
+      display: flex;
+      gap: 1.25rem;
+      width: max-content;
+      animation: scroll-left 40s linear infinite;
+    }
+    .placed-track:hover { animation-play-state: paused; }
+    @keyframes scroll-left {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .placed-card {
+      width: 280px;
+      flex-shrink: 0;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.07);
+      padding: 1.5rem;
+      text-align: center;
+      transition: transform .2s;
+    }
+    .placed-card:hover { transform: translateY(-3px); }
+    .placed-card .student-photo {
+      width: 80px; height: 80px;
+      border-radius: 50%; object-fit: cover;
+      border: 3px solid #e8f0fe; margin-bottom: .85rem;
+    }
+    .placed-card .photo-placeholder {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #fff; display: inline-flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; font-weight: 700; margin-bottom: .85rem;
+    }
+    .placed-card .student-name { font-weight: 700; font-size: 1.05rem; margin-bottom: .15rem; }
+    .placed-card .designation { color: #3b6ef8; font-weight: 600; font-size: .9rem; margin-bottom: .1rem; }
+    .placed-card .company { color: #666; font-size: .85rem; margin-bottom: .75rem; }
+    .placed-card .review {
+      font-size: .82rem; color: #555; line-height: 1.45; font-style: italic;
+      display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .placed-card .stars { color: #f5a623; font-size: .8rem; margin-bottom: .5rem; }
+
+    
+
+    
+
+    .course-card { cursor: pointer; }
+  </style>
+</head>
+<body>
+<div class="top-bar d-none d-md-block">
+  <div class="container d-flex justify-content-between align-items-center">
+    <div>
+      <a href="mailto:sujatainstitute2016@gmail.com"><i class="fas fa-envelope me-1"></i> sujatainstitute2016@gmail.com</a>
+      <span class="mx-2">|</span>
+      <a href="tel:+919096883042"><i class="fas fa-phone me-1"></i> +91-9096883042 / 9370387303 / 9699544383</a>
+    </div>
+  </div>
+</div>
+
+<nav class="navbar navbar-expand-lg sticky-top">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="index.html">
+      <img src="assets/img/logo.png" alt="SIIT Logo">
+      <span class="d-none d-lg-inline">Sujata Institute</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Programs</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="training-programs.html">Training Programs</a></li>
+            <li><a class="dropdown-item" href="training-internship.html">Training + Internship</a></li>
+            <li><a class="dropdown-item" href="short-term.html">Short Term Courses</a></li>
+            <li><a class="dropdown-item" href="college-programs.html">College Programs</a></li>
+            <li><a class="dropdown-item" href="corporate.html">Corporate Training</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="placement.html">Placement</a></li>
+        <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+        <li class="nav-item"><a class="nav-link" href="blogs.html">Blogs</a></li>
+        <li class="nav-item"><a class="nav-link" href="student-portal.html">Student Portal</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+      </ul>
+      <a href="enquiry.html" class="btn btn-enquiry">Enquire Now</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero-section">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-7 hero-content">
+        <h1>Empowering Futures Through <span>Quality Education</span> & Skills</h1>
+        <p>Sujata Institute of Information and Technology — certificate courses in IT, Finance, Digital Marketing & Soft Skills with placement support in Pune.</p>
+        <div class="hero-btns">
+          <a href="enquiry.html" class="btn btn-hero-primary"><i class="fas fa-rocket me-2"></i>Start Learning</a>
+          <a href="training-programs.html" class="btn btn-hero-outline"><i class="fas fa-book me-2"></i>View Courses</a>
+        </div>
+      </div>
+      <div class="col-lg-5 d-none d-lg-block text-center">
+        <img src="assets/img/logo.png" alt="SIIT" style="max-height:300px; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3));">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="stats-section">
+  <div class="container">
+    <div class="row g-3">
+      <div class="col-6 col-md-3"><div class="stat-card"><div class="stat-icon" style="background:linear-gradient(135deg,#0d6efd,#6610f2)"><i class="fas fa-user-graduate"></i></div><h3 data-count="100000">0</h3><p>Students Trained</p></div></div>
+      <div class="col-6 col-md-3"><div class="stat-card"><div class="stat-icon" style="background:linear-gradient(135deg,#198754,#20c997)"><i class="fas fa-book-open"></i></div><h3 data-count="50">0</h3><p>Courses Offered</p></div></div>
+      <div class="col-6 col-md-3"><div class="stat-card"><div class="stat-icon" style="background:linear-gradient(135deg,#fd7e14,#ffc107)"><i class="fas fa-briefcase"></i></div><h3 data-count="75000">0</h3><p>Placements</p></div></div>
+      <div class="col-6 col-md-3"><div class="stat-card"><div class="stat-icon" style="background:linear-gradient(135deg,#dc3545,#e83e8c)"><i class="fas fa-building"></i></div><h3 data-count="50">0</h3><p>Partner Companies</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="py-5 mt-4">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-5 text-center">
+        <img src="assets/img/founder.jpg" alt="Founder" class="founder-img">
+        <h5 class="fw-bold mt-3 mb-0">Dr. Rushikesh Hiwale</h5>
+        <p class="text-muted">Founder</p>
+      </div>
+      <div class="col-lg-7">
+        <span class="badge-label">About Institute</span>
+        <h2 class="fw-bold mt-2">Sujata Institute of Information and Technology</h2>
+        <p class="text-muted">Reg.No. MH13E0000753 — committed to quality education, skill development and economic empowerment. MKCL authorized learning center with strong college MoUs and industry placement network.</p>
+        <a href="about.html" class="btn btn-outline-primary rounded-pill px-4">Know More</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== POPULAR COURSES ==================== -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <div class="section-title">
+      <span class="badge-label">Programs</span>
+      <h2>Popular Courses</h2>
+      <p>Live from our course catalog — job-oriented certificate programs</p>
+    </div>
+    <div class="row g-4" id="live-courses">
+      <div class="col-12 text-center py-4 text-muted">
+        <div class="spinner-border spinner-border-sm text-primary me-2"></div>Loading courses...
+      </div>
+    </div>
+    <div class="text-center mt-4">
+      <a href="training-programs.html" class="btn btn-outline-primary rounded-pill px-4">
+        View All Courses <i class="fas fa-arrow-right ms-2"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TRAINING + INTERNSHIP ==================== -->
+<section class="py-5">
+  <div class="container">
+    <div class="section-title">
+      <span class="badge-label">Programs</span>
+      <h2>Training + Internship</h2>
+      <p>Job-ready programs with real industry internship experience</p>
+    </div>
+    <div class="row g-4" id="live-internship-courses">
+      <div class="col-12 text-center py-4 text-muted">
+        <div class="spinner-border spinner-border-sm text-primary me-2"></div>Loading internship programs...
+      </div>
+    </div>
+    <div class="text-center mt-4">
+      <a href="training-internship.html" class="btn btn-outline-primary rounded-pill px-4">
+        View All Training + Internship <i class="fas fa-arrow-right ms-2"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PLACED STUDENTS ==================== -->
+<section class="py-5">
+  <div class="container">
+    <div class="section-title">
+      <span class="badge-label">Success Stories</span>
+      <h2>Our Placed Students</h2>
+      <p>Recent placements from Sujata Institute</p>
+    </div>
+
+    <div id="placedLoaderHome" class="text-center text-muted py-3">
+      <div class="spinner-border spinner-border-sm text-primary me-2"></div>Loading...
+    </div>
+
+    <div class="placed-scroll-wrapper" id="placedWrapperHome" style="display:none;">
+      <div class="placed-track" id="placedTrackHome"></div>
+    </div>
+
+    <div class="text-center mt-4">
+      <a href="placement.html" class="btn btn-outline-primary rounded-pill px-4">View All Placements</a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== MoU PARTNERS ==================== -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <div class="section-title">
+      <span class="badge-label">Partners</span>
+      <h2>MoU Partners</h2>
+      <p>Colleges and organizations we collaborate with</p>
+    </div>
+    <div class="row g-3 g-md-4 justify-content-center align-items-stretch" id="mou-partners"></div>
+    <div class="text-center mt-4">
+      <a href="gallery.html" class="btn btn-sm btn-outline-secondary rounded-pill">See All Partners</a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== WHAT OUR STUDENTS SAY ==================== -->
+<section class="py-5">
+  <div class="container">
+    <div class="section-title">
+      <span class="badge-label">Testimonials</span>
+      <h2>What Our Students Say</h2>
+      <p>Feedback from our learners</p>
+    </div>
+
+    <div id="testimonialsLoader" class="text-center py-3 text-muted">
+      <div class="spinner-border spinner-border-sm text-primary me-2"></div>Loading feedback...
+    </div>
+
+    <div class="placed-scroll-wrapper" id="testimonialsWrapper" style="display:none;">
+      <div class="placed-track" id="testimonialsTrack"></div>
+    </div>
+  </div>
+</section>
+
+<section class="py-5">
+  <div class="container">
+    <div class="cta-section">
+      <h2>Ready to Start Your Career Journey?</h2>
+      <p>Join students who transformed their careers with Sujata Institute. Enquire today.</p>
+      <a href="enquiry.html" class="btn"><i class="fas fa-paper-plane me-2"></i>Enquire Now</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <div class="brand-info">
+          <img src="assets/img/logo.png" alt="SIIT Logo">
+          <p>Sujata Institute of Information and Technology is committed to quality education, skill development, and empowering students for a brighter future.</p>
+        </div>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h5>Quick Links</h5>
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="training-programs.html">Courses</a>
+        <a href="placement.html">Placement</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h5>Programs</h5>
+        <a href="training-programs.html">Training Programs</a>
+        <a href="training-internship.html">Training + Internship</a>
+        <a href="short-term.html">Short Term</a>
+        <a href="college-programs.html">College Programs</a>
+        <a href="corporate.html">Corporate</a>
+      </div>
+      <div class="col-lg-4">
+        <h5>Get In Touch</h5>
+        <div class="contact-item"><i class="fas fa-map-marker-alt"></i><span>Office No.03, First Floor, Sagar Apartment, Parihar Chowk, Sanghvi Nagar, Ward No. 8, Sadhu Vasvani Nagar, Aundh, Pune, Maharashtra 411067</span></div>
+        <div class="contact-item"><i class="fas fa-envelope"></i><span>sujatainstitute2016@gmail.com</span></div>
+        <div class="contact-item"><i class="fas fa-phone"></i><span>+(91)-9096883042 / 9370387303 / 9699544383</span></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="mb-0">&copy; 2026 <a href="index.html" class="ft-siit">Sujata Institute of Information and Technology</a>. All Rights Reserved. | Design by <a href="https://kdrtitsolutions.com" target="_blank" rel="noopener" class="ft-kdrt">KDRT IT Solutions LLP</a></p>
+    </div>
+  </div>
+</footer>
+
+<!-- Course / Internship modules + enquiry modal -->
+<div class="modal fade" id="moduleViewModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg">
+    <div class="modal-content border-0 shadow-lg" style="border-radius:16px;overflow:hidden">
+      <div class="modal-header border-0 pb-0">
+        <h5 class="modal-title fw-bold">
+          <i class="fas fa-list-ol text-primary me-2"></i>
+          <span id="mvCourseName"></span> — Full Syllabus
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body pt-2">
+        <div id="mvBody" class="mb-3">
+          <div class="text-center py-4"><div class="spinner-border spinner-border-sm text-primary"></div></div>
+        </div>
+        <hr>
+        <h6 class="fw-bold mb-2"><i class="fas fa-paper-plane text-success me-2"></i>Enquire about this program</h6>
+        <form id="mvEnquiryForm" class="row g-2">
+          <input type="hidden" name="course" id="mvCourseHidden">
+          <div class="col-md-6">
+            <input type="text" class="form-control" name="name" placeholder="Your Name *" required>
+          </div>
+          <div class="col-md-6">
+            <input type="tel" class="form-control" name="phone" placeholder="Mobile *" required pattern="[0-9]{10}">
+          </div>
+          <div class="col-12">
+            <input type="email" class="form-control" name="email" placeholder="Email (optional)">
+          </div>
+          <div class="col-12">
+            <textarea class="form-control" name="message" rows="2" placeholder="Message (optional)"></textarea>
+          </div>
+          <div class="col-12 d-flex gap-2 flex-wrap">
+            <button type="submit" class="btn btn-success rounded-pill px-4">
+              <i class="fab fa-whatsapp me-1"></i> Submit Enquiry
+            </button>
+            <a href="enquiry.html" id="mvFullEnquiry" class="btn btn-outline-primary rounded-pill px-4">Full Enquiry Form</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-config.js"></script>
+
+<script>
+  /* =========================================================
+     FALLBACK DATA
+  ========================================================= */
+  const FALLBACK_COURSES = [
+    { id: null, course_name: 'Tally with GST', category: 'Finance', description: 'Practical accounting & GST filing for finance careers.' },
+    { id: null, course_name: 'Full Stack Development', category: 'IT', description: 'Frontend, backend, databases & complete web apps.' },
+    { id: null, course_name: 'Power BI', category: 'Data', description: 'Interactive dashboards and business intelligence.' },
+    { id: null, course_name: 'AI using Python', category: 'IT', description: 'Machine learning basics and AI applications.' },
+    { id: null, course_name: 'Digital Marketing', category: 'Marketing', description: 'SEO, social media and online advertising.' },
+    { id: null, course_name: 'Flutter / Android', category: 'Mobile', description: 'Mobile app development with live projects.' }
+  ];
+
+  const FALLBACK_INTERNSHIP = [
+    { id: null, program_name: 'Full Stack + Internship', program_type: 'Internship', description: 'Complete web development with 1–3 month industry internship.' },
+    { id: null, program_name: 'Python + Data Science Internship', program_type: 'Internship', description: 'Python, ML basics + real project internship.' },
+    { id: null, program_name: 'Digital Marketing + Internship', program_type: 'Internship', description: 'SEO, Ads & Social Media with live campaign internship.' },
+    { id: null, program_name: 'Tally GST + Finance Internship', program_type: 'Internship', description: 'Accounting + GST with practical finance internship.' }
+  ];
+
+  const FALLBACK_TESTIMONIALS = [
+    { name: 'Rahul S.', designation: 'Full Stack Developer', rating: 5, review: 'Full Stack course gave me practical skills. Placed within 2 months. Trainers are excellent!' },
+    { name: 'Priya M.', designation: 'Python Developer', rating: 5, review: 'Best institute for skill development in Pune. Affordable fees and real placement support.' },
+    { name: 'Amit K.', designation: 'Software Intern', rating: 4.5, review: 'Training + Internship helped me gain real project experience. Strong industry connections.' }
+  ];
+
+  const MOU_LOGOS = [
+    { src: 'assets/img/mou/Anantrao Pawar College, Pirangut.png', alt: 'Anantrao Pawar College' },
+    { src: 'assets/img/mou/Baburaoji Gholap College, Sangvi.png', alt: 'Baburaoji Gholap College' },
+    { src: 'assets/img/mou/Camp eduction society-  Dr.Arvind B.Telang Sr. College of Arts, Commerce, Science.jpg', alt: 'Camp Education Society' },
+    { src: 'assets/img/mou/Don Bosco Private Industrial Training Institute.png', alt: 'Don Bosco ITI' },
+    { src: 'assets/img/mou/Institute Of Science Poona\'s College Of Computer Sciences.png', alt: 'Institute Of Science Poona' },
+    { src: 'assets/img/mou/Maharashtra Knowledge Corporation Limited (MKCL) (KLic).png', alt: 'MKCL KLiC' },
+    { src: 'assets/img/mou/Maharashtra Knowledge Corporation Limited (MKCL).png', alt: 'MKCL' },
+    { src: 'assets/img/mou/Mamasaheb Mohol college, Paud Road.png', alt: 'Mamasaheb Mohol College' },
+    { src: 'assets/img/mou/Matrix school of managment studies.jpg', alt: 'Matrix School' },
+    { src: 'assets/img/mou/Pravara Rural Education Society.png', alt: 'Pravara Rural Education Society' },
+    { src: 'assets/img/mou/Signme studio.jpg', alt: 'Signme Studio' },
+    { src: 'assets/img/mou/Yardi Software India Private Limited.png', alt: 'Yardi Software' }
+  ];
+
+  /* =========================================================
+     HELPERS
+  ========================================================= */
+  function badgeClass(cat) {
+    const c = String(cat || '').toLowerCase();
+    if (c.includes('finance') || c.includes('account')) return 'bg-primary';
+    if (c.includes('data') || c.includes('bi')) return 'bg-warning text-dark';
+    if (c.includes('market')) return 'bg-danger';
+    if (c.includes('mobile') || c.includes('flutter') || c.includes('android')) return 'bg-secondary';
+    if (c.includes('soft') || c.includes('intern') || c.includes('training')) return 'bg-info text-dark';
+    return 'bg-success';
+  }
+
+  function starsHtml(rating) {
+    const r = Number(rating) || 5;
+    let html = '';
+    for (let i = 1; i <= 5; i++) {
+      if (r >= i) html += '<i class="fas fa-star"></i>';
+      else if (r >= i - 0.5) html += '<i class="fas fa-star-half-alt"></i>';
+      else html += '<i class="far fa-star"></i>';
+    }
+    return html;
+  }
+
+  function escapeHtml(str) {
+    if (str == null) return '';
+    return String(str)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function initials(name) {
+    if (!name) return '?';
+    return name.trim().split(/\s+/).slice(0, 2).map(w => w[0]).join('').toUpperCase();
+  }
+
+  function safeJsString(str) {
+    return String(str || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/\n/g, ' ');
+  }
+
+  /* =========================================================
+     MODULE + ENQUIRY MODAL
+     type: 'course' | 'internship'
+  ========================================================= */
+  async function showModules(id, name, type) {
+    const modalEl = document.getElementById('moduleViewModal');
+    const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+    document.getElementById('mvCourseName').textContent = name || 'Program';
+    document.getElementById('mvCourseHidden').value = name || '';
+    document.getElementById('mvFullEnquiry').href = 'enquiry.html?course=' + encodeURIComponent(name || '');
+    document.getElementById('mvBody').innerHTML =
+      '<div class="text-center py-4"><div class="spinner-border spinner-border-sm text-primary"></div></div>';
+    modal.show();
+
+    try {
+      const client = SIIT.initSupabase();
+      if (!client) throw new Error('Service unavailable');
+
+      let data = [];
+      if (type === 'internship' && id) {
+        const res = await client
+          .from('training_internship_modules')
+          .select('*')
+          .eq('training_internship_id', id)
+          .order('module_order', { ascending: true });
+        if (res.error) throw res.error;
+        data = res.data || [];
+      } else if (id) {
+        const res = await client
+          .from('course_modules')
+          .select('*')
+          .eq('course_id', id)
+          .order('module_order', { ascending: true });
+        if (res.error) throw res.error;
+        data = res.data || [];
+      }
+
+      if (!data.length) {
+        document.getElementById('mvBody').innerHTML =
+          '<p class="text-muted mb-0">Detailed module list coming soon. Please enquire below for the full syllabus.</p>';
+        return;
+      }
+
+      document.getElementById('mvBody').innerHTML =
+        '<ol class="list-group list-group-numbered">' +
+        data.map(m => `
+          <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+              <div class="fw-semibold">${escapeHtml(m.module_name)}</div>
+              ${m.description ? `<div class="small text-muted">${escapeHtml(m.description)}</div>` : ''}
+            </div>
+            ${m.duration_hours ? `<span class="badge bg-primary rounded-pill">${m.duration_hours} hrs</span>` : ''}
+          </li>`).join('') +
+        '</ol>';
+    } catch (e) {
+      document.getElementById('mvBody').innerHTML =
+        `<p class="text-muted mb-0">Modules will be shared after enquiry. You can still submit your interest below.</p>`;
+      console.warn('Modules load:', e);
+    }
+  }
+
+  // Enquiry form inside modal
+  document.getElementById('mvEnquiryForm')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const name = (fd.get('name') || '').trim();
+    const phone = (fd.get('phone') || '').trim();
+    const email = (fd.get('email') || '').trim();
+    const message = (fd.get('message') || '').trim();
+    const course = (fd.get('course') || '').trim();
+
+    try {
+      if (window.SIIT && SIIT.submitEnquiry) {
+        await SIIT.submitEnquiry({
+          name, phone, email, course, message, source: 'Home Module Popup'
+        });
+      }
+    } catch (_) {}
+
+    const text = encodeURIComponent(
+      `Hello SIIT,%0AName: ${name}%0AMobile: ${phone}%0ACourse: ${course}%0AMessage: ${message}`
+    );
+    window.open(`https://wa.me/919699544383?text=${text}`, '_blank');
+    bootstrap.Modal.getInstance(document.getElementById('moduleViewModal'))?.hide();
+    e.target.reset();
+  });
+
+  /* =========================================================
+     RENDER COURSE CARDS
+  ========================================================= */
+  function renderCourseCards(courses, targetId, fallbackList) {
+    const grid = document.getElementById(targetId);
+    if (!grid) return;
+
+    const list = (courses && courses.length ? courses : fallbackList).slice(0, 6);
+
+    if (!list.length) {
+      grid.innerHTML = `<div class="col-12 text-center text-muted py-4">No courses available right now.</div>`;
+      return;
+    }
+
+    grid.innerHTML = list.map(c => {
+      const id = c.id != null ? c.id : 'null';
+      const name = c.course_name || c.name || 'Course';
+      const cat  = c.category || c.course_type || 'Course';
+      const desc = (c.description || '').trim() || 'Job-oriented certificate program with practical training.';
+      return `
+        <div class="col-md-6 col-lg-4">
+          <div class="card course-card h-100 border-0 shadow-sm rounded-4 p-4"
+               role="button"
+               onclick="showModules(${id}, '${safeJsString(name)}', 'course')">
+            <span class="badge ${badgeClass(cat)} mb-2 align-self-start">${escapeHtml(String(cat).slice(0, 40))}</span>
+            <h5 class="fw-bold">${escapeHtml(name)}</h5>
+            <p class="text-muted small flex-grow-1">${escapeHtml(desc.slice(0, 110))}${desc.length > 110 ? '…' : ''}</p>
+            <div class="d-flex justify-content-between align-items-center mt-2">
+              <small class="text-muted"><i class="fas fa-list-ol me-1"></i> View syllabus</small>
+              <button type="button" class="btn btn-sm btn-outline-primary rounded-pill"
+                onclick="event.stopPropagation(); showModules(${id}, '${safeJsString(name)}', 'course')">
+                Enquire
+              </button>
+            </div>
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  /* =========================================================
+     RENDER TRAINING + INTERNSHIP CARDS
+  ========================================================= */
+  function renderInternshipCards(items) {
+    const grid = document.getElementById('live-internship-courses');
+    if (!grid) return;
+
+    const list = (items && items.length ? items : FALLBACK_INTERNSHIP).slice(0, 6);
+
+    if (!list.length) {
+      grid.innerHTML = `<div class="col-12 text-center text-muted py-4">No Training + Internship programs available right now.</div>`;
+      return;
+    }
+
+    grid.innerHTML = list.map(item => {
+      const id = item.id != null ? `'${item.id}'` : 'null';  // uuid string
+      const name = item.program_name || 'Program';
+      const type = item.program_type || 'Internship';
+      const desc = (item.description || '').trim() || 'Job-ready program with real industry experience.';
+      const duration = item.duration
+        ? `<span class="text-muted small d-block mt-1"><i class="far fa-clock me-1"></i>${escapeHtml(item.duration)}</span>`
+        : '';
+      const mode = item.mode
+        ? `<span class="badge bg-light text-dark border ms-1">${escapeHtml(item.mode)}</span>`
+        : '';
+
+      return `
+        <div class="col-md-6 col-lg-4">
+          <div class="card course-card h-100 border-0 shadow-sm rounded-4 p-4"
+               role="button"
+               onclick="showModules(${id}, '${safeJsString(name)}', 'internship')">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <span class="badge ${badgeClass(type)}">${escapeHtml(type)}</span>
+              ${mode}
+            </div>
+            <h5 class="fw-bold">${escapeHtml(name)}</h5>
+            <p class="text-muted small flex-grow-1">${escapeHtml(desc.slice(0, 110))}${desc.length > 110 ? '…' : ''}</p>
+            ${duration}
+            <div class="d-flex justify-content-between align-items-center mt-2">
+              <small class="text-muted"><i class="fas fa-list-ol me-1"></i> View syllabus</small>
+              <button type="button" class="btn btn-sm btn-outline-primary rounded-pill"
+                onclick="event.stopPropagation(); showModules(${id}, '${safeJsString(name)}', 'internship')">
+                Enquire
+              </button>
+            </div>
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  /* =========================================================
+     FETCH POPULAR COURSES
+  ========================================================= */
+  async function fetchAndRenderCourses() {
+    try {
+      if (typeof SIIT !== 'undefined' && typeof SIIT.fetchCourses === 'function') {
+        const courses = await SIIT.fetchCourses(true);
+        renderCourseCards(courses, 'live-courses', FALLBACK_COURSES);
+        return;
+      }
+
+      const client = SIIT.initSupabase();
+      if (!client) throw new Error('Supabase not ready');
+
+      const { data, error } = await client
+        .from('courses')
+        .select('*')
+        .order('id', { ascending: false })
+        .limit(6);
+
+      if (error) throw error;
+      renderCourseCards(data, 'live-courses', FALLBACK_COURSES);
+    } catch (e) {
+      console.warn('Courses fetch error:', e);
+      renderCourseCards(null, 'live-courses', FALLBACK_COURSES);
+    }
+  }
+
+  /* =========================================================
+     FETCH TRAINING + INTERNSHIP
+  ========================================================= */
+  async function fetchAndRenderInternship() {
+    try {
+      const client = SIIT.initSupabase();
+      if (!client) throw new Error('Supabase not ready');
+
+      const { data, error } = await client
+        .from('training_internships')
+        .select('*')
+        .in('status', ['Active', 'Upcoming'])
+        .order('created_at', { ascending: false })
+        .limit(6);
+
+      if (error) throw error;
+      renderInternshipCards(data);
+    } catch (e) {
+      console.warn('Internship programs error:', e);
+      renderInternshipCards(null);
+    }
+  }
+
+  /* =========================================================
+     TESTIMONIALS
+  ========================================================= */
+  function renderTestimonials(items) {
+    const loader  = document.getElementById('testimonialsLoader');
+    const wrapper = document.getElementById('testimonialsWrapper');
+    const track   = document.getElementById('testimonialsTrack');
+    if (!track) return;
+
+    const list = (items && items.length ? items : FALLBACK_TESTIMONIALS).slice(0, 12);
+
+    if (!list.length) {
+      if (loader) loader.innerHTML = '<span class="text-muted">No testimonials yet.</span>';
+      return;
+    }
+
+    if (loader)  loader.style.display = 'none';
+    if (wrapper) wrapper.style.display = '';
+
+    function cardHtml(t) {
+      const name = t.name || 'Student';
+      const photo = t.photo
+        ? `<img src="${escapeHtml(t.photo)}" class="student-photo" alt="${escapeHtml(name)}" loading="lazy"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex'">`
+        : '';
+      const placeholder = `<div class="photo-placeholder" style="${t.photo ? 'display:none' : ''}">${escapeHtml(initials(name))}</div>`;
+      const review = t.review
+        ? `<div class="review">"${escapeHtml(t.review)}"</div>`
+        : `<div class="review text-muted">Great learning experience at SIIT.</div>`;
+
+      return `
+        <div class="placed-card">
+          ${photo}${placeholder}
+          <div class="student-name">${escapeHtml(name)}</div>
+          <div class="designation">${escapeHtml(t.designation || 'Learner')}</div>
+          <div class="stars">${starsHtml(t.rating || 5)}</div>
+          ${review}
+        </div>`;
+    }
+
+    const html = list.map(cardHtml).join('');
+    track.innerHTML = html + html;
+    track.style.animationDuration = Math.max(30, list.length * 4) + 's';
+  }
+
+  /* =========================================================
+     PLACEMENTS
+  ========================================================= */
+  async function renderPlacements() {
+    const loader  = document.getElementById('placedLoaderHome');
+    const wrapper = document.getElementById('placedWrapperHome');
+    const track   = document.getElementById('placedTrackHome');
+    if (!track) return;
+
+    try {
+      const client = SIIT.initSupabase();
+      if (!client) throw new Error('Supabase not ready');
+
+      const { data, error } = await client
+        .from('placed_students')
+        .select(`id, manual_student_name, designation, student_review, student_photo_url, company_id, placement_status`)
+        .order('id', { ascending: false })
+        .limit(20);
+
+      if (error) throw error;
+
+      let companies = {};
+      try {
+        const { data: cos } = await client.from('companies').select('id, company_name');
+        (cos || []).forEach(c => { companies[c.id] = c.company_name; });
+      } catch (_) {}
+
+      const rows = (data || []).filter(r =>
+        !r.placement_status ||
+        ['Selected', 'Offer Issued', 'Accepted', 'Joined'].includes(r.placement_status)
+      );
+
+      if (!rows.length) {
+        if (loader) loader.innerHTML = '<span class="text-muted">No placements to show yet.</span>';
+        return;
+      }
+
+      if (loader)  loader.style.display = 'none';
+      if (wrapper) wrapper.style.display = '';
+
+      function cardHtml(row) {
+        const name = row.manual_student_name || 'Student';
+        const companyName = companies[row.company_id] || 'Company';
+        const photo = row.student_photo_url
+          ? `<img src="${escapeHtml(row.student_photo_url)}" class="student-photo" alt="${escapeHtml(name)}" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex'">`
+          : '';
+        const placeholder = `<div class="photo-placeholder" style="${row.student_photo_url ? 'display:none' : ''}">${escapeHtml(initials(name))}</div>`;
+        const review = row.student_review
+          ? `<div class="review">"${escapeHtml(row.student_review)}"</div>`
+          : `<div class="review text-muted">Proud to be placed through SIIT.</div>`;
+
+        return `
+          <div class="placed-card">
+            ${photo}${placeholder}
+            <div class="student-name">${escapeHtml(name)}</div>
+            <div class="designation">${escapeHtml(row.designation || '')}</div>
+            <div class="company"><i class="fas fa-building me-1"></i>${escapeHtml(companyName)}</div>
+            <div class="stars">★★★★★</div>
+            ${review}
+          </div>`;
+      }
+
+      const html = rows.map(cardHtml).join('');
+      track.innerHTML = html + html;
+      track.style.animationDuration = Math.max(30, rows.length * 4) + 's';
+    } catch (e) {
+      console.warn('Placements error:', e);
+      if (loader) loader.innerHTML = '<span class="text-muted">Placement data unavailable.</span>';
+    }
+  }
+
+  /* =========================================================
+     MoU LOGOS
+  ========================================================= */
+  function renderMou() {
+    const el = document.getElementById('mou-partners');
+    if (!el) return;
+    el.innerHTML = MOU_LOGOS.map(p => `
+      <div class="col-6 col-sm-4 col-md-3 col-lg-2 d-flex">
+        <div class="partner-logo-box w-100">
+          <img src="${p.src}" alt="${escapeHtml(p.alt)}" class="partner-logo" loading="lazy"
+               onerror="this.style.display='none'">
+        </div>
+      </div>`).join('');
+  }
+
+  /* =========================================================
+     COUNTERS
+  ========================================================= */
+  function animateCounters() {
+    document.querySelectorAll('[data-count]').forEach(el => {
+      const target = +el.dataset.count || 0;
+      if (!target) { el.textContent = '0'; return; }
+      let current = 0;
+      const step = Math.max(1, Math.ceil(target / 60));
+      const timer = setInterval(() => {
+        current += step;
+        if (current >= target) { current = target; clearInterval(timer); }
+        el.textContent = current.toLocaleString('en-IN') + (target >= 20 ? '+' : '');
+      }, 25);
+    });
+  }
+
+  let countersStarted = false;
+  function startCountersWhenVisible() {
+    const statsEl = document.querySelector('.stats-section');
+    if (!statsEl) return;
+    const observer = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting && !countersStarted) {
+        countersStarted = true;
+        animateCounters();
+        observer.disconnect();
+      }
+    }, { threshold: 0.25 });
+    observer.observe(statsEl);
+  }
+
+  window.addEventListener('scroll', () => {
+    document.querySelector('.navbar')?.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  /* =========================================================
+     INIT
+  ========================================================= */
+  (async function initHome() {
+    renderMou();
+
+    try {
+      SIIT.initSupabase();
+
+      await Promise.all([
+        fetchAndRenderCourses(),
+        fetchAndRenderInternship(),
+        (async () => {
+          const testimonials = await SIIT.fetchTestimonials(8);
+          renderTestimonials(testimonials);
+        })(),
+        renderPlacements()
+      ]);
+    } catch (e) {
+      console.warn(e);
+      renderCourseCards(null, 'live-courses', FALLBACK_COURSES);
+      renderInternshipCards(null);
+      renderTestimonials(null);
+      renderPlacements();
+    }
+
+    startCountersWhenVisible();
+  })();
+</script>
+
+<script src="assets/js/course-enquiry-popup.js"></script>
+</body>
+</html>

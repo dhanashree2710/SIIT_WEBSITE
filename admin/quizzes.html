@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quizzes | SIIT ERP</title>
+  <link rel="icon" href="../assets/img/logo.png" type="image/png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="../assets/css/style.css" rel="stylesheet">
+  <style>
+    .modal-dialog-scrollable .modal-body { max-height: min(70vh, 520px); overflow-y: auto; }
+    @media (max-width: 576px) {
+      .modal-dialog { margin: 0.5rem; }
+      .admin-topbar h5 { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="admin-wrapper">
+  <aside class="admin-sidebar" id="sidebar">
+    <a href="dashboard.html" class="sidebar-brand text-decoration-none text-white"><img src="../assets/img/logo.png" alt="Logo"><span>SIIT ERP</span></a>
+    <div class="nav-section"><div class="nav-section-title">Main</div>
+      <a href="dashboard.html" class="nav-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+      <a href="users.html" class="nav-link"><i class="fas fa-users"></i> Users</a>
+      <a href="colleges.html" class="nav-link"><i class="fas fa-university"></i> Colleges</a>
+      <a href="courses.html" class="nav-link"><i class="fas fa-book"></i> Courses</a>
+      <a href="trainers.html" class="nav-link"><i class="fas fa-chalkboard-teacher"></i> Trainers</a>
+      <a href="students.html" class="nav-link"><i class="fas fa-user-graduate"></i> Students</a>
+      <a href="batches.html" class="nav-link"><i class="fas fa-layer-group"></i> Batches</a>
+    </div>
+    <div class="nav-section"><div class="nav-section-title">Academic</div>
+      <a href="attendance.html" class="nav-link"><i class="fas fa-qrcode"></i> Attendance</a>
+      <a href="quizzes.html" class="nav-link active"><i class="fas fa-question-circle"></i> Quizzes</a>
+      <a href="assessments.html" class="nav-link"><i class="fas fa-clipboard-check"></i> Assessments</a>
+      <a href="tasks.html" class="nav-link"><i class="fas fa-tasks"></i> Tasks</a>
+      <a href="feedback-forms.html" class="nav-link"><i class="fas fa-comment-dots"></i> Feedback Forms</a>
+      <a href="certificates.html" class="nav-link"><i class="fas fa-certificate"></i> Certificates</a>
+      <a href="training-internships.html" class="nav-link"><i class="fas fa-user-tie"></i> Training + Internship</a>
+      <a href="short-term-certificates.html" class="nav-link"><i class="fas fa-award"></i> ST Certificates</a>
+      <a href="short-term-courses.html" class="nav-link"><i class="fas fa-graduation-cap"></i> ST Course Catalog</a>
+      <a href="events.html" class="nav-link"><i class="fas fa-calendar-alt"></i> Events</a>
+    </div>
+    <div class="nav-section"><div class="nav-section-title">Finance & Placement</div>
+      <a href="fees.html" class="nav-link"><i class="fas fa-rupee-sign"></i> Fees</a>
+      <a href="finance.html" class="nav-link"><i class="fas fa-chart-pie"></i> Finance</a>
+      <a href="companies.html" class="nav-link"><i class="fas fa-building"></i> Companies</a>
+      <a href="placements.html" class="nav-link"><i class="fas fa-briefcase"></i> Placed Candidates</a>
+    </div>
+    <div class="nav-section"><div class="nav-section-title">Website</div>
+      <a href="enquiries.html" class="nav-link"><i class="fas fa-envelope-open-text"></i> Enquiries</a>
+      <a href="gallery.html" class="nav-link"><i class="fas fa-images"></i> Gallery</a>
+      <a href="blogs.html" class="nav-link"><i class="fas fa-blog"></i> Blogs</a>
+      <a href="settings.html" class="nav-link"><i class="fas fa-cog"></i> Settings</a>
+    </div>
+  </aside>
+  <div class="admin-content">
+    <div class="admin-topbar">
+      <div class="d-flex align-items-center gap-3">
+        <button class="btn btn-sm btn-outline-secondary d-lg-none" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+        <h5 class="mb-0 fw-bold">Quizzes</h5>
+      </div>
+      <div class="d-flex align-items-center gap-3">
+        <span class="text-muted small" id="userName">Admin</span>
+        <button class="btn btn-sm btn-outline-danger" onclick="SIIT.logoutUser()"><i class="fas fa-sign-out-alt"></i></button>
+      </div>
+    </div>
+    <div class="admin-main">
+      <div class="dashboard-card">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+          <div><h6 class="fw-bold mb-0">Quizzes</h6><small class="text-muted" id="recordCount">Loading...</small></div>
+          <div class="d-flex gap-2 flex-wrap">
+            <input type="search" class="form-control form-control-sm" id="searchInput" placeholder="Search..." style="min-width:160px">
+            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="loadData()"><i class="fas fa-sync-alt"></i></button>
+            <button type="button" class="btn btn-sm btn-primary" onclick="openForm()"><i class="fas fa-plus me-1"></i>Add New</button>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+              <tr>
+                <th>Code</th><th>Title</th><th>College</th><th>Batch</th><th>Course</th><th>Trainer</th><th>Duration</th><th>Status</th><th width="160">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="dataBody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal fade" id="crudModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
+          <div class="modal-content">
+            <form id="crudForm" enctype="multipart/form-data">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Add Quiz</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+              <div class="modal-body">
+                <input type="hidden" name="id" id="recordId">
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="form-label">Quiz Code</label>
+                    <input type="text" class="form-control" name="quiz_code" placeholder="e.g. QZ-001">
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Title *</label>
+                    <input type="text" class="form-control" name="title" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">College</label>
+                    <select class="form-select" name="college_id" id="selCollege">
+                      <option value="">— Optional —</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Batch</label>
+                    <select class="form-select" name="batch_id" id="selBatch">
+                      <option value="">— Optional —</option>
+                    </select>
+                    <div class="form-text">Filtered by college. Selecting a batch can auto-fill course &amp; trainer.</div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Course *</label>
+                    <select class="form-select" name="course_id" id="selCourse" required>
+                      <option value="">Loading...</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Module</label>
+                    <select class="form-select" name="module_id" id="selModule">
+                      <option value="">— Select course first —</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Trainer</label>
+                    <select class="form-select" name="trainer_id" id="selTrainer">
+                      <option value="">Loading...</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Status</label>
+                    <select class="form-select" name="status">
+                      <option value="Draft">Draft</option>
+                      <option value="Published">Published</option>
+                      <option value="Closed">Closed</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label">Total Marks</label>
+                    <input type="number" class="form-control" name="total_marks" value="100">
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label">Passing Marks</label>
+                    <input type="number" class="form-control" name="passing_marks" value="40">
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label">Duration (minutes) *</label>
+                    <input type="number" class="form-control" name="duration_minutes" value="30" required>
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-control" name="description" rows="2"></textarea>
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label">Answer key / trainer file only (students never see this) — bucket: <code>quiz</code></label>
+                    <input type="file" class="form-control" name="quiz_file" id="quizFile" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.xlsx,.xls">
+                    <input type="hidden" name="file_url" id="quizFileUrl">
+                    <small class="text-muted" id="quizFileName"></small>
+                  </div>
+                </div>
+                <div id="formError" class="alert alert-danger d-none mt-3 mb-0"></div>
+              </div>
+              <div class="modal-footer sticky-bottom bg-white">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary" id="saveBtn"><i class="fas fa-save me-1"></i>Save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      
+      <!-- MCQ Question Bank (Google Forms style) -->
+      <div class="modal fade" id="questionsModal" tabindex="-1">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="questionsModalTitle">Quiz Questions</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+              <div class="alert alert-info py-2 small">
+                Add questions here so students take the quiz online like Google Forms.
+                The uploaded file is for trainers only and is <strong>not</strong> shown to students.
+              </div>
+              <div id="questionsList" class="mb-4"></div>
+              <hr>
+              <h6 class="fw-bold mb-3">Add question</h6>
+              <form id="questionForm">
+                <input type="hidden" id="qEditId">
+                <div class="mb-2">
+                  <label class="form-label">Question text *</label>
+                  <textarea class="form-control" id="qText" rows="2" required placeholder="Enter the question"></textarea>
+                </div>
+                <div class="row g-2 mb-2">
+                  <div class="col-md-3"><label class="form-label">Marks</label><input type="number" class="form-control" id="qMarks" value="1" min="0.5" step="0.5"></div>
+                  <div class="col-md-3"><label class="form-label">Type</label>
+                    <select class="form-select" id="qType"><option value="MCQ">MCQ</option><option value="TrueFalse">True / False</option></select>
+                  </div>
+                  <div class="col-md-3"><label class="form-label">Order</label><input type="number" class="form-control" id="qOrder" value="1"></div>
+                </div>
+                <div class="mb-2"><label class="form-label">Options (mark the correct one)</label>
+                  <div id="qOptionsBox">
+                    <div class="input-group mb-1"><span class="input-group-text"><input type="radio" name="qCorrect" value="0" checked></span><input type="text" class="form-control q-opt" placeholder="Option A"></div>
+                    <div class="input-group mb-1"><span class="input-group-text"><input type="radio" name="qCorrect" value="1"></span><input type="text" class="form-control q-opt" placeholder="Option B"></div>
+                    <div class="input-group mb-1"><span class="input-group-text"><input type="radio" name="qCorrect" value="2"></span><input type="text" class="form-control q-opt" placeholder="Option C"></div>
+                    <div class="input-group mb-1"><span class="input-group-text"><input type="radio" name="qCorrect" value="3"></span><input type="text" class="form-control q-opt" placeholder="Option D"></div>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-sm" id="qSaveBtn"><i class="fas fa-plus me-1"></i>Add question</button>
+                <button type="button" class="btn btn-outline-secondary btn-sm" id="qResetBtn">Clear</button>
+                <div id="qFormError" class="alert alert-danger d-none mt-2 mb-0 py-2"></div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<!-- Student Attempts Modal -->
+      <div class="modal fade" id="attemptsModal" tabindex="-1">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="attemptsModalTitle">Student Attempts</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+              <div class="d-flex flex-wrap gap-2 mb-3 align-items-center">
+                <select class="form-select form-select-sm" id="attemptBatchFilter" style="max-width:220px">
+                  <option value="">All batches</option>
+                </select>
+                <input type="search" class="form-control form-control-sm" id="attemptSearch" placeholder="Search student..." style="max-width:180px">
+                <button type="button" class="btn btn-sm btn-outline-secondary" onclick="exportAttemptsCsv()"><i class="fas fa-download me-1"></i>Export CSV</button>
+                <a id="attemptFileLink" href="#" target="_blank" class="btn btn-sm btn-outline-info d-none"><i class="fas fa-file-alt me-1"></i>Download quiz file</a>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-sm table-hover align-middle mb-0">
+                  <thead class="table-light">
+                    <tr>
+                      <th>Student</th><th>Batch</th><th>Score</th><th>%</th><th>Result</th><th>Status</th><th>Submitted</th><th width="140">Grade</th>
+                    </tr>
+                  </thead>
+                  <tbody id="attemptsBody"></tbody>
+                </table>
+              </div>
+              <div id="attemptsEmpty" class="text-muted text-center py-3 d-none">No attempts yet for this quiz.</div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../assets/js/supabase-config.js"></script>
+<script src="../assets/js/admin-crud.js"></script>
+<script src="../assets/js/rbac.js"></script>
+<script src="../assets/js/student-workspace.js"></script>
+<script>
+if (!SIIT.Session.requireAuth()) {}
+RBAC.enforce();
+const user = SIIT.Session.get();
+if (user) document.getElementById('userName').textContent = user.full_name || user.email;
+document.getElementById('sidebarToggle')?.addEventListener('click', () => document.getElementById('sidebar').classList.toggle('show'));
+SIIT.initSupabase();
+const TABLE = 'quizzes';
+let allRows = [], editId = null;
+let courseMap = {}, trainerMap = {}, collegeMap = {}, batchMap = {};
+let allBatches = [];
+const modal = new bootstrap.Modal(document.getElementById('crudModal'));
+const form = document.getElementById('crudForm');
+function toNumOrNull(v) {
+  if (v === '' || v == null) return null;
+  const n = Number(v);
+  return Number.isFinite(n) ? n : null;
+}
+async function loadDropdowns() {
+  await AdminCRUD.fillSelect('#selCourse', 'courses', {
+    valueKey: 'id', labelKey: 'course_name', order: 'course_name',
+    placeholder: '— Select Course —', extraLabel: 'course_code'
+  });
+  await AdminCRUD.fillSelect('#selTrainer', 'trainers', {
+    valueKey: 'id', labelKey: 'full_name', order: 'full_name', placeholder: '— Select Trainer —'
+  });
+  await AdminCRUD.fillSelect('#selCollege', 'colleges', {
+    valueKey: 'id', labelKey: 'college_name', order: 'college_name', placeholder: '— Optional —'
+  });
+  (await AdminCRUD.list('courses')).forEach(c => { courseMap[c.id] = c.course_name; });
+  (await AdminCRUD.list('trainers')).forEach(t => { trainerMap[t.id] = t.full_name; });
+  (await AdminCRUD.list('colleges')).forEach(c => { collegeMap[c.id] = c.college_name; });
+  try {
+    allBatches = await AdminCRUD.list('batches', { order: 'batch_name', ascending: true, limit: 2000 });
+  } catch (e) {
+    allBatches = [];
+  }
+  batchMap = {};
+  allBatches.forEach(b => { batchMap[b.id] = b.batch_name; });
+  fillBatchSelect(document.getElementById('selCollege').value);
+}
+function fillBatchSelect(collegeId, selectedBatchId) {
+  const sel = document.getElementById('selBatch');
+  let list = allBatches || [];
+  if (collegeId) {
+    list = list.filter(b => String(b.college_id) === String(collegeId));
+  }
+  sel.innerHTML = '<option value="">— Optional —</option>' + list.map(b =>
+    `<option value="${b.id}">${SIIT.Utils.escapeHtml(b.batch_name || b.batch_code || b.id)}${b.batch_code ? ' (' + SIIT.Utils.escapeHtml(b.batch_code) + ')' : ''}</option>`
+  ).join('');
+  if (selectedBatchId) sel.value = String(selectedBatchId);
+}
+document.getElementById('selCollege')?.addEventListener('change', function () {
+  fillBatchSelect(this.value, null);
+});
+document.getElementById('selBatch')?.addEventListener('change', function () {
+  const bid = this.value;
+  if (!bid) return;
+  const batch = allBatches.find(b => String(b.id) === String(bid));
+  if (!batch) return;
+  if (batch.course_id) {
+    const courseSel = document.getElementById('selCourse');
+    if (courseSel) {
+      courseSel.value = String(batch.course_id);
+      courseSel.dispatchEvent(new Event('change'));
+    }
+  }
+  if (batch.college_id) {
+    const colSel = document.getElementById('selCollege');
+    if (colSel && !colSel.value) colSel.value = String(batch.college_id);
+  }
+  if (batch.trainer_id) {
+    const tSel = document.getElementById('selTrainer');
+    if (tSel && !tSel.value) tSel.value = String(batch.trainer_id);
+  }
+});
+document.getElementById('selCourse')?.addEventListener('change', async function () {
+  const cid = this.value;
+  const sel = document.getElementById('selModule');
+  if (!cid) {
+    sel.innerHTML = '<option value="">— Select course first —</option>';
+    return;
+  }
+  try {
+    const modules = await AdminCRUD.list('course_modules', { order: 'module_order', ascending: true });
+    const filtered = modules.filter(m => String(m.course_id) === String(cid));
+    sel.innerHTML = '<option value="">— Optional —</option>' + filtered.map(m =>
+      `<option value="${m.id}">${SIIT.Utils.escapeHtml(m.module_name)}</option>`
+    ).join('');
+  } catch (e) {
+    sel.innerHTML = '<option value="">No modules</option>';
+  }
+});
+document.getElementById('quizFile')?.addEventListener('change', (e) => {
+  const f = e.target.files[0];
+  document.getElementById('quizFileName').textContent = f ? f.name : '';
+});
+function render(rows) {
+  const tbody = document.getElementById('dataBody');
+  document.getElementById('recordCount').textContent = rows.length + ' records';
+  if (!rows.length) {
+    tbody.innerHTML = '<tr><td colspan="9" class="text-center text-muted py-4">No quizzes</td></tr>';
+    return;
+  }
+  tbody.innerHTML = rows.map(row => `<tr>
+    <td>${SIIT.Utils.escapeHtml(row.quiz_code || '—')}</td>
+    <td>
+      ${SIIT.Utils.escapeHtml(row.title)}
+      ${row.file_url ? ` <a href="${SIIT.Utils.escapeHtml(row.file_url)}" target="_blank" class="text-info ms-1" title="View full quiz file"><i class="fas fa-paperclip"></i></a>` : ''}
+    </td>
+    <td>${SIIT.Utils.escapeHtml(collegeMap[row.college_id] || '—')}</td>
+    <td>${SIIT.Utils.escapeHtml(batchMap[row.batch_id] || '—')}</td>
+    <td>${SIIT.Utils.escapeHtml(courseMap[row.course_id] || row.course_id || '—')}</td>
+    <td>${SIIT.Utils.escapeHtml(trainerMap[row.trainer_id] || '—')}</td>
+    <td>${row.duration_minutes || '—'} min</td>
+    <td><span class="badge bg-${row.status === 'Published' ? 'success' : row.status === 'Draft' ? 'secondary' : 'dark'}">${SIIT.Utils.escapeHtml(row.status || '—')}</span></td>
+    <td class="text-nowrap">
+      <button class="btn btn-sm btn-outline-info me-1" title="Manage MCQ questions (Google Form style)" onclick="openQuestions(${row.id}, '${SIIT.Utils.escapeHtml(row.title).replace(/'/g, "\\'")}')"><i class="fas fa-list-ol"></i></button>
+      <button class="btn btn-sm btn-outline-success me-1" title="View student attempts" onclick="viewQuizAttempts(${row.id}, '${SIIT.Utils.escapeHtml(row.title).replace(/'/g, "\\'")}')"><i class="fas fa-list-check"></i></button>
+      <button class="btn btn-sm btn-outline-primary me-1" onclick="openForm(${row.id})"><i class="fas fa-edit"></i></button>
+      <button class="btn btn-sm btn-outline-danger" onclick="deleteRow(${row.id}, '${SIIT.Utils.escapeHtml(row.title).replace(/'/g, '')}')"><i class="fas fa-trash"></i></button>
+    </td>
+  </tr>`).join('');
+}
+async function loadData() {
+  try {
+    await loadDropdowns();
+    allRows = await AdminCRUD.list(TABLE, { order: 'id', ascending: false });
+    render(allRows);
+  } catch (e) {
+    document.getElementById('dataBody').innerHTML =
+      `<tr><td colspan="9" class="text-danger text-center">${SIIT.Utils.escapeHtml(e.message)}</td></tr>`;
+  }
+}
+async function openForm(id) {
+  editId = id || null;
+  form.reset();
+  document.getElementById('formError').classList.add('d-none');
+  document.getElementById('quizFileName').textContent = '';
+  document.getElementById('modalTitle').textContent = id ? 'Edit Quiz' : 'Add Quiz';
+  await loadDropdowns();
+  if (id) {
+    const row = allRows.find(r => r.id == id);
+    if (row) {
+      AdminCRUD.fillForm(form, row);
+      fillBatchSelect(row.college_id || '', row.batch_id || null);
+      if (row.college_id) document.getElementById('selCollege').value = String(row.college_id);
+      if (row.batch_id) document.getElementById('selBatch').value = String(row.batch_id);
+      document.getElementById('selCourse').dispatchEvent(new Event('change'));
+      setTimeout(() => {
+        if (row.module_id) document.getElementById('selModule').value = String(row.module_id);
+      }, 400);
+      if (row.file_url) document.getElementById('quizFileUrl').value = row.file_url;
+    }
+  }
+  modal.show();
+}
+async function deleteRow(id, name) {
+  if (!AdminCRUD.confirmDelete(name)) return;
+  try {
+    await AdminCRUD.remove(TABLE, id);
+    SIIT.Utils.toast('Deleted');
+    loadData();
+  } catch (e) {
+    SIIT.Utils.toast(e.message, 'error');
+  }
+}
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('saveBtn');
+  btn.disabled = true;
+  document.getElementById('formError').classList.add('d-none');
+  try {
+    const payload = AdminCRUD.formData(form);
+    delete payload.id;
+    delete payload.quiz_file;
+    const allowed = [
+      'course_id', 'module_id', 'trainer_id', 'college_id', 'batch_id',
+      'quiz_code', 'title', 'description',
+      'total_marks', 'passing_marks', 'duration_minutes', 'total_questions', 'max_attempts',
+      'random_questions', 'show_result_immediately', 'start_datetime', 'end_datetime', 'status', 'file_url'
+    ];
+    Object.keys(payload).forEach(k => { if (!allowed.includes(k)) delete payload[k]; });
+    payload.course_id = toNumOrNull(payload.course_id);
+    if (!payload.course_id) throw new Error('Course is required');
+    payload.module_id = toNumOrNull(payload.module_id);
+    if (!payload.module_id) delete payload.module_id;
+    payload.trainer_id = toNumOrNull(payload.trainer_id);
+    if (!payload.trainer_id) delete payload.trainer_id;
+    payload.college_id = toNumOrNull(payload.college_id);
+    if (!payload.college_id) payload.college_id = null;
+    payload.batch_id = toNumOrNull(payload.batch_id);
+    if (!payload.batch_id) payload.batch_id = null;
+    ['total_marks', 'passing_marks', 'duration_minutes', 'total_questions', 'max_attempts'].forEach(k => {
+      if (payload[k] === '' || payload[k] == null) {
+        if (k === 'duration_minutes') throw new Error('Duration (minutes) is required');
+        delete payload[k];
+      } else {
+        payload[k] = Number(payload[k]);
+      }
+    });
+    const fileInput = document.getElementById('quizFile');
+    const file = fileInput && fileInput.files[0];
+    if (file) {
+      try {
+        // Correct bucket: quiz
+        const up = await AdminCRUD.uploadFile('quiz', file, 'quizzes');
+        if (up.publicUrl) {
+          payload.file_url = up.publicUrl;
+          payload.description = (payload.description || '') + (payload.description ? '\n' : '') + 'Attachment: ' + up.publicUrl;
+        }
+      } catch (upErr) {
+        console.warn('Quiz file upload skipped', upErr);
+        throw new Error('File upload failed: ' + (upErr.message || upErr));
+      }
+    } else if (document.getElementById('quizFileUrl').value) {
+      payload.file_url = document.getElementById('quizFileUrl').value;
+    } else {
+      delete payload.file_url;
+    }
+    if (editId) await AdminCRUD.update(TABLE, editId, payload);
+    else await AdminCRUD.insert(TABLE, payload);
+    SIIT.Utils.toast('Saved');
+    modal.hide();
+    loadData();
+  } catch (err) {
+    let msg = err.message || 'Save failed';
+    if (/college_id|batch_id|schema cache|column/i.test(msg)) {
+      msg += ' — Run supabase_quiz_assessment_batch.sql in Supabase SQL Editor.';
+    }
+    document.getElementById('formError').textContent = msg;
+    document.getElementById('formError').classList.remove('d-none');
+  }
+  btn.disabled = false;
+});
+document.getElementById('searchInput')?.addEventListener('input', () => {
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  render(!q ? allRows : allRows.filter(r => JSON.stringify(r).toLowerCase().includes(q)));
+});
+
+/* ========== STUDENT VIEW ========== */
+async function initStudentQuizzes() {
+  StudentWorkspace.hideAdminChrome();
+  StudentWorkspace.studentBanner('Take published quizzes for your course (online MCQ — like Google Forms).');
+  const thead = document.querySelector('#dataBody')?.closest('table')?.querySelector('thead tr');
+  if (thead) thead.innerHTML = '<th>Title</th><th>Course</th><th>Duration</th><th>Marks</th><th>Your Result</th><th width="180">Action</th>';
+  await renderStudentQuizzes();
+}
+async function renderStudentQuizzes() {
+  const tbody = document.getElementById('dataBody');
+  try {
+    const rows = await StudentWorkspace.listMyQuizzes();
+    document.getElementById('recordCount').textContent = rows.length + ' published quiz(zes)';
+    if (!rows.length) {
+      tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted py-4">No published quizzes for your course yet.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = rows.map(row => {
+      const res = row.myResult;
+      const resLabel = res
+        ? `<span class="badge bg-${res.result === 'Pass' ? 'success' : res.result === 'Fail' ? 'danger' : 'secondary'}">${SIIT.Utils.escapeHtml(res.result || 'Done')} ${res.percentage != null ? res.percentage + '%' : ''}</span>`
+        : '<span class="badge bg-secondary">Not attempted</span>';
+      const course = row.courses?.course_name || '—';
+      const canTake = !res;
+
+      // Never show answer-key file to students
+      const action = canTake
+        ? `<button class="btn btn-sm btn-primary" onclick="startQuiz(${row.id}, '${SIIT.Utils.escapeHtml(row.file_url || '')}')">
+             <i class="fas fa-play me-1"></i>Take Quiz
+           </button>`
+        : `<button class="btn btn-sm btn-outline-secondary" disabled>Completed</button>`;
+
+      return `<tr>
+        <td>${SIIT.Utils.escapeHtml(row.title)}</td>
+        <td>${SIIT.Utils.escapeHtml(course)}</td>
+        <td>${row.duration_minutes || '—'} min</td>
+        <td>${row.total_marks || '—'}</td>
+        <td>${resLabel}</td>
+        <td class="text-nowrap">${action}</td>
+      </tr>`;
+    }).join('');
+  } catch (e) {
+    tbody.innerHTML = `<tr><td colspan="6" class="text-danger text-center">${SIIT.Utils.escapeHtml(e.message)}</td></tr>`;
+  }
+}
+async function startQuiz(quizId, fileUrlArg) {
+  try {
+    const questions = await StudentWorkspace.loadQuizQuestions(quizId);
+
+    // ---------- Case 1: No online MCQ — show uploaded quiz file ----------
+    if (!questions.length) {
+      const quizRow = (typeof allRows !== 'undefined' ? allRows : []).find(r => r.id == quizId) || {};
+      const fileUrl = fileUrlArg || quizRow.file_url || null;
+      if (!fileUrl) {
+        SIIT.Utils.toast('This quiz has no online questions and no file. Trainer must add MCQs or upload a quiz file.', 'error');
+        return;
+      }
+      // Build take modal with document viewer
+      let existing = document.getElementById('quizTakeModal');
+      if (existing) existing.remove();
+      const lower = String(fileUrl).toLowerCase();
+      const isPdf = lower.includes('.pdf');
+      const isDoc = /\.(docx?|xlsx?|pptx?)(\?|$)/i.test(lower);
+      const isImg = /\.(jpg|jpeg|png|gif|webp)(\?|$)/i.test(lower);
+      let viewer = '';
+      if (isPdf) {
+        viewer = '<div style="height:min(75vh,620px)"><iframe src="' + SIIT.Utils.escapeHtml(fileUrl) +
+          '#toolbar=1" style="width:100%;height:100%;border:1px solid #dee2e6;border-radius:8px"></iframe></div>';
+      } else if (isDoc) {
+        const gview = 'https://docs.google.com/gview?embedded=1&url=' + encodeURIComponent(fileUrl);
+        viewer = '<div style="height:min(75vh,620px)"><iframe src="' + gview +
+          '" style="width:100%;height:100%;border:1px solid #dee2e6;border-radius:8px"></iframe></div>' +
+          '<div class="small mt-2"><a href="' + SIIT.Utils.escapeHtml(fileUrl) + '" target="_blank" rel="noopener">Open file</a></div>';
+      } else if (isImg) {
+        viewer = '<div class="text-center"><img src="' + SIIT.Utils.escapeHtml(fileUrl) + '" class="img-fluid rounded border" style="max-height:min(75vh,620px)"></div>';
+      } else {
+        viewer = '<a class="btn btn-primary" href="' + SIIT.Utils.escapeHtml(fileUrl) + '" target="_blank" rel="noopener">Open quiz file</a>';
+      }
+      const div = document.createElement('div');
+      div.innerHTML = `<div class="modal fade" id="quizTakeModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
+          <div class="modal-content">
+            <form id="quizTakeForm">
+              <div class="modal-header"><h5 class="modal-title">Take Quiz</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+              <div class="modal-body">${viewer}
+                <div class="border rounded p-3 bg-light small mt-3">Complete the quiz from the document, then submit. Trainer will grade manually.</div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary" id="quizSubmitBtn">Submit attempt</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>`;
+      document.body.appendChild(div.firstElementChild);
+      const quizModal = new bootstrap.Modal(document.getElementById('quizTakeModal'));
+      quizModal.show();
+      document.getElementById('quizTakeForm').addEventListener('submit', async (ev) => {
+        ev.preventDefault();
+        const btn = document.getElementById('quizSubmitBtn');
+        btn.disabled = true;
+        try {
+          const r = await StudentWorkspace.submitQuizAttempt(quizId, {});
+          SIIT.Utils.toast('Attempt submitted — waiting for grading');
+          quizModal.hide();
+          await renderStudentQuizzes();
+        } catch (err) {
+          SIIT.Utils.toast(err.message, 'error');
+          btn.disabled = false;
+        }
+      });
+      return;
+    }
+
+    // ---------- Case 2: Normal MCQ quiz ----------
+    let existing = document.getElementById('quizTakeModal');
+    if (existing) existing.remove();
+
+    const div = document.createElement('div');
+    div.innerHTML = `
+<div class="modal fade" id="quizTakeModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
+    <div class="modal-content">
+      <form id="quizTakeForm">
+        <div class="modal-header">
+          <h5 class="modal-title">Take Quiz</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          ${questions.map((q, i) => {
+            const opts = (q.quiz_options || []).map(o =>
+              `<div class="form-check">
+                 <input class="form-check-input" type="radio" name="q_${q.id}" id="opt_${o.id}" value="${o.id}" required>
+                 <label class="form-check-label" for="opt_${o.id}">${SIIT.Utils.escapeHtml(o.option_text || '')}</label>
+               </div>`
+            ).join('');
+            return `<div class="mb-3 p-3 border rounded">
+              <div class="fw-semibold mb-2">
+                Q${i + 1}. ${SIIT.Utils.escapeHtml(q.question || '')}
+                <small class="text-muted">(${q.marks || 1} marks)</small>
+              </div>
+              ${opts || '<em class="text-muted">No options</em>'}
+            </div>`;
+          }).join('')}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="quizSubmitBtn">Submit answers</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>`;
+    document.body.appendChild(div.firstElementChild);
+    const quizModal = new bootstrap.Modal(document.getElementById('quizTakeModal'));
+    quizModal.show();
+
+    document.getElementById('quizTakeForm').addEventListener('submit', async (ev) => {
+      ev.preventDefault();
+      const btn = document.getElementById('quizSubmitBtn');
+      btn.disabled = true;
+      try {
+        const answers = {};
+        questions.forEach(q => {
+          const el = document.querySelector(`input[name="q_${q.id}"]:checked`);
+          if (el) answers[q.id] = el.value;
+        });
+        const r = await StudentWorkspace.submitQuizAttempt(quizId, answers);
+        SIIT.Utils.toast(`Submitted — Score ${r.score}/${r.total} (${r.percentage}%) · ${r.result}`);
+        quizModal.hide();
+        await renderStudentQuizzes();
+      } catch (err) {
+        SIIT.Utils.toast(err.message, 'error');
+        btn.disabled = false;
+      }
+    });
+  } catch (e) {
+    SIIT.Utils.toast(e.message, 'error');
+  }
+}
+
+
+/* ========== ADMIN: View / grade quiz attempts (batch-wise) ========== */
+let currentAttemptsQuizId = null;
+let currentAttemptsRows = [];
+let currentQuizFileUrl = null;
+const attemptsModal = new bootstrap.Modal(document.getElementById('attemptsModal'));
+
+
+/* ========== ADMIN: MCQ question bank (Google Forms style) ========== */
+let currentQuestionsQuizId = null;
+let questionsModalInst = null;
+function getQuestionsModal() {
+  if (!questionsModalInst) questionsModalInst = new bootstrap.Modal(document.getElementById('questionsModal'));
+  return questionsModalInst;
+}
+
+async function openQuestions(quizId, title) {
+  currentQuestionsQuizId = quizId;
+  document.getElementById('questionsModalTitle').textContent = 'Questions — ' + (title || quizId);
+  resetQuestionForm();
+  await loadQuestionsList();
+  getQuestionsModal().show();
+}
+
+function resetQuestionForm() {
+  document.getElementById('qEditId').value = '';
+  document.getElementById('qText').value = '';
+  document.getElementById('qMarks').value = '1';
+  document.getElementById('qType').value = 'MCQ';
+  document.getElementById('qOrder').value = String((document.querySelectorAll('#questionsList .q-card').length || 0) + 1);
+  document.getElementById('qFormError').classList.add('d-none');
+  document.getElementById('qSaveBtn').innerHTML = '<i class="fas fa-plus me-1"></i>Add question';
+  const opts = document.querySelectorAll('#qOptionsBox .q-opt');
+  opts.forEach((el, i) => { el.value = ''; });
+  const radios = document.querySelectorAll('input[name="qCorrect"]');
+  if (radios[0]) radios[0].checked = true;
+}
+
+async function loadQuestionsList() {
+  const host = document.getElementById('questionsList');
+  host.innerHTML = '<div class="text-muted">Loading...</div>';
+  try {
+    const client = SIIT.initSupabase();
+    const { data, error } = await client
+      .from('quiz_questions')
+      .select('*, quiz_options(*)')
+      .eq('quiz_id', currentQuestionsQuizId)
+      .order('question_order', { ascending: true });
+    if (error) throw error;
+    const rows = data || [];
+    if (!rows.length) {
+      host.innerHTML = '<div class="text-muted border rounded p-3">No questions yet. Add MCQs below so students can take this quiz online.</div>';
+      return;
+    }
+    host.innerHTML = rows.map((q, idx) => {
+      const opts = (q.quiz_options || []).slice().sort((a, b) => (a.option_order || 0) - (b.option_order || 0));
+      const optsHtml = opts.map(o =>
+        `<div class="small ${o.is_correct ? 'text-success fw-semibold' : 'text-muted'}">${o.is_correct ? '✓ ' : '• '}${SIIT.Utils.escapeHtml(o.option_text || '')}</div>`
+      ).join('');
+      return `<div class="q-card border rounded p-3 mb-2">
+        <div class="d-flex justify-content-between gap-2">
+          <div>
+            <div class="fw-semibold">Q${idx + 1}. ${SIIT.Utils.escapeHtml(q.question || '')}</div>
+            <div class="small text-muted mb-1">${q.marks || 1} mark(s) · ${SIIT.Utils.escapeHtml(q.question_type || 'MCQ')}</div>
+            ${optsHtml}
+          </div>
+          <div class="text-nowrap">
+            <button type="button" class="btn btn-sm btn-outline-danger" onclick="deleteQuestion(${q.id})"><i class="fas fa-trash"></i></button>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+    // update total_questions on quiz
+    await client.from('quizzes').update({ total_questions: rows.length }).eq('id', currentQuestionsQuizId);
+  } catch (e) {
+    host.innerHTML = `<div class="text-danger">${SIIT.Utils.escapeHtml(e.message)}</div>`;
+  }
+}
+
+document.getElementById('qResetBtn')?.addEventListener('click', resetQuestionForm);
+document.getElementById('qType')?.addEventListener('change', function () {
+  if (this.value === 'TrueFalse') {
+    const opts = document.querySelectorAll('#qOptionsBox .q-opt');
+    if (opts[0]) opts[0].value = 'True';
+    if (opts[1]) opts[1].value = 'False';
+    if (opts[2]) opts[2].value = '';
+    if (opts[3]) opts[3].value = '';
+  }
+});
+
+document.getElementById('questionForm')?.addEventListener('submit', async function (e) {
+  e.preventDefault();
+  const err = document.getElementById('qFormError');
+  err.classList.add('d-none');
+  const btn = document.getElementById('qSaveBtn');
+  btn.disabled = true;
+  try {
+    const text = document.getElementById('qText').value.trim();
+    if (!text) throw new Error('Question text required');
+    const marks = Number(document.getElementById('qMarks').value) || 1;
+    const type = document.getElementById('qType').value || 'MCQ';
+    const order = Number(document.getElementById('qOrder').value) || 1;
+    const optInputs = [...document.querySelectorAll('#qOptionsBox .q-opt')];
+    const correctIdx = Number((document.querySelector('input[name="qCorrect"]:checked') || {}).value || 0);
+    const options = optInputs.map((el, i) => ({
+      text: el.value.trim(),
+      is_correct: i === correctIdx,
+      order: i + 1
+    })).filter(o => o.text);
+    if (options.length < 2) throw new Error('Add at least 2 options');
+    if (!options.some(o => o.is_correct)) throw new Error('Mark the correct option');
+
+    const client = SIIT.initSupabase();
+    const { data: qrow, error: qErr } = await client.from('quiz_questions').insert([{
+      quiz_id: currentQuestionsQuizId,
+      question: text,
+      question_type: type,
+      marks,
+      question_order: order
+    }]).select().single();
+    if (qErr) throw qErr;
+
+    const { error: oErr } = await client.from('quiz_options').insert(
+      options.map(o => ({
+        question_id: qrow.id,
+        option_text: o.text,
+        is_correct: o.is_correct,
+        option_order: o.order
+      }))
+    );
+    if (oErr) throw oErr;
+
+    SIIT.Utils.toast('Question added');
+    resetQuestionForm();
+    await loadQuestionsList();
+  } catch (ex) {
+    err.textContent = ex.message || 'Save failed';
+    err.classList.remove('d-none');
+  }
+  btn.disabled = false;
+});
+
+async function deleteQuestion(qid) {
+  if (!confirm('Delete this question?')) return;
+  try {
+    const client = SIIT.initSupabase();
+    // options cascade if FK ON DELETE CASCADE; otherwise delete options first
+    await client.from('quiz_options').delete().eq('question_id', qid);
+    await client.from('quiz_questions').delete().eq('id', qid);
+    SIIT.Utils.toast('Deleted');
+    await loadQuestionsList();
+  } catch (e) {
+    SIIT.Utils.toast(e.message, 'error');
+  }
+}
+
+
+async function viewQuizAttempts(quizId, title) {
+  currentAttemptsQuizId = quizId;
+  const quiz = allRows.find(r => r.id == quizId) || {};
+  currentQuizFileUrl = quiz.file_url || null;
+  document.getElementById('attemptsModalTitle').textContent = 'Attempts — ' + (title || quiz.title || quizId);
+  const fileLink = document.getElementById('attemptFileLink');
+  if (currentQuizFileUrl) {
+    fileLink.href = currentQuizFileUrl;
+    fileLink.classList.remove('d-none');
+  } else {
+    fileLink.classList.add('d-none');
+  }
+  // batch filter options
+  const bf = document.getElementById('attemptBatchFilter');
+  bf.innerHTML = '<option value="">All batches</option>' + (allBatches || []).map(b =>
+    `<option value="${b.id}">${SIIT.Utils.escapeHtml(b.batch_name || b.batch_code || b.id)}</option>`
+  ).join('');
+  // Keep "All batches" by default so every attempt is visible
+  bf.value = '';
+  document.getElementById('attemptSearch').value = '';
+  await loadQuizAttempts();
+  attemptsModal.show();
+}
+
+async function loadQuizAttempts() {
+  const tbody = document.getElementById('attemptsBody');
+  const empty = document.getElementById('attemptsEmpty');
+  tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted">Loading...</td></tr>';
+  empty.classList.add('d-none');
+  try {
+    const client = SIIT.initSupabase();
+    // 1) Load attempts (simple — no nested joins that can fail)
+    let attempts = [];
+    let attErr = null;
+    {
+      const res = await client
+        .from('quiz_attempts')
+        .select('*')
+        .eq('quiz_id', currentAttemptsQuizId)
+        .order('submitted_at', { ascending: false });
+      attErr = res.error;
+      attempts = res.data || [];
+    }
+    // 2) Also load quiz_results (student panel uses this — may exist even if attempt insert failed)
+    let results = [];
+    {
+      const res = await client
+        .from('quiz_results')
+        .select('*')
+        .eq('quiz_id', currentAttemptsQuizId);
+      if (!res.error) results = res.data || [];
+    }
+    // Merge: prefer attempts; add result-only rows as synthetic attempts
+    const byStudent = {};
+    attempts.forEach(a => { byStudent[a.student_id] = { ...a, _source: 'attempt' }; });
+    results.forEach(r => {
+      if (!byStudent[r.student_id]) {
+        byStudent[r.student_id] = {
+          id: r.best_attempt_id || ('result-' + r.id),
+          quiz_id: r.quiz_id,
+          student_id: r.student_id,
+          score: r.obtained_marks,
+          percentage: r.percentage,
+          result: r.result || 'Pending',
+          status: 'Submitted',
+          submitted_at: r.completed_at,
+          _source: 'result',
+          _resultId: r.id
+        };
+      } else {
+        // enrich attempt with result fields if missing
+        const a = byStudent[r.student_id];
+        if (a.score == null && r.obtained_marks != null) a.score = r.obtained_marks;
+        if (a.percentage == null && r.percentage != null) a.percentage = r.percentage;
+        if ((!a.result || a.result === 'Pending') && r.result) a.result = r.result;
+      }
+    });
+    const merged = Object.values(byStudent);
+    // 3) Load student profiles separately
+    const studentIds = [...new Set(merged.map(r => r.student_id).filter(Boolean))];
+    const studentMap = {};
+    if (studentIds.length) {
+      const res = await client
+        .from('students')
+        .select('id, full_name, email, batch_id, college_roll_no')
+        .in('id', studentIds);
+      if (!res.error) {
+        (res.data || []).forEach(s => { studentMap[s.id] = s; });
+      }
+    }
+    currentAttemptsRows = merged.map(r => ({
+      ...r,
+      students: studentMap[r.student_id] || { id: r.student_id, full_name: 'Student #' + r.student_id }
+    }));
+    if (attErr && !merged.length) throw attErr;
+    renderAttemptsTable();
+  } catch (e) {
+    tbody.innerHTML = `<tr><td colspan="8" class="text-danger text-center">${SIIT.Utils.escapeHtml(e.message)}</td></tr>`;
+  }
+}
+
+function renderAttemptsTable() {
+  const tbody = document.getElementById('attemptsBody');
+  const empty = document.getElementById('attemptsEmpty');
+  const batchF = document.getElementById('attemptBatchFilter').value;
+  const q = (document.getElementById('attemptSearch').value || '').trim().toLowerCase();
+  let rows = currentAttemptsRows.slice();
+  if (batchF) {
+    rows = rows.filter(r => String(r.students?.batch_id || '') === String(batchF));
+  }
+  if (q) {
+    rows = rows.filter(r => {
+      const s = r.students || {};
+      return JSON.stringify({ n: s.full_name, e: s.email, c: s.college_roll_no }).toLowerCase().includes(q);
+    });
+  }
+  if (!rows.length) {
+    tbody.innerHTML = '';
+    empty.classList.remove('d-none');
+    empty.textContent = currentAttemptsRows.length ? 'No attempts match the filter.' : 'No attempts yet for this quiz.';
+    return;
+  }
+  empty.classList.add('d-none');
+  tbody.innerHTML = rows.map(r => {
+    const st = r.students || {};
+    const batchName = st.batches?.batch_name || batchMap[st.batch_id] || '—';
+    const resBadge = r.result === 'Pass' ? 'success' : r.result === 'Fail' ? 'danger' : 'warning';
+    const canGrade = r.result === 'Pending' || r.percentage == null;
+    const gradeBtn = canGrade
+      ? `<button class="btn btn-sm btn-outline-primary" onclick="gradeAttempt(${r.id}, ${r.student_id})"><i class="fas fa-pen me-1"></i>Grade</button>`
+      : `<span class="text-muted small">—</span>`;
+    return `<tr>
+      <td>${SIIT.Utils.escapeHtml(st.full_name || st.email || st.id || '—')}<br><small class="text-muted">${SIIT.Utils.escapeHtml(st.college_roll_no || st.email || '')}</small></td>
+      <td>${SIIT.Utils.escapeHtml(batchName)}</td>
+      <td>${r.score != null ? r.score : '—'}</td>
+      <td>${r.percentage != null ? r.percentage + '%' : '—'}</td>
+      <td><span class="badge bg-${resBadge}">${SIIT.Utils.escapeHtml(r.result || 'Pending')}</span></td>
+      <td>${SIIT.Utils.escapeHtml(r.status || '—')}</td>
+      <td>${r.submitted_at ? SIIT.Utils.formatDate(r.submitted_at) : '—'}</td>
+      <td>${gradeBtn}</td>
+    </tr>`;
+  }).join('');
+}
+
+document.getElementById('attemptBatchFilter')?.addEventListener('change', renderAttemptsTable);
+document.getElementById('attemptSearch')?.addEventListener('input', renderAttemptsTable);
+
+async function gradeAttempt(attemptId, studentId) {
+  const scoreStr = prompt('Enter obtained marks for this student:');
+  if (scoreStr == null || scoreStr === '') return;
+  const score = Number(scoreStr);
+  if (!Number.isFinite(score)) { SIIT.Utils.toast('Invalid score', 'error'); return; }
+  try {
+    const client = SIIT.initSupabase();
+    const quiz = allRows.find(r => r.id == currentAttemptsQuizId) || {};
+    const total = Number(quiz.total_marks) || 100;
+    const passing = Number(quiz.passing_marks) || 40;
+    const percentage = total > 0 ? Math.round((score / total) * 10000) / 100 : null;
+    const result = percentage == null ? 'Pending' : (percentage >= passing ? 'Pass' : 'Fail');
+    // Update attempt only if it is a real numeric id
+    if (attemptId != null && String(attemptId).match(/^\d+$/)) {
+      await client.from('quiz_attempts').update({
+        score, percentage, result, status: 'Submitted', submitted_at: new Date().toISOString()
+      }).eq('id', attemptId);
+    }
+    // Always upsert quiz_results (this is what student panel reads)
+    const { data: existing } = await client.from('quiz_results').select('id').eq('quiz_id', currentAttemptsQuizId).eq('student_id', studentId).maybeSingle();
+    const payload = {
+      quiz_id: currentAttemptsQuizId,
+      student_id: studentId,
+      best_attempt_id: (attemptId != null && String(attemptId).match(/^\d+$/)) ? Number(attemptId) : null,
+      attempts: 1,
+      total_marks: total,
+      obtained_marks: score,
+      percentage,
+      result: result === 'Pending' ? null : result,
+      completed_at: new Date().toISOString()
+    };
+    if (existing) await client.from('quiz_results').update(payload).eq('id', existing.id);
+    else await client.from('quiz_results').insert([payload]);
+    SIIT.Utils.toast('Graded: ' + result + ' (' + percentage + '%)');
+    await loadQuizAttempts();
+  } catch (e) {
+    SIIT.Utils.toast(e.message, 'error');
+  }
+}
+
+function exportAttemptsCsv() {
+  const batchF = document.getElementById('attemptBatchFilter').value;
+  let rows = currentAttemptsRows.slice();
+  if (batchF) rows = rows.filter(r => String(r.students?.batch_id || '') === String(batchF));
+  const header = ['Student','Email','Batch','Score','Percentage','Result','Status','Submitted'];
+  const lines = [header.join(',')];
+  rows.forEach(r => {
+    const st = r.students || {};
+    const batchName = (st.batches?.batch_name || batchMap[st.batch_id] || '').replace(/,/g, ' ');
+    lines.push([
+      (st.full_name || '').replace(/,/g, ' '),
+      (st.email || '').replace(/,/g, ' '),
+      batchName,
+      r.score ?? '',
+      r.percentage ?? '',
+      r.result || '',
+      r.status || '',
+      r.submitted_at || ''
+    ].join(','));
+  });
+  const blob = new Blob([lines.join('\\n')], { type: 'text/csv' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'quiz_' + currentAttemptsQuizId + '_attempts.csv';
+  a.click();
+}
+
+
+if (StudentWorkspace.isStudent()) {
+  initStudentQuizzes();
+} else {
+  loadData();
+}
+</script>
+</body>
+</html>

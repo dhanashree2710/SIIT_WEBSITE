@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | Sujata Institute</title>
+  <link rel="icon" href="assets/img/logo.png" type="image/png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+  <style>
+    .about-hero-card {
+      background: linear-gradient(135deg, #0d6efd 0%, #6610f2 100%);
+      border-radius: 20px;
+      color: #fff;
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .about-hero-card::after {
+      content: '';
+      position: absolute;
+      right: -40px; bottom: -40px;
+      width: 180px; height: 180px;
+      background: rgba(255,255,255,.08);
+      border-radius: 50%;
+    }
+    .purpose-card {
+      border: none;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0,0,0,.07);
+      height: 100%;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .purpose-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(0,0,0,.12);
+    }
+    .purpose-card .icon-wrap {
+      width: 72px; height: 72px;
+      border-radius: 18px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.75rem;
+      color: #fff;
+      margin-bottom: 1.25rem;
+    }
+    .purpose-card.vision .icon-wrap  { background: linear-gradient(135deg, #0d6efd, #3b82f6); }
+    .purpose-card.mission .icon-wrap { background: linear-gradient(135deg, #198754, #20c997); }
+    .purpose-card.objectives .icon-wrap { background: linear-gradient(135deg, #fd7e14, #ffc107); }
+    .purpose-card.quality .icon-wrap { background: linear-gradient(135deg, #dc3545, #e83e8c); }
+
+    .badge-pill-soft {
+      display: inline-flex; align-items: center; gap: .4rem;
+      background: #eef4ff; color: #0d6efd;
+      font-size: .8rem; font-weight: 600;
+      padding: .4rem .9rem; border-radius: 50px;
+    }
+    .founder-box {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,.08);
+      padding: 1.75rem;
+      text-align: center;
+    }
+    .founder-box img {
+      width: 160px; height: 160px;
+      object-fit: cover; border-radius: 50%;
+      border: 4px solid #e8f0fe;
+      margin-bottom: 1rem;
+    }
+    .highlight-list li {
+      display: flex; align-items: flex-start; gap: .75rem;
+      margin-bottom: .85rem;
+      font-size: .95rem;
+    }
+    .highlight-list .check {
+      width: 28px; height: 28px; min-width: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #198754, #20c997);
+      color: #fff; display: flex; align-items: center; justify-content: center;
+      font-size: .7rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Top bar -->
+<div class="top-bar d-none d-md-block">
+  <div class="container d-flex justify-content-between align-items-center flex-wrap">
+    <div>
+      <a href="mailto:sujatainstitute2016@gmail.com"><i class="fas fa-envelope me-1"></i> sujatainstitute2016@gmail.com</a>
+      <span class="mx-2">|</span>
+      <a href="tel:+919096883042"><i class="fas fa-phone me-1"></i> +91-9096883042 / 9370387303 / 9699544383</a>
+    </div>
+  </div>
+</div>
+
+<!-- Nav -->
+<nav class="navbar navbar-expand-lg sticky-top">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="index.html">
+      <img src="assets/img/logo.png" alt="SIIT Logo">
+      <span class="d-none d-lg-inline">Sujata Institute</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link active" href="about.html">About</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Programs</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="training-programs.html">Training Programs</a></li>
+            <li><a class="dropdown-item" href="training-internship.html">Training + Internship</a></li>
+            <li><a class="dropdown-item" href="short-term.html">Short Term Courses</a></li>
+            <li><a class="dropdown-item" href="college-programs.html">College Programs</a></li>
+            <li><a class="dropdown-item" href="corporate.html">Corporate Training</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="placement.html">Placement</a></li>
+        <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+        <li class="nav-item"><a class="nav-link" href="blogs.html">Blogs</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+      </ul>
+      <a href="enquiry.html" class="btn btn-enquiry">Enquire Now</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Page header -->
+<section class="page-header">
+  <div class="container text-center">
+    <h1>About Us</h1>
+    <p class="mb-0 opacity-75">Empowering youth through education, skills & opportunity</p>
+  </div>
+</section>
+
+<!-- Intro + Founder -->
+<section class="py-5">
+  <div class="container">
+    <div class="row g-4 g-lg-5 align-items-center">
+      <div class="col-lg-4">
+        <div class="founder-box">
+          <img src="assets/img/founder.jpg" alt="Dr. Rushikesh Hiwale">
+          <h5 class="fw-bold mb-0">Dr. Rushikesh Hiwale</h5>
+          <p class="text-muted mb-2">Founder</p>
+          <span class="badge-pill-soft"><i class="fas fa-graduation-cap"></i> Education & Skills</span>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="about-hero-card">
+          <span class="badge bg-white text-primary mb-3 px-3 py-2 rounded-pill fw-semibold">Reg. No. MH13E0000753</span>
+          <h2 class="fw-bold mb-3">Sujata Institute of Information and Technology</h2>
+          <p class="mb-4 opacity-90" style="max-width:540px">
+            Dedicated to quality education, skill development and career guidance — enabling youth to grow with confidence in a changing world.
+          </p>
+          <div class="d-flex flex-wrap gap-2">
+            <span class="badge bg-white bg-opacity-25 px-3 py-2 rounded-pill"><i class="fas fa-certificate me-1"></i> MKCL Center</span>
+            <span class="badge bg-white bg-opacity-25 px-3 py-2 rounded-pill"><i class="fas fa-industry me-1"></i> MSME Registered</span>
+            <span class="badge bg-white bg-opacity-25 px-3 py-2 rounded-pill"><i class="fas fa-handshake me-1"></i> Skill India</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Vision / Mission / Objectives / Quality -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <div class="section-title text-center mb-5">
+      <span class="badge-label">Our Purpose</span>
+      <h2>What Drives Us</h2>
+    </div>
+    <div class="row g-4">
+
+      <!-- Vision -->
+      <div class="col-md-6 col-lg-3">
+        <div class="card purpose-card vision p-4">
+          <div class="icon-wrap"><i class="fas fa-eye"></i></div>
+          <h5 class="fw-bold">Our Vision</h5>
+          <p class="text-muted small mb-0">
+            Rebuild dignity of the marginalized through education, health care, food security and employment for a sustainable society.
+          </p>
+        </div>
+      </div>
+
+      <!-- Mission -->
+      <div class="col-md-6 col-lg-3">
+        <div class="card purpose-card mission p-4">
+          <div class="icon-wrap"><i class="fas fa-bullseye"></i></div>
+          <h5 class="fw-bold">Our Mission</h5>
+          <p class="text-muted small mb-0">
+            Economic & social upliftment of deprived communities through skill-based education for self-reliance and livelihood.
+          </p>
+        </div>
+      </div>
+
+      <!-- Objectives -->
+      <div class="col-md-6 col-lg-3">
+        <div class="card purpose-card objectives p-4">
+          <div class="icon-wrap"><i class="fas fa-flag"></i></div>
+          <h5 class="fw-bold">Objectives</h5>
+          <p class="text-muted small mb-0">
+            Improve quality of life by mobilizing education, health & environment — creating a skilled workforce for society.
+          </p>
+        </div>
+      </div>
+
+      <!-- Quality Policy -->
+      <div class="col-md-6 col-lg-3">
+        <div class="card purpose-card quality p-4">
+          <div class="icon-wrap"><i class="fas fa-shield-halved"></i></div>
+          <h5 class="fw-bold">Quality Policy</h5>
+          <p class="text-muted small mb-0">
+            Excellent, affordable education with transparency, community participation and strong ethical teamwork.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Why SIIT -->
+<section class="py-5">
+  <div class="container">
+    <div class="row g-5 align-items-center">
+      <div class="col-lg-6">
+        <span class="badge-label">Why Choose Us</span>
+        <h2 class="fw-bold mt-2 mb-4">Built for Real Careers</h2>
+        <ul class="list-unstyled highlight-list">
+          <li>
+            <span class="check"><i class="fas fa-check"></i></span>
+            <span><strong>Industry-aligned courses</strong> — IT, Finance, Digital Marketing & Soft Skills</span>
+          </li>
+          <li>
+            <span class="check"><i class="fas fa-check"></i></span>
+            <span><strong>Placement support</strong> with a growing network of partner companies</span>
+          </li>
+          <li>
+            <span class="check"><i class="fas fa-check"></i></span>
+            <span><strong>College MoUs</strong> across Pune for campus programs & training</span>
+          </li>
+          <li>
+            <span class="check"><i class="fas fa-check"></i></span>
+            <span><strong>MKCL authorized</strong> learning center with recognized certifications</span>
+          </li>
+          <li>
+            <span class="check"><i class="fas fa-check"></i></span>
+            <span><strong>Focus on youth & women</strong> — skills that lead to self-reliance</span>
+          </li>
+        </ul>
+        <a href="enquiry.html" class="btn btn-primary rounded-pill px-4 mt-2">
+          <i class="fas fa-paper-plane me-2"></i>Join Us Today
+        </a>
+      </div>
+      <div class="col-lg-6">
+        <div class="row g-3">
+          <div class="col-6">
+            <div class="card border-0 shadow-sm rounded-4 p-4 text-center h-100">
+              <div class="display-6 text-primary mb-2"><i class="fas fa-user-graduate"></i></div>
+              <h4 class="fw-bold mb-0">1 Lakh+</h4>
+              <small class="text-muted">Students Trained</small>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="card border-0 shadow-sm rounded-4 p-4 text-center h-100">
+              <div class="display-6 text-success mb-2"><i class="fas fa-briefcase"></i></div>
+              <h4 class="fw-bold mb-0">75,000+</h4>
+              <small class="text-muted">Placements</small>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="card border-0 shadow-sm rounded-4 p-4 text-center h-100">
+              <div class="display-6 text-warning mb-2"><i class="fas fa-building"></i></div>
+              <h4 class="fw-bold mb-0">50+</h4>
+              <small class="text-muted">Partner Companies</small>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="card border-0 shadow-sm rounded-4 p-4 text-center h-100">
+              <div class="display-6 text-danger mb-2"><i class="fas fa-book-open"></i></div>
+              <h4 class="fw-bold mb-0">50+</h4>
+              <small class="text-muted">Courses Offered</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <div class="brand-info">
+          <img src="assets/img/logo.png" alt="SIIT">
+          <p>Sujata Institute of Information and Technology — quality education, skill development and placement support in Pune.</p>
+        </div>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h5>Quick Links</h5>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="training-programs.html">Courses</a>
+        <a href="placement.html">Placement</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h5>Programs</h5>
+        <a href="training-programs.html">Training Programs</a>
+        <a href="training-internship.html">Training + Internship</a>
+        <a href="short-term.html">Short Term</a>
+        <a href="college-programs.html">College Programs</a>
+        <a href="corporate.html">Corporate</a>
+      </div>
+      <div class="col-lg-4">
+        <h5>Get In Touch</h5>
+        <div class="contact-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>Office No.03, First Floor, Sagar Apartment, Parihar Chowk, Sanghvi Nagar, Aundh, Pune 411067</span>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-envelope"></i>
+          <span>sujatainstitute2016@gmail.com</span>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-phone"></i>
+          <span>+(91)-9096883042 / 9370387303 / 9699544383</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="mb-0">&copy; 2026 <a href="index.html" class="ft-siit">Sujata Institute of Information and Technology</a>. All Rights Reserved. | Design by <a href="https://kdrtitsolutions.com" target="_blank" rel="noopener" class="ft-kdrt">KDRT IT Solutions LLP</a></p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-config.js"></script>
+</body>
+</html>

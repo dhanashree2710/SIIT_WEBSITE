@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Portal | Sujata Institute</title>
+  <link rel="icon" href="assets/img/logo.png" type="image/png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+  <style>
+    .sp-search-card{ border-radius: var(--radius); box-shadow: var(--shadow-lg); border:1px solid rgba(0,0,0,.05); margin-top:-40px; position:relative; z-index:10; background:#fff; }
+    .page-header{ padding-bottom: 4.5rem !important; }
+    .sp-avatar{ width:84px; height:84px; border-radius:50%; object-fit:cover; border:3px solid #fff; box-shadow:var(--shadow-md); background:#e9ecef; }
+    .sp-mini-stat{ border-radius: var(--radius); background:#fff; box-shadow:var(--shadow-sm); border:1px solid rgba(0,0,0,.04); padding:1.1rem; text-align:center; }
+    .sp-mini-stat h4{ font-weight:800; margin-bottom:.1rem; }
+    .sp-mini-stat p{ margin:0; color:#6c757d; font-size:.82rem; font-weight:500; }
+    .sp-section{ border-radius: var(--radius); background:#fff; box-shadow:var(--shadow-sm); border:1px solid rgba(0,0,0,.04); padding:1.5rem; margin-bottom:1.5rem; }
+    .sp-section h5{ font-weight:700; margin-bottom:1rem; display:flex; align-items:center; gap:.5rem; }
+    .sp-section h5 i{ color: var(--primary); }
+    .sp-progress{ height:10px; border-radius:50px; }
+    .sp-empty{ color:#adb5bd; font-size:.9rem; padding:.75rem 0; }
+    #spResults{ display:none; }
+    #spLoading{ display:none; }
+    #qrReader{ max-width:360px; margin:0 auto; }
+    #qrReader video{ border-radius:8px; }
+  </style>
+</head>
+<body>
+<div class="top-bar d-none d-md-block">
+  <div class="container d-flex justify-content-between align-items-center">
+    <div>
+      <a href="mailto:sujatainstitute2016@gmail.com"><i class="fas fa-envelope me-1"></i> sujatainstitute2016@gmail.com</a>
+      <span class="mx-2">|</span>
+      <a href="tel:+919096883042"><i class="fas fa-phone me-1"></i> +91-9096883042 / 9370387303 / 9699544383</a>
+    </div>
+  </div>
+</div>
+<nav class="navbar navbar-expand-lg sticky-top">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="index.html">
+      <img src="assets/img/logo.png" alt="SIIT Logo">
+      <span class="d-none d-lg-inline">Sujata Institute</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Programs</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="training-programs.html">Training Programs</a></li>
+            <li><a class="dropdown-item" href="training-internship.html">Training + Internship</a></li>
+            <li><a class="dropdown-item" href="short-term.html">Short Term Courses</a></li>
+            <li><a class="dropdown-item" href="college-programs.html">College Programs</a></li>
+            <li><a class="dropdown-item" href="corporate.html">Corporate Training</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="placement.html">Placement</a></li>
+        <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+        <li class="nav-item"><a class="nav-link" href="blogs.html">Blogs</a></li>
+        <li class="nav-item"><a class="nav-link active" href="student-portal.html">Student Portal</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+      </ul>
+      <a href="enquiry.html" class="btn btn-enquiry">Enquire Now</a>
+    </div>
+  </div>
+</nav>
+
+<section class="page-header">
+  <div class="container">
+    <h1>Student Portal</h1>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-item active">Student Portal</li>
+      </ol>
+    </nav>
+  </div>
+</section>
+
+<div class="container">
+  <div class="sp-search-card p-4 p-md-5">
+    <div class="row align-items-center">
+      <div class="col-lg-7">
+        <h4 class="fw-bold mb-1">Student Portal</h4>
+        <p class="text-muted mb-0">Enter <strong>College Roll Number</strong> — mark attendance, take quizzes, submit assessments &amp; feedback. <strong>No login required.</strong></p>
+      </div>
+      <div class="col-lg-5 mt-3 mt-lg-0">
+        <form id="spSearchForm" class="d-flex gap-2">
+          <input type="text" id="spRollNo" class="form-control form-control-lg" placeholder="e.g. SIIT-2026-0142" autocomplete="off" required>
+          <button type="submit" class="btn btn-primary btn-lg px-4" id="spSearchBtn"><i class="fas fa-search"></i></button>
+        </form>
+        <div id="spError" class="alert alert-danger mt-3 mb-0 py-2 px-3 d-none"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container my-5">
+  <div id="spLoading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status"></div>
+    <p class="text-muted mt-3 mb-0">Fetching your records…</p>
+  </div>
+
+  <div id="spResults">
+    <div class="sp-section d-flex flex-wrap align-items-center gap-3 mb-4">
+      <img id="spPhoto" class="sp-avatar" src="assets/img/logo.png" alt="Student photo">
+      <div class="flex-grow-1">
+        <h4 class="fw-bold mb-1" id="spName">-</h4>
+        <div class="text-muted small" id="spMeta">-</div>
+      </div>
+      <span class="badge rounded-pill px-3 py-2" id="spStatusBadge">-</span>
+    </div>
+
+    <div class="row g-3 mb-4">
+      <div class="col-6 col-md-4"><div class="sp-mini-stat"><h4 class="text-primary" id="spStatAttendance">-</h4><p>Attendance</p></div></div>
+      <div class="col-6 col-md-4"><div class="sp-mini-stat"><h4 class="text-success" id="spStatQuiz">-</h4><p>Quizzes</p></div></div>
+      <div class="col-6 col-md-4"><div class="sp-mini-stat"><h4 class="text-info" id="spStatAssessment">-</h4><p>Assessments</p></div></div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6">
+        <!-- Attendance -->
+        <div class="sp-section">
+          <h5><i class="fas fa-qrcode"></i> Mark Attendance</h5>
+          <p class="small text-muted mb-2">Using roll: <strong id="spAttRoll">—</strong></p>
+          <div class="d-flex flex-wrap gap-2 mb-3">
+            <button type="button" class="btn btn-primary btn-sm" id="btnScanQr"><i class="fas fa-camera me-1"></i>Scan QR</button>
+            <button type="button" class="btn btn-outline-secondary btn-sm" id="btnManualToken"><i class="fas fa-keyboard me-1"></i>Enter token</button>
+          </div>
+          <div id="qrScannerBox" class="d-none mb-3 text-center">
+            <div id="qrReader"></div>
+            <button type="button" class="btn btn-sm btn-outline-danger mt-2" id="btnStopScan">Stop camera</button>
+          </div>
+          <div id="spAttendanceMsg" class="alert d-none mb-3"></div>
+          <hr class="my-3">
+          <h6 class="fw-semibold mb-2">Your attendance</h6>
+          <div id="spAttendanceList"></div>
+        </div>
+
+        <!-- Available Quizzes -->
+        <div class="sp-section">
+          <h5><i class="fas fa-clipboard-question"></i> Take Quiz</h5>
+          <div id="spQuizAvailable"></div>
+          <hr class="my-3">
+          <h6 class="fw-semibold mb-2">Results</h6>
+          <div class="table-responsive">
+            <table class="table table-sm align-middle mb-0">
+              <thead><tr><th>Quiz</th><th>Score</th><th>Result</th></tr></thead>
+              <tbody id="spQuizBody"></tbody>
+            </table>
+          </div>
+          <div class="sp-empty d-none" id="spQuizEmpty">No quiz results yet.</div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <!-- Assessments -->
+        <div class="sp-section">
+          <h5><i class="fas fa-file-signature"></i> Assessments</h5>
+          <div id="spAssessAvailable"></div>
+          <hr class="my-3">
+          <h6 class="fw-semibold mb-2">Results</h6>
+          <div class="table-responsive">
+            <table class="table table-sm align-middle mb-0">
+              <thead><tr><th>Assessment</th><th>Score</th><th>Result</th></tr></thead>
+              <tbody id="spAssessmentBody"></tbody>
+            </table>
+          </div>
+          <div class="sp-empty d-none" id="spAssessmentEmpty">No assessment results yet.</div>
+        </div>
+
+        <!-- Feedback: two options, form opens only on click -->
+        <div class="sp-section mb-0">
+          <h5><i class="fas fa-comment-dots"></i> Feedback</h5>
+          <p class="small text-muted mb-3">Choose a feedback form. The form opens only when you click.</p>
+          <div class="row g-3 mb-3" id="spFeedbackOptions">
+            <div class="col-6">
+              <button type="button" class="btn btn-outline-primary w-100 py-3" id="btnFbFirst">
+                <i class="fas fa-1 me-1"></i><strong>1st Feedback</strong>
+                <div class="small text-muted mt-1" id="fbFirstHint">Not available</div>
+              </button>
+            </div>
+            <div class="col-6">
+              <button type="button" class="btn btn-outline-info w-100 py-3" id="btnFbSecond">
+                <i class="fas fa-2 me-1"></i><strong>2nd Feedback</strong>
+                <div class="small text-muted mt-1" id="fbSecondHint">Not available</div>
+              </button>
+            </div>
+          </div>
+          <div id="spFeedbackList" class="d-none"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Quiz take modal -->
+<div class="modal fade" id="quizTakeModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
+    <div class="modal-content">
+      <form id="quizTakeForm">
+        <div class="modal-header">
+          <h5 class="modal-title" id="quizTakeTitle">Take Quiz</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body" id="quizTakeBody"></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="quizSubmitBtn">Submit answers</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Assessment submit modal -->
+<div class="modal fade" id="assessSubmitModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <form id="assessSubmitForm">
+        <div class="modal-header">
+          <h5 class="modal-title" id="assessSubmitTitle">Submit Assessment</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="assessSubmitId">
+          <p class="small text-muted" id="assessSubmitDesc"></p>
+          <div class="mb-3">
+            <label class="form-label">Remarks / answer notes</label>
+            <textarea class="form-control" id="assessRemarks" rows="3" placeholder="Optional notes for evaluator"></textarea>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Upload answer file (optional)</label>
+            <input type="file" class="form-control" id="assessFile" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.zip">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="assessSubmitBtn">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<!-- Feedback form modal (opens only on click) -->
+<div class="modal fade" id="feedbackFormModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <form id="spFeedbackForm">
+        <div class="modal-header">
+          <h5 class="modal-title" id="fbModalTitle">Feedback</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="fbFormId">
+          <input type="hidden" id="fbFormType">
+          <p class="small text-muted" id="fbModalDesc"></p>
+          <div id="fbExternalBox" class="d-none mb-3">
+            <a id="fbExternalLink" href="#" target="_blank" rel="noopener" class="btn btn-primary btn-sm">
+              <i class="fas fa-external-link-alt me-1"></i>Open Google Form
+            </a>
+            <p class="small text-muted mt-2">After submitting the external form, click Mark as done below.</p>
+            <button type="button" class="btn btn-outline-success btn-sm" id="fbMarkDoneBtn">Mark as done</button>
+          </div>
+          <div id="fbInternalBox">
+            <div id="fbDynamicFields"></div>
+          </div>
+          <div id="fbMsg" class="alert d-none mt-2 mb-0 py-2"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="fbSubmitBtn"><i class="fas fa-paper-plane me-1"></i>Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom" style="margin-top:0; border:none;">
+      <p class="mb-0">&copy; 2026 <a href="index.html" class="ft-siit">Sujata Institute of Information and Technology</a>. All Rights Reserved. | Design by <a href="https://kdrtitsolutions.com" target="_blank" rel="noopener" class="ft-kdrt">KDRT IT Solutions LLP</a></p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+<script src="assets/js/supabase-config.js"></script>
+<script src="assets/js/student-portal.js"></script>
+<script>
+(function () {
+  SIIT.initSupabase();
+  const $ = (id) => document.getElementById(id);
+  let html5Qr = null;
+  let currentRoll = '';
+  let currentStudent = null;
+  let quizModal = null;
+  let assessModal = null;
+  let currentQuizQuestions = [];
+
+  function badgeClass(status) {
+    const s = String(status || '').toLowerCase();
+    if (['present', 'pass', 'active', 'issued'].includes(s)) return 'bg-success';
+    if (['late', 'pending', 'draft'].includes(s)) return 'bg-warning text-dark';
+    if (['absent', 'fail', 'rejected'].includes(s)) return 'bg-danger';
+    return 'bg-secondary';
+  }
+  function row(label, value, extra) {
+    return '<div class="d-flex justify-content-between align-items-center py-2 border-bottom"><div><div class="fw-semibold">' +
+      SIIT.Utils.escapeHtml(label) + '</div>' + (extra ? '<div class="small text-muted">' + extra + '</div>' : '') +
+      '</div><div>' + value + '</div></div>';
+  }
+  function empty(msg) { return '<div class="sp-empty">' + SIIT.Utils.escapeHtml(msg) + '</div>'; }
+  function showAttMsg(text, type) {
+    const el = $('spAttendanceMsg');
+    if (!el) return;
+    el.className = 'alert alert-' + (type || 'info') + ' mb-3';
+    el.textContent = text;
+    el.classList.remove('d-none');
+  }
+
+  function renderProfile(student) {
+    $('spPhoto').src = student.profile_photo || 'assets/img/logo.png';
+    $('spName').textContent = student.full_name || 'Student';
+    const parts = [
+      student.college_roll_no ? 'Roll No: ' + student.college_roll_no : null,
+      student.colleges && student.colleges.college_name,
+      student.departments && student.departments.department_name,
+      student.courses && student.courses.course_name,
+      student.batches && student.batches.batch_name
+    ].filter(Boolean);
+    $('spMeta').textContent = parts.join(' · ');
+    const badge = $('spStatusBadge');
+    badge.textContent = student.status || 'Active';
+    badge.className = 'badge rounded-pill px-3 py-2 ' + badgeClass(student.status || 'Active');
+    $('spAttRoll').textContent = student.college_roll_no || currentRoll || '—';
+  }
+
+  function renderAttendance(summary, recent) {
+    const container = $('spAttendanceList');
+    if (!summary.length) {
+      container.innerHTML = empty('No attendance yet. Scan QR to mark present.');
+      $('spStatAttendance').textContent = '—';
+      return;
+    }
+    const avg = summary.reduce((a, s) => a + Number(s.attendance_percentage || 0), 0) / summary.length;
+    $('spStatAttendance').textContent = avg.toFixed(0) + '%';
+    container.innerHTML = summary.map(s => {
+      const pct = Number(s.attendance_percentage || 0);
+      const bar = pct >= 75 ? 'bg-success' : pct >= 50 ? 'bg-warning' : 'bg-danger';
+      return '<div class="mb-3"><div class="d-flex justify-content-between small mb-1"><span class="fw-semibold">' +
+        SIIT.Utils.escapeHtml((s.courses && s.courses.course_name) || 'Course') +
+        (s.batches && s.batches.batch_name ? ' · ' + SIIT.Utils.escapeHtml(s.batches.batch_name) : '') +
+        '</span><span>' + pct.toFixed(0) + '% (' + (s.present_count || 0) + '/' + (s.total_sessions || 0) + ')</span></div>' +
+        '<div class="progress sp-progress"><div class="progress-bar ' + bar + '" style="width:' + Math.min(pct, 100) + '%"></div></div></div>';
+    }).join('') + (recent.length ? '<div class="small text-muted mt-3 mb-2 fw-semibold">Recent</div>' +
+      recent.slice(0, 5).map(r => row(
+        (r.attendance_sessions && r.attendance_sessions.topic) || 'Session',
+        '<span class="badge ' + badgeClass(r.status) + '">' + SIIT.Utils.escapeHtml(r.status || '') + '</span>',
+        r.attendance_sessions && r.attendance_sessions.session_date
+          ? SIIT.Utils.formatDate(r.attendance_sessions.session_date) : SIIT.Utils.formatDate(r.attendance_time)
+      )).join('') : '');
+  }
+
+  function renderAvailableQuizzes(list) {
+    const el = $('spQuizAvailable');
+    if (!list || !list.length) {
+      el.innerHTML = empty('No published quizzes for your course right now.');
+      return;
+    }
+    window.__spQuizList = list;
+    el.innerHTML = list.map(q => {
+      const done = q.myResult;
+      const btn = done
+        ? '<span class="badge bg-success">Done ' + (q.myResult.percentage != null ? q.myResult.percentage + '%' : '') + '</span>'
+        : '<button type="button" class="btn btn-sm btn-primary" data-quiz-id="' + q.id + '"><i class="fas fa-play me-1"></i>Take</button>';
+      return '<div class="d-flex justify-content-between align-items-center py-2 border-bottom">' +
+        '<div><div class="fw-semibold">' + SIIT.Utils.escapeHtml(q.title) + '</div>' +
+        '<div class="small text-muted">' + (q.duration_minutes || '—') + ' min · ' + (q.total_marks || '—') + ' marks' +
+        (q.file_url ? ' · has file' : '') + '</div></div>' +
+        '<div>' + btn + '</div></div>';
+    }).join('');
+    el.querySelectorAll('[data-quiz-id]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = Number(btn.getAttribute('data-quiz-id'));
+        const meta = (window.__spQuizList || []).find(x => x.id == id) || { id: id };
+        openQuiz(id, meta);
+      });
+    });
+  }
+
+  function renderQuizResults(list) {
+    $('spQuizEmpty').classList.toggle('d-none', list.length > 0);
+    $('spStatQuiz').textContent = list.length || '0';
+    $('spQuizBody').innerHTML = list.map(q =>
+      '<tr><td>' + SIIT.Utils.escapeHtml((q.quizzes && q.quizzes.title) || 'Quiz') + '</td>' +
+      '<td>' + (q.obtained_marks != null ? q.obtained_marks : '-') + ' / ' + (q.total_marks != null ? q.total_marks : '-') +
+      ' <span class="text-muted small">(' + (q.percentage != null ? Number(q.percentage).toFixed(0) + '%' : '-') + ')</span></td>' +
+      '<td><span class="badge ' + badgeClass(q.result) + '">' + SIIT.Utils.escapeHtml(q.result || 'Pending') + '</span></td></tr>'
+    ).join('');
+  }
+
+  function renderAvailableAssessments(list) {
+    const el = $('spAssessAvailable');
+    if (!list || !list.length) {
+      el.innerHTML = empty('No published assessments for your course.');
+      return;
+    }
+    el.innerHTML = list.map(a => {
+      const done = a.myResult;
+      const btn = done
+        ? '<span class="badge ' + badgeClass(a.myResult.result) + '">' + SIIT.Utils.escapeHtml(a.myResult.result || 'Submitted') + '</span>'
+        : '<button type="button" class="btn btn-sm btn-primary" data-assess-id="' + a.id + '"><i class="fas fa-upload me-1"></i>Submit</button>';
+      return '<div class="d-flex justify-content-between align-items-center py-2 border-bottom">' +
+        '<div><div class="fw-semibold">' + SIIT.Utils.escapeHtml(a.title || a.assessment_type || 'Assessment') + '</div>' +
+        '<div class="small text-muted">' + SIIT.Utils.escapeHtml(a.assessment_type || '') +
+        (a.assessment_date ? ' · ' + SIIT.Utils.formatDate(a.assessment_date) : '') + '</div></div>' +
+        '<div>' + btn + '</div></div>';
+    }).join('');
+    el.querySelectorAll('[data-assess-id]').forEach(btn => {
+      btn.addEventListener('click', () => openAssess(Number(btn.getAttribute('data-assess-id')), list));
+    });
+  }
+
+  function renderAssessmentResults(list) {
+    $('spAssessmentEmpty').classList.toggle('d-none', list.length > 0);
+    $('spStatAssessment').textContent = list.length || '0';
+    $('spAssessmentBody').innerHTML = list.map(a => {
+      const title = (a.assessments && (a.assessments.title || a.assessments.assessment_type)) || 'Assessment';
+      return '<tr><td>' + SIIT.Utils.escapeHtml(title) + '</td>' +
+        '<td>' + (a.obtained_marks != null ? a.obtained_marks : '-') + ' / ' + (a.total_marks != null ? a.total_marks : '-') +
+        ' <span class="text-muted small">(' + (a.percentage != null ? Number(a.percentage).toFixed(0) + '%' : '-') + ')</span></td>' +
+        '<td><span class="badge ' + badgeClass(a.result) + '">' + SIIT.Utils.escapeHtml(a.result || 'Pending') + '</span></td></tr>';
+    }).join('');
+  }
+
+  function renderFeedback(list) {
+    // Do not show submitted feedback ratings to students
+    const container = $('spFeedbackList');
+    if (container) {
+      container.innerHTML = '';
+      container.classList.add('d-none');
+    }
+  }
+
+
+  async function openQuiz(quizId, quizMeta) {
+    if (!currentRoll) { alert('Search by roll number first'); return; }
+    try {
+      const questions = await StudentPortal.loadQuizQuestions(quizId);
+      currentQuizQuestions = questions;
+      const title = (quizMeta && quizMeta.title) || 'Take Quiz';
+      const fileUrl = (quizMeta && quizMeta.file_url) || null;
+      $('quizTakeTitle').textContent = title;
+
+      // Prefer online MCQs (Google Forms style)
+      if (questions.length) {
+        $('quizSubmitBtn').textContent = 'Submit answers';
+        $('quizTakeBody').innerHTML = questions.map((q, i) => {
+          const opts = (q.quiz_options || []).map(o =>
+            '<div class="form-check"><input class="form-check-input" type="radio" name="q_' + q.id + '" id="opt_' + o.id + '" value="' + o.id + '" required>' +
+            '<label class="form-check-label" for="opt_' + o.id + '">' + SIIT.Utils.escapeHtml(o.option_text || '') + '</label></div>'
+          ).join('');
+          return '<div class="mb-3 p-3 border rounded"><div class="fw-semibold mb-2">Q' + (i + 1) + '. ' +
+            SIIT.Utils.escapeHtml(q.question || '') + ' <small class="text-muted">(' + (q.marks || 1) + ' marks)</small></div>' +
+            (opts || '<em class="text-muted">No options</em>') + '</div>';
+        }).join('');
+        if (!quizModal) quizModal = new bootstrap.Modal($('quizTakeModal'));
+        quizModal.show();
+        $('quizTakeForm').onsubmit = async function (e) {
+          e.preventDefault();
+          const btn = $('quizSubmitBtn');
+          btn.disabled = true;
+          try {
+            const answers = {};
+            currentQuizQuestions.forEach(q => {
+              const el = document.querySelector('input[name="q_' + q.id + '"]:checked');
+              if (el) answers[q.id] = el.value;
+            });
+            const r = await StudentPortal.submitQuizByRoll(currentRoll, quizId, answers);
+            SIIT.Utils.toast('Score ' + r.score + '/' + r.total + ' (' + r.percentage + '%) · ' + r.result);
+            quizModal.hide();
+            const data = await StudentPortal.findByRoll(currentRoll);
+            renderAvailableQuizzes(data.availableQuizzes);
+            renderQuizResults(data.quizResults);
+          } catch (err) {
+            SIIT.Utils.toast(err.message || 'Submit failed', 'error');
+          }
+          btn.disabled = false;
+        };
+        return;
+      }
+
+      // No MCQs — display uploaded quiz file so student can attempt it
+      if (!fileUrl) {
+        SIIT.Utils.toast('This quiz has no online questions and no quiz file. Ask your trainer to add questions or upload a quiz file.', 'error');
+        return;
+      }
+
+      $('quizSubmitBtn').textContent = 'Submit attempt';
+      const lower = String(fileUrl).toLowerCase();
+      const isPdf = lower.includes('.pdf');
+      const isDoc = /\.(docx?|xlsx?|pptx?)(\?|$)/i.test(lower) || lower.includes('.docx') || lower.includes('.doc');
+      const isImg = /\.(jpg|jpeg|png|gif|webp)(\?|$)/i.test(lower);
+      let viewer = '';
+      if (isPdf) {
+        viewer = '<div class="mb-3" style="height:min(75vh,620px)">' +
+          '<iframe src="' + SIIT.Utils.escapeHtml(fileUrl) + '#toolbar=1&navpanes=0" ' +
+          'style="width:100%;height:100%;border:1px solid #dee2e6;border-radius:8px;" title="Quiz"></iframe></div>';
+      } else if (isDoc) {
+        // Office / Google Docs embedded viewer for Word/Excel
+        const gview = 'https://docs.google.com/gview?embedded=1&url=' + encodeURIComponent(fileUrl);
+        const office = 'https://view.officeapps.live.com/op/embed.aspx?src=' + encodeURIComponent(fileUrl);
+        viewer = '<div class="mb-2 small text-muted">Quiz document</div>' +
+          '<div class="mb-3" style="height:min(75vh,620px)">' +
+          '<iframe src="' + gview + '" style="width:100%;height:100%;border:1px solid #dee2e6;border-radius:8px;" title="Quiz document"></iframe></div>' +
+          '<div class="small mb-3">If the document does not load, <a href="' + SIIT.Utils.escapeHtml(office) +
+          '" target="_blank" rel="noopener">open in Office viewer</a> or <a href="' + SIIT.Utils.escapeHtml(fileUrl) +
+          '" target="_blank" rel="noopener">open file</a>.</div>';
+      } else if (isImg) {
+        viewer = '<div class="mb-3 text-center"><img src="' + SIIT.Utils.escapeHtml(fileUrl) +
+          '" class="img-fluid rounded border" style="max-height:min(75vh,620px)" alt="Quiz"></div>';
+      } else {
+        viewer = '<div class="alert alert-info">Open the quiz file to answer, then submit your attempt.' +
+          '<div class="mt-2"><a class="btn btn-primary btn-sm" href="' + SIIT.Utils.escapeHtml(fileUrl) +
+          '" target="_blank" rel="noopener"><i class="fas fa-external-link-alt me-1"></i>Open quiz</a></div></div>';
+      }
+      viewer += '<div class="border rounded p-3 bg-light small">Answer from the document above, then click <strong>Submit attempt</strong>. Your trainer will grade it.</div>';
+      $('quizTakeBody').innerHTML = viewer;
+      if (!quizModal) quizModal = new bootstrap.Modal($('quizTakeModal'));
+      quizModal.show();
+      $('quizTakeForm').onsubmit = async function (e) {
+        e.preventDefault();
+        const btn = $('quizSubmitBtn');
+        btn.disabled = true;
+        try {
+          const r = await StudentPortal.submitQuizByRoll(currentRoll, quizId, {});
+          SIIT.Utils.toast('Attempt submitted — waiting for trainer grading');
+          quizModal.hide();
+          const data = await StudentPortal.findByRoll(currentRoll);
+          renderAvailableQuizzes(data.availableQuizzes);
+          renderQuizResults(data.quizResults);
+        } catch (err) {
+          SIIT.Utils.toast(err.message || 'Submit failed', 'error');
+          btn.disabled = false;
+        }
+      };
+    } catch (e) {
+      SIIT.Utils.toast(e.message || 'Could not open quiz', 'error');
+    }
+  }
+
+  function openAssess(id, list) {
+    if (!currentRoll) { alert('Search by roll number first'); return; }
+    const a = (list || []).find(x => x.id == id);
+    $('assessSubmitId').value = id;
+    $('assessSubmitTitle').textContent = a ? (a.title || 'Submit Assessment') : 'Submit Assessment';
+    $('assessSubmitDesc').textContent = a && a.description ? a.description : 'Submit your work for evaluation.';
+    $('assessRemarks').value = '';
+    $('assessFile').value = '';
+    if (!assessModal) assessModal = new bootstrap.Modal($('assessSubmitModal'));
+    assessModal.show();
+  }
+
+  $('assessSubmitForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const btn = $('assessSubmitBtn');
+    btn.disabled = true;
+    try {
+      await StudentPortal.submitAssessmentByRoll(currentRoll, Number($('assessSubmitId').value), {
+        remarks: $('assessRemarks').value,
+        file: $('assessFile').files[0] || null
+      });
+      SIIT.Utils.toast('Assessment submitted — awaiting evaluation');
+      assessModal.hide();
+      const data = await StudentPortal.findByRoll(currentRoll);
+      renderAvailableAssessments(data.availableAssessments);
+      renderAssessmentResults(data.assessmentResults);
+    } catch (err) {
+      SIIT.Utils.toast(err.message || 'Submit failed', 'error');
+    }
+    btn.disabled = false;
+  });
+
+  let feedbackModal = null;
+  let availableFeedbackForms = { first: null, second: null };
+
+    const DEFAULT_FB_OPTS = ['Excellent', 'Very Good', 'Good', 'Satisfactory', 'Needs Improvement'];
+    const POWER_BI_FALLBACK_FIELDS = [
+      { key: 'q1', label: 'How would you rate the overall quality of the Power BI course?', type: 'radio', options: DEFAULT_FB_OPTS, required: true },
+      { key: 'q2', label: 'How clear and effective was the trainer explanation of Power BI concepts?', type: 'radio', options: DEFAULT_FB_OPTS, required: true },
+      { key: 'q3', label: 'How useful were the practical exercises and hands-on activities?', type: 'radio', options: DEFAULT_FB_OPTS, required: true },
+      { key: 'q4', label: 'How well did the course improve your ability to create reports and dashboards in Power BI?', type: 'radio', options: DEFAULT_FB_OPTS, required: true },
+      { key: 'q5', label: 'How satisfied are you with the course content, examples, and learning materials?', type: 'radio', options: DEFAULT_FB_OPTS, required: true },
+      { key: 'q6', label: 'How likely are you to recommend this Power BI course to others?', type: 'radio', options: DEFAULT_FB_OPTS, required: true },
+      { key: 'comments', label: 'Additional Comments / Suggestions', type: 'text', options: [], required: false }
+    ];
+
+
+  function normFbType(t) {
+    const s = String(t || '').toLowerCase().trim();
+    if (s === 'first' || s === '1' || s === '1st' || s.includes('first') || s.includes('1st')) return 'first';
+    if (s === 'second' || s === '2' || s === '2nd' || s.includes('second') || s.includes('2nd')) return 'second';
+    return s;
+  }
+
+  function setupFeedbackButtons(forms, myFeedback) {
+    availableFeedbackForms = { first: null, second: null };
+    const list = Array.isArray(forms) ? forms : [];
+    list.forEach(f => {
+      const t = normFbType(f.form_type);
+      if (t === 'first' || t === 'second') availableFeedbackForms[t] = { ...f, form_type: t };
+    });
+    // If only one form and type missing, map to first
+    if (!availableFeedbackForms.first && !availableFeedbackForms.second && list.length === 1) {
+      availableFeedbackForms.first = { ...list[0], form_type: 'first' };
+    }
+    const doneTypes = {};
+    (myFeedback || []).forEach(f => {
+      const t = normFbType(f.form_type);
+      if (t) doneTypes[t] = true;
+      if (f.form_id) doneTypes['id:' + f.form_id] = true;
+    });
+    [['first', 'btnFbFirst', 'fbFirstHint'], ['second', 'btnFbSecond', 'fbSecondHint']].forEach(([type, btnId, hintId]) => {
+      const btn = $(btnId);
+      const hint = $(hintId);
+      if (!btn || !hint) return;
+      const form = availableFeedbackForms[type];
+      btn.classList.remove('btn-success');
+      if (type === 'first') btn.classList.add('btn-outline-primary');
+      else btn.classList.add('btn-outline-info');
+      if (!form) {
+        btn.disabled = false; // still clickable → toast explains
+        btn.setAttribute('data-fb-ready', '0');
+        hint.textContent = list.length ? 'Not for this type' : 'Not published yet';
+        return;
+      }
+      const done = doneTypes[type] || doneTypes['id:' + form.id];
+      if (done) {
+        btn.disabled = false;
+        btn.setAttribute('data-fb-ready', 'done');
+        btn.classList.remove('btn-outline-primary', 'btn-outline-info');
+        btn.classList.add('btn-success');
+        hint.textContent = 'Submitted — view only';
+      } else {
+        btn.disabled = false;
+        btn.setAttribute('data-fb-ready', '1');
+        hint.textContent = form.title || 'Click to open';
+      }
+    });
+  }
+
+  async function openFeedbackForm(type) {
+    if (!currentRoll) { alert('Search by roll number first'); return; }
+    const formDef = availableFeedbackForms[type];
+    if (!formDef) {
+      SIIT.Utils.toast('No published ' + (type === 'second' ? '2nd' : '1st') + ' feedback form. Admin must Add Form → Upload file → Status Published.', 'error');
+      return;
+    }
+    const ready = document.getElementById(type === 'second' ? 'btnFbSecond' : 'btnFbFirst')?.getAttribute('data-fb-ready');
+    if (ready === 'done') {
+      SIIT.Utils.toast('You already submitted this feedback.', 'info');
+      // still allow opening in read-only? skip for now
+      return;
+    }
+    $('fbFormId').value = formDef.id;
+    $('fbFormType').value = type;
+    $('fbModalTitle').textContent = formDef.title || (type === 'second' ? '2nd Feedback' : '1st Feedback');
+    $('fbModalDesc').textContent = formDef.description || '';
+    $('fbMsg').classList.add('d-none');
+    $('spFeedbackForm').reset();
+    $('fbFormId').value = formDef.id;
+    $('fbFormType').value = type;
+    $('fbExternalBox').classList.add('d-none');
+    $('fbInternalBox').classList.remove('d-none');
+    $('fbSubmitBtn').classList.remove('d-none');
+    let fields = formDef.fields_json || [];
+    if (typeof fields === 'string') {
+      try { fields = JSON.parse(fields); } catch (_) { fields = []; }
+    }
+    if (!Array.isArray(fields)) fields = [];
+    window.__fbCurrentFields = fields;
+    const host = $('fbDynamicFields');
+    const fileUrl = formDef.form_url || null;
+    let fieldsHtml = '';
+    // Online form from extracted questions (preferred — like Google Form)
+    if (fields.length) {
+      window.__fbCurrentFields = fields;
+      fieldsHtml = '<p class="small text-muted mb-3">Please answer all questions below.</p>' + fields.map((f, i) => {
+        const key = f.key || ('q' + (i + 1));
+        const label = f.label || ('Question ' + (i + 1));
+        if (f.type === 'text') {
+          return '<div class="mb-3"><label class="form-label small fw-semibold">' + SIIT.Utils.escapeHtml(label) +
+            '</label><textarea class="form-control form-control-sm fb-field" data-key="' + SIIT.Utils.escapeHtml(key) +
+            '" rows="3"></textarea></div>';
+        }
+        const opts = (f.options && f.options.length) ? f.options : ['Excellent','Very Good','Good','Satisfactory','Needs Improvement'];
+        const radios = opts.map((o, oi) =>
+          '<div class="form-check"><input class="form-check-input" type="radio" name="fb_' + SIIT.Utils.escapeHtml(key) +
+          '" id="fb_' + SIIT.Utils.escapeHtml(key) + '_' + oi + '" value="' + SIIT.Utils.escapeHtml(o) + '"' +
+          (f.required ? ' required' : '') + '>' +
+          '<label class="form-check-label" for="fb_' + SIIT.Utils.escapeHtml(key) + '_' + oi + '">' + SIIT.Utils.escapeHtml(o) + '</label></div>'
+        ).join('');
+        return '<div class="mb-3 p-3 border rounded bg-white"><div class="fw-semibold small mb-2">' + (i + 1) + '. ' +
+          SIIT.Utils.escapeHtml(label) + '</div>' + radios + '</div>';
+      }).join('');
+    } else {
+      // No fields_json yet — use Power BI course form (matches uploaded template)
+      const titleHint = ((formDef.title || '') + ' ' + (formDef.description || '') + ' ' + (fileUrl || '')).toLowerCase();
+      fields = POWER_BI_FALLBACK_FIELDS.map(f => ({ ...f, options: (f.options || DEFAULT_FB_OPTS).slice() }));
+      window.__fbCurrentFields = fields;
+      fieldsHtml = '<p class="small text-muted mb-3">Please rate the course based on your learning experience.</p>' + fields.map((f, i) => {
+        const key = f.key || ('q' + (i + 1));
+        const label = f.label || ('Question ' + (i + 1));
+        if (f.type === 'text') {
+          return '<div class="mb-3"><label class="form-label small fw-semibold">' + SIIT.Utils.escapeHtml(label) +
+            '</label><textarea class="form-control form-control-sm fb-field" data-key="' + SIIT.Utils.escapeHtml(key) +
+            '" rows="3"></textarea></div>';
+        }
+        const opts = f.options || DEFAULT_FB_OPTS;
+        const radios = opts.map((o, oi) =>
+          '<div class="form-check"><input class="form-check-input" type="radio" name="fb_' + SIIT.Utils.escapeHtml(key) +
+          '" id="fb_' + SIIT.Utils.escapeHtml(key) + '_' + oi + '" value="' + SIIT.Utils.escapeHtml(o) + '" required>' +
+          '<label class="form-check-label" for="fb_' + SIIT.Utils.escapeHtml(key) + '_' + oi + '">' + SIIT.Utils.escapeHtml(o) + '</label></div>'
+        ).join('');
+        return '<div class="mb-3 p-3 border rounded bg-white"><div class="fw-semibold small mb-2">' + (i + 1) + '. ' +
+          SIIT.Utils.escapeHtml(label) + '</div>' + radios + '</div>';
+      }).join('');
+    }
+    host.innerHTML = fieldsHtml;
+    if (!feedbackModal) feedbackModal = new bootstrap.Modal($('feedbackFormModal'));
+    feedbackModal.show();
+  }
+
+  const btnFirst = $('btnFbFirst');
+  const btnSecond = $('btnFbSecond');
+  if (btnFirst) {
+    btnFirst.style.cursor = 'pointer';
+    btnFirst.addEventListener('click', function (e) {
+      e.preventDefault();
+      openFeedbackForm('first');
+    });
+  }
+  if (btnSecond) {
+    btnSecond.style.cursor = 'pointer';
+    btnSecond.addEventListener('click', function (e) {
+      e.preventDefault();
+      openFeedbackForm('second');
+    });
+  }
+
+  $('fbMarkDoneBtn')?.addEventListener('click', async function () {
+    if (!currentRoll) return;
+    try {
+      await StudentPortal.submitFeedbackByRoll(currentRoll, {
+        form_id: $('fbFormId').value,
+        form_type: $('fbFormType').value,
+        rating: 5,
+        comments: 'Submitted via external Google Form',
+        course_id: currentStudent && currentStudent.course_id
+      });
+      SIIT.Utils.toast('Marked as done. Thank you!');
+      feedbackModal.hide();
+      const data = await StudentPortal.findByRoll(currentRoll);
+      renderFeedback(data.feedback);
+      setupFeedbackButtons(data.feedbackForms, data.feedback);
+    } catch (err) {
+      SIIT.Utils.toast(err.message || 'Failed', 'error');
+    }
+  });
+
+  $('spFeedbackForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    if (!currentRoll) { alert('Search by roll number first'); return; }
+    const btn = $('fbSubmitBtn');
+    const msg = $('fbMsg');
+    btn.disabled = true;
+    msg.classList.add('d-none');
+    try {
+      const answers = {};
+      const fields = window.__fbCurrentFields || [];
+      fields.forEach((f, i) => {
+        const key = f.key || ('q' + (i + 1));
+        if (f.type === 'text') {
+          const el = document.querySelector('.fb-field[data-key="' + key + '"]');
+          if (el) answers[key] = el.value;
+        } else {
+          const el = document.querySelector('input[name="fb_' + key + '"]:checked');
+          if (el) answers[key] = el.value;
+        }
+      });
+      // Map first 5 radio answers to legacy columns when possible
+      const scale = { 'Excellent': 5, 'Very Good': 4, 'Good': 3, 'Satisfactory': 2, 'Needs Improvement': 1 };
+      const vals = fields.filter(f => f.type !== 'text').map(f => answers[f.key]).filter(Boolean);
+      const toScore = v => scale[v] != null ? scale[v] : (Number(v) || null);
+      await StudentPortal.submitFeedbackByRoll(currentRoll, {
+        form_id: $('fbFormId').value || null,
+        form_type: $('fbFormType').value || null,
+        trainer_id: null,
+        rating: vals[0] != null ? toScore(vals[0]) : (answers.rating ? toScore(answers.rating) : 5),
+        teaching_quality: vals[1] != null ? toScore(vals[1]) : null,
+        communication: vals[2] != null ? toScore(vals[2]) : null,
+        practical_knowledge: vals[3] != null ? toScore(vals[3]) : null,
+        overall_experience: vals[4] != null ? toScore(vals[4]) : null,
+        comments: answers.comments || answers[fields.find(x => x.type === 'text')?.key] || null,
+        answers_json: answers,
+        course_id: currentStudent && currentStudent.course_id
+      });
+      msg.className = 'alert alert-success mt-2 mb-0 py-2';
+      msg.textContent = 'Feedback submitted. Thank you!';
+      msg.classList.remove('d-none');
+      const data = await StudentPortal.findByRoll(currentRoll);
+      renderFeedback(data.feedback);
+      setupFeedbackButtons(data.feedbackForms, data.feedback);
+      setTimeout(() => { if (feedbackModal) feedbackModal.hide(); }, 800);
+    } catch (err) {
+      msg.className = 'alert alert-danger mt-2 mb-0 py-2';
+      msg.textContent = err.message || 'Failed';
+      msg.classList.remove('d-none');
+    }
+    btn.disabled = false;
+  });
+
+  async function loadTrainers() {
+    if (!currentStudent || !$('fbTrainer')) return;
+    try {
+      const trainers = await StudentPortal.listTrainersForStudent(currentStudent);
+      $('fbTrainer').innerHTML = '<option value="">— Optional —</option>' +
+        (trainers || []).map(t => '<option value="' + t.id + '">' + SIIT.Utils.escapeHtml(t.full_name || t.id) + '</option>').join('');
+    } catch (_) {}
+  }
+
+  async function handleQrPayload(payload) {
+    const roll = currentRoll || ($('spRollNo') && $('spRollNo').value || '').trim();
+    if (!roll) { showAttMsg('Enter roll number and search first.', 'warning'); return; }
+    try {
+      showAttMsg('Marking attendance…', 'info');
+      const res = await StudentPortal.markAttendanceByRoll(roll, payload);
+      showAttMsg(res.message || 'Present marked', 'success');
+      const data = await StudentPortal.findByRoll(roll);
+      renderAttendance(data.attendanceSummary, data.recentAttendance);
+    } catch (e) {
+      showAttMsg(e.message || 'Failed', 'danger');
+    }
+  }
+
+  async function stopScanner() {
+    if (html5Qr) {
+      try { await html5Qr.stop(); } catch (_) {}
+      try { await html5Qr.clear(); } catch (_) {}
+      html5Qr = null;
+    }
+    if ($('qrScannerBox')) $('qrScannerBox').classList.add('d-none');
+  }
+
+  if ($('btnScanQr')) {
+    $('btnScanQr').addEventListener('click', async function () {
+      const roll = currentRoll || ($('spRollNo') && $('spRollNo').value || '').trim();
+      if (!roll) { showAttMsg('Enter roll number and search first.', 'warning'); return; }
+      currentRoll = roll;
+      $('qrScannerBox').classList.remove('d-none');
+      if (html5Qr) return;
+      try {
+        html5Qr = new Html5Qrcode('qrReader');
+        await html5Qr.start({ facingMode: 'environment' }, { fps: 8, qrbox: { width: 220, height: 220 } },
+          async function (decoded) { await stopScanner(); await handleQrPayload(decoded); }, function () {});
+      } catch (e) {
+        showAttMsg('Camera error: ' + (e.message || e), 'danger');
+        await stopScanner();
+      }
+    });
+  }
+  if ($('btnStopScan')) $('btnStopScan').addEventListener('click', () => stopScanner());
+  if ($('btnManualToken')) {
+    $('btnManualToken').addEventListener('click', async function () {
+      const roll = currentRoll || ($('spRollNo') && $('spRollNo').value || '').trim();
+      if (!roll) { showAttMsg('Enter roll number and search first.', 'warning'); return; }
+      currentRoll = roll;
+      const token = prompt('Paste QR token (SIIT_BATCH:...)');
+      if (token) await handleQrPayload(token);
+    });
+  }
+
+  async function search(rollNo) {
+    $('spError').classList.add('d-none');
+    $('spResults').style.display = 'none';
+    $('spLoading').style.display = 'block';
+    $('spSearchBtn').disabled = true;
+    if ($('spAttendanceMsg')) $('spAttendanceMsg').classList.add('d-none');
+    try {
+      const data = await StudentPortal.findByRoll(rollNo);
+      currentRoll = String(rollNo || '').trim();
+      currentStudent = data.student;
+      renderProfile(data.student);
+      renderAttendance(data.attendanceSummary, data.recentAttendance);
+      renderAvailableQuizzes(data.availableQuizzes);
+      renderQuizResults(data.quizResults);
+      renderAvailableAssessments(data.availableAssessments);
+      renderAssessmentResults(data.assessmentResults);
+      renderFeedback(data.feedback);
+      setupFeedbackButtons(data.feedbackForms || [], data.feedback);
+      await loadTrainers();
+      $('spResults').style.display = 'block';
+      $('spResults').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } catch (err) {
+      currentRoll = '';
+      currentStudent = null;
+      $('spError').textContent = err.message || 'Something went wrong.';
+      $('spError').classList.remove('d-none');
+    } finally {
+      $('spLoading').style.display = 'none';
+      $('spSearchBtn').disabled = false;
+    }
+  }
+
+  $('spSearchForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    search($('spRollNo').value);
+  });
+
+  const params = new URLSearchParams(location.search);
+  if (params.get('roll')) {
+    $('spRollNo').value = params.get('roll');
+    search(params.get('roll'));
+  }
+})();
+</script>
+</body>
+</html>
