@@ -419,10 +419,31 @@
       .lamp-scene, .pull-hint { animation: none; }
       .cord.bounce, .login-page.lamp-on .lamp, .login-page.lamp-on .login-card { animation: none; }
     }
+
+    .back-to-site {
+      position: fixed; top: 1rem; left: 1rem; z-index: 50;
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.45rem 0.9rem; border-radius: 999px;
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18);
+      color: #e8e8f0; font-size: 0.82rem; font-weight: 500; text-decoration: none;
+      backdrop-filter: blur(8px); transition: background 0.25s, border-color 0.25s, color 0.25s;
+    }
+    .back-to-site:hover {
+      background: rgba(255,184,77,0.2); border-color: rgba(255,184,77,0.5);
+      color: #ffb84d;
+    }
+    @media (max-width: 575.98px) {
+      .back-to-site { top: 0.65rem; left: 0.65rem; padding: 0.35rem 0.7rem; font-size: 0.75rem; }
+      .back-to-site .back-label { display: none; }
+    }
   </style>
 </head>
 <body>
   <div class="login-page" id="loginPage">
+    <a href="../index.html" class="back-to-site" id="backToSite" title="Back to website">
+      <i class="fas fa-arrow-left"></i><span class="back-label">Back to website</span>
+    </a>
+
     <div class="ambient-glow"></div>
     <div class="particles" id="particles"></div>
     <div class="container-fluid h-100">
@@ -470,7 +491,7 @@
         <div class="col-12 col-lg-6 col-xl-5 d-flex justify-content-center align-items-center form-col">
           <div class="login-card" id="loginCard">
             <div class="logo-wrap">
-              <a href="../public/index.html" title="Back to website">
+              <a href="../index.html" title="Back to website">
                 <img src="../assets/img/logo.png" alt="Sujata Institute Logo">
               </a>
             </div>
