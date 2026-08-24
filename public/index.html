@@ -859,52 +859,57 @@
 
 <script src="assets/js/course-enquiry-popup.js"></script>
 <script>
-/* Double-click navbar logo / brand → Admin Login (reliable) */
+/* Double-click on logo OR "Sujata Institute" text → Admin Login */
 (function () {
-  const DELAY = 320; // ms between clicks to count as double-click
+  const DELAY = 300; // ms
   let clickCount = 0;
   let timer = null;
 
-  function goAdmin(e) {
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
+  function goAdmin() {
     window.location.href = "admin/login.html";
   }
 
+  function goHome() {
+    // Only navigate if we are not already on index
+    if (!/index\.html?$|^\/$/.test(location.pathname)) {
+      window.location.href = "index.html";
+    }
+  }
+
   function onClick(e) {
-    // Only react to left button
+    // Left button only
     if (e.button !== 0) return;
+
+    // Stop the browser from following the <a href> immediately
+    e.preventDefault();
+    e.stopPropagation();
 
     clickCount++;
 
     if (clickCount === 1) {
-      // First click – wait to see if a second comes
       timer = setTimeout(function () {
-        // Timed out → treat as normal single click (let the link work)
+        // Single click → go home
         clickCount = 0;
+        goHome();
       }, DELAY);
-    } else if (clickCount >= 2) {
-      // Second click within window → go to admin
+    } else {
+      // Double click → go admin
       clearTimeout(timer);
       clickCount = 0;
-      goAdmin(e);
+      goAdmin();
     }
   }
 
   function bind() {
     const brand = document.getElementById("navBrand");
-    const logo  = document.getElementById("navLogo");
+    if (!brand) return;
 
-    if (brand) {
-      brand.addEventListener("click", onClick);
-      // Optional: visual hint that it is interactive
-      brand.style.cursor = "pointer";
-    }
-    if (logo) {
-      logo.style.cursor = "pointer";
-    }
+    brand.addEventListener("click", onClick);
+    brand.style.cursor = "pointer";
+
+    // Make sure both logo and text feel clickable
+    const logo = document.getElementById("navLogo");
+    if (logo) logo.style.cursor = "pointer";
   }
 
   if (document.readyState === "loading") {
