@@ -419,32 +419,81 @@
       .lamp-scene, .pull-hint { animation: none; }
       .cord.bounce, .login-page.lamp-on .lamp, .login-page.lamp-on .login-card { animation: none; }
     }
-
+  
+    /* ===== Back button — always visible ===== */
     .back-to-site {
-      position: fixed; top: 1rem; left: 1rem; z-index: 50;
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      padding: 0.45rem 0.9rem; border-radius: 999px;
-      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18);
-      color: #e8e8f0; font-size: 0.82rem; font-weight: 500; text-decoration: none;
-      backdrop-filter: blur(8px); transition: background 0.25s, border-color 0.25s, color 0.25s;
+      position: fixed !important;
+      top: 1rem !important;
+      left: 1rem !important;
+      z-index: 99999 !important;
+      display: inline-flex !important;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.55rem 1.1rem;
+      border-radius: 999px;
+      background: #ffffff !important;
+      border: 2px solid #ffb84d !important;
+      color: #1a1a2e !important;
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-decoration: none !important;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5), 0 0 0 3px rgba(255,184,77,0.25);
+      pointer-events: auto !important;
+      visibility: visible !important;
+      opacity: 1 !important;
     }
     .back-to-site:hover {
-      background: rgba(255,184,77,0.2); border-color: rgba(255,184,77,0.5);
-      color: #ffb84d;
+      background: #ffb84d !important;
+      color: #1a1208 !important;
+    }
+    .back-to-site .back-arrow {
+      font-style: normal; font-size: 1.1rem; line-height: 1; font-weight: 700;
+    }
+    /* Also show inside the card (guaranteed visible) */
+    .card-back-link {
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      margin: 0 0 0.85rem 0;
+      padding: 0.4rem 0.75rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #ffb84d !important;
+      text-decoration: none !important;
+      border: 1px dashed rgba(255,184,77,0.45);
+      border-radius: 10px;
+      background: rgba(255,184,77,0.08);
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .card-back-link:hover {
+      background: rgba(255,184,77,0.2);
+      border-color: #ffb84d;
+      color: #ffc96a !important;
     }
     @media (max-width: 575.98px) {
-      .back-to-site { top: 0.65rem; left: 0.65rem; padding: 0.35rem 0.7rem; font-size: 0.75rem; }
-      .back-to-site .back-label { display: none; }
+      .back-to-site {
+        top: 0.6rem !important;
+        left: 0.6rem !important;
+        padding: 0.45rem 0.85rem;
+        font-size: 0.8rem;
+      }
     }
+
   </style>
 </head>
 <body>
-  <div class="login-page" id="loginPage">
-    <a href="../index.html" class="back-to-site" id="backToSite" title="Back to website">
-      <i class="fas fa-arrow-left"></i><span class="back-label">Back to website</span>
-    </a>
+  <!-- BACK TO WEBSITE — always visible -->
+  <a href="../index.html" id="backToSite"
+     style="position:fixed;top:12px;left:12px;z-index:2147483647;display:inline-flex!important;
+            align-items:center;gap:8px;padding:10px 16px;border-radius:999px;
+            background:#fff;border:2px solid #ffb84d;color:#111;font:700 14px/1.2 Poppins,system-ui,sans-serif;
+            text-decoration:none;box-shadow:0 4px 16px rgba(0,0,0,.45);cursor:pointer;">
+    &#8592; Back to website
+  </a>
 
-    <div class="ambient-glow"></div>
+  <div class="login-page" id="loginPage">
+<div class="ambient-glow"></div>
     <div class="particles" id="particles"></div>
     <div class="container-fluid h-100">
       <div class="row h-100 align-items-center justify-content-center g-0">
@@ -490,7 +539,15 @@
         </div>
         <div class="col-12 col-lg-6 col-xl-5 d-flex justify-content-center align-items-center form-col">
           <div class="login-card" id="loginCard">
-            <div class="logo-wrap">
+            <a href="../index.html" id="cardBackLink"
+               style="display:flex!important;align-items:center;justify-content:center;gap:8px;
+                      width:100%;margin:0 0 14px 0;padding:10px 12px;box-sizing:border-box;
+                      border-radius:10px;background:rgba(255,184,77,.18);border:1px solid #ffb84d;
+                      color:#ffb84d;font:600 14px/1.2 Poppins,system-ui,sans-serif;text-decoration:none;">
+              &#8592; Back to website
+            </a>
+
+<div class="logo-wrap">
               <a href="../index.html" title="Back to website">
                 <img src="../assets/img/logo.png" alt="Sujata Institute Logo">
               </a>
