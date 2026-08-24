@@ -858,28 +858,60 @@
 </script>
 
 <script src="assets/js/course-enquiry-popup.js"></script>
-
 <script>
-/* Double-click navbar logo → Admin Login */
+/* Double-click navbar logo / brand → Admin Login (reliable) */
 (function () {
-  function goLogin(e) {
-    if (e) { e.preventDefault(); e.stopPropagation(); }
-    window.location.href = "admin/login.html";
+  const DELAY = 320; // ms between clicks to count as double-click
+  let clickCount = 0;
+  let timer = null;
 
+  function goAdmin(e) {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    window.location.href = "admin/login.html";
   }
+
+  function onClick(e) {
+    // Only react to left button
+    if (e.button !== 0) return;
+
+    clickCount++;
+
+    if (clickCount === 1) {
+      // First click – wait to see if a second comes
+      timer = setTimeout(function () {
+        // Timed out → treat as normal single click (let the link work)
+        clickCount = 0;
+      }, DELAY);
+    } else if (clickCount >= 2) {
+      // Second click within window → go to admin
+      clearTimeout(timer);
+      clickCount = 0;
+      goAdmin(e);
+    }
+  }
+
   function bind() {
-    var logo = document.getElementById("navLogo");
-    var brand = document.getElementById("navBrand");
+    const brand = document.getElementById("navBrand");
+    const logo  = document.getElementById("navLogo");
+
+    if (brand) {
+      brand.addEventListener("click", onClick);
+      // Optional: visual hint that it is interactive
+      brand.style.cursor = "pointer";
+    }
     if (logo) {
-      logo.addEventListener("dblclick", goLogin);
       logo.style.cursor = "pointer";
     }
-    if (brand) {
-      brand.addEventListener("dblclick", goLogin);
-    }
   }
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", bind);
-  else bind();
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bind);
+  } else {
+    bind();
+  }
 })();
 </script>
 
