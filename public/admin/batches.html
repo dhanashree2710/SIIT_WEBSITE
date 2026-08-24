@@ -227,7 +227,7 @@
 </div>
 
 
-      <!-- Batch Details: Quizzes / Assessments / Feedback -->
+      <!-- Batch Details: Quizzes / Assessments / Feedback / Attendance -->
       <div class="modal fade" id="batchDetailModal" tabindex="-1">
         <div class="modal-dialog modal-xl modal-dialog-scrollable modal-dialog-centered">
           <div class="modal-content">
@@ -240,6 +240,7 @@
                 <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tabQuizzes" type="button">Quizzes</button></li>
                 <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabAssess" type="button">Assessments</button></li>
                 <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabFeedback" type="button">Feedback</button></li>
+                <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabAttendance" type="button">Attendance</button></li>
               </ul>
               <div class="tab-content">
                 <div class="tab-pane fade show active" id="tabQuizzes">
@@ -271,6 +272,27 @@
                     <thead class="table-light"><tr><th>Student</th><th>Form</th><th>Type</th><th>Rating</th><th>Comments</th><th>Submitted</th></tr></thead>
                     <tbody id="batchFbBody"></tbody>
                   </table></div>
+                </div>
+                <div class="tab-pane fade" id="tabAttendance">
+                  <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted small" id="attCount"></span>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="downloadBatchCsv('attendance')"><i class="fas fa-download me-1"></i>CSV</button>
+                  </div>
+                  <div class="table-responsive">
+                    <table class="table table-sm table-hover mb-0">
+                      <thead class="table-light">
+                        <tr>
+                          <th>Student</th>
+                          <th>Department</th>
+                          <th>Session Date</th>
+                          <th>Topic</th>
+                          <th>Status</th>
+                          <th>Marked At</th>
+                        </tr>
+                      </thead>
+                      <tbody id="batchAttBody"></tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
@@ -478,7 +500,7 @@ function render(rows) {
       <td><span class="badge bg-primary">${SIIT.Utils.escapeHtml(row.status || '—')}</span></td>
       <td class="text-nowrap">
         <button class="btn btn-sm btn-outline-dark me-1" title="Attendance QR for this batch" onclick="showBatchQrFromBatches(${row.id})"><i class="fas fa-qrcode"></i></button>
-        ${isTrainerUser() ? '' : `<button class="btn btn-sm btn-outline-success me-1" title="Batch details (quiz, assessment, feedback)" onclick="viewBatchDetails(${row.id})"><i class="fas fa-eye"></i></button>
+        ${isTrainerUser() ? '' : `<button class="btn btn-sm btn-outline-success me-1" title="Batch details (quiz, assessment, feedback, attendance)" onclick="viewBatchDetails(${row.id})"><i class="fas fa-eye"></i></button>
         <button class="btn btn-sm btn-outline-primary me-1" onclick="openForm(${row.id})"><i class="fas fa-edit"></i></button>
         <button class="btn btn-sm btn-outline-danger" onclick="deleteRow(${row.id}, '${SIIT.Utils.escapeHtml(row.batch_name).replace(/'/g, '')}')"><i class="fas fa-trash"></i></button>`}
       </td>
@@ -729,9 +751,9 @@ document.getElementById('searchInput')?.addEventListener('input', () => {
 });
 
 
-/* ========== Batch details: quiz / assessment / feedback ========== */
+/* ========== Batch details: quiz / assessment / feedback / attendance ========== */
 let currentDetailBatchId = null;
-let detailCache = { quiz: [], assessment: [], feedback: [] };
+let detailCache = { quiz: [], assessment: [], feedback: [], attendance: [] };
 let batchDetailModal = null;
 
 async function viewBatchDetails(batchId) {
@@ -740,12 +762,17 @@ async function viewBatchDetails(batchId) {
   document.getElementById('batchDetailTitle').textContent =
     'Batch — ' + (batch.batch_name || batch.batch_code || batchId);
   if (!batchDetailModal) batchDetailModal = new bootstrap.Modal(document.getElementById('batchDetailModal'));
+
   document.getElementById('batchQzBody').innerHTML = '<tr><td colspan="4" class="text-muted text-center">Loading...</td></tr>';
   document.getElementById('batchAsBody').innerHTML = '<tr><td colspan="4" class="text-muted text-center">Loading...</td></tr>';
   document.getElementById('batchFbBody').innerHTML = '<tr><td colspan="6" class="text-muted text-center">Loading...</td></tr>';
+  document.getElementById('batchAttBody').innerHTML = '<tr><td colspan="6" class="text-muted text-center">Loading...</td></tr>';
+  document.getElementById('attCount').textContent = '';
+
   batchDetailModal.show();
   const client = SIIT.initSupabase();
 
+  // ---------- Quizzes ----------
   try {
     let qz = [];
     const r1 = await client.from('quizzes').select('id, title, status, total_marks, batch_id, course_id').eq('batch_id', batchId).order('id', { ascending: false });
@@ -769,6 +796,7 @@ async function viewBatchDetails(batchId) {
     document.getElementById('batchQzBody').innerHTML = '<tr><td colspan="4" class="text-danger">' + SIIT.Utils.escapeHtml(e.message) + '</td></tr>';
   }
 
+  // ---------- Assessments ----------
   try {
     let as = [];
     const r1 = await client.from('assessments').select('id, title, assessment_type, status, batch_id, course_id').eq('batch_id', batchId).order('id', { ascending: false });
@@ -792,6 +820,7 @@ async function viewBatchDetails(batchId) {
     document.getElementById('batchAsBody').innerHTML = '<tr><td colspan="4" class="text-danger">' + SIIT.Utils.escapeHtml(e.message) + '</td></tr>';
   }
 
+  // ---------- Feedback ----------
   try {
     const { data: fb, error } = await client.from('student_feedback').select('*').eq('batch_id', batchId).order('submitted_at', { ascending: false }).limit(500);
     if (error) throw error;
@@ -830,6 +859,129 @@ async function viewBatchDetails(batchId) {
   } catch (e) {
     document.getElementById('batchFbBody').innerHTML = '<tr><td colspan="6" class="text-danger">' + SIIT.Utils.escapeHtml(e.message) + '</td></tr>';
   }
+
+  // ---------- Attendance (sessions + logs) ----------
+  try {
+    // 1. Sessions for this batch
+    const { data: sessions, error: sessErr } = await client
+      .from('attendance_sessions')
+      .select('id, session_code, batch_id, course_id, trainer_id, topic, session_date, start_time, end_time, status, department_id, college_id')
+      .eq('batch_id', batchId)
+      .order('session_date', { ascending: false })
+      .limit(500);
+    if (sessErr) throw sessErr;
+
+    const sessionList = sessions || [];
+    const sessionIds = sessionList.map(s => s.id);
+    const sessionMap = {};
+    sessionList.forEach(s => { sessionMap[s.id] = s; });
+
+    // 2. Logs for those sessions
+    let logs = [];
+    if (sessionIds.length) {
+      const { data: logRows, error: logErr } = await client
+        .from('attendance_logs')
+        .select('id, session_id, student_id, attendance_time, attendance_type, status, remarks, created_at')
+        .in('session_id', sessionIds)
+        .order('attendance_time', { ascending: false })
+        .limit(5000);
+      if (logErr) throw logErr;
+      logs = logRows || [];
+    }
+
+    // 3. Students (for names + department)
+    const studentIds = [...new Set(logs.map(l => l.student_id).filter(Boolean))];
+    const studentMap = {};
+    if (studentIds.length) {
+      const { data: sts } = await client
+        .from('students')
+        .select('id, full_name, college_roll_no, department_id')
+        .in('id', studentIds);
+      (sts || []).forEach(s => { studentMap[s.id] = s; });
+    }
+
+    // 4. Enrich
+    const deptIdsOfBatch = batchDeptMap[batchId] || [];
+    const hasDepartments = deptIdsOfBatch.length > 0 || sessionList.some(s => s.department_id);
+
+    detailCache.attendance = logs.map(l => {
+      const sess = sessionMap[l.session_id] || {};
+      const st = studentMap[l.student_id] || {};
+      // Prefer session.department_id, fallback to student.department_id
+      const deptId = sess.department_id || st.department_id || null;
+      const deptName = (deptId && deptMap[deptId])
+        ? (deptMap[deptId].department_name || ('#' + deptId))
+        : (hasDepartments ? '—' : '');
+      return {
+        ...l,
+        _session: sess,
+        _student: st,
+        _deptName: deptName,
+        _sessionDate: sess.session_date || null,
+        _topic: sess.topic || '',
+        _status: l.status || 'Present'
+      };
+    });
+
+    document.getElementById('attCount').textContent =
+      detailCache.attendance.length + ' log(s) across ' + sessionList.length + ' session(s)' +
+      (hasDepartments ? ' · grouped by department when available' : '');
+
+    if (!detailCache.attendance.length) {
+      document.getElementById('batchAttBody').innerHTML =
+        '<tr><td colspan="6" class="text-muted text-center">No attendance logs for this batch</td></tr>';
+    } else if (hasDepartments) {
+      // Group by department
+      const groups = {};
+      detailCache.attendance.forEach(r => {
+        const key = r._deptName || 'Unassigned';
+        if (!groups[key]) groups[key] = [];
+        groups[key].push(r);
+      });
+
+      let html = '';
+      Object.keys(groups).sort().forEach(deptName => {
+        html += `<tr class="table-secondary"><td colspan="6" class="fw-semibold py-2">
+          <i class="fas fa-building me-1"></i>${SIIT.Utils.escapeHtml(deptName)}
+          <span class="badge bg-secondary ms-2">${groups[deptName].length}</span>
+        </td></tr>`;
+        groups[deptName].forEach(r => {
+          const st = r._student;
+          const statusCls = String(r._status).toLowerCase().includes('absent') ? 'danger'
+            : String(r._status).toLowerCase().includes('late') ? 'warning' : 'success';
+          html += `<tr>
+            <td>${SIIT.Utils.escapeHtml(st.full_name || String(r.student_id))}
+              <br><small class="text-muted">${SIIT.Utils.escapeHtml(st.college_roll_no || '')}</small></td>
+            <td class="small">${SIIT.Utils.escapeHtml(r._deptName || '—')}</td>
+            <td>${r._sessionDate ? SIIT.Utils.formatDate(r._sessionDate) : '—'}</td>
+            <td class="small">${SIIT.Utils.escapeHtml(r._topic || '—')}</td>
+            <td><span class="badge bg-${statusCls}">${SIIT.Utils.escapeHtml(r._status)}</span></td>
+            <td class="small">${r.attendance_time ? SIIT.Utils.formatDate(r.attendance_time) : '—'}</td>
+          </tr>`;
+        });
+      });
+      document.getElementById('batchAttBody').innerHTML = html;
+    } else {
+      // Flat list
+      document.getElementById('batchAttBody').innerHTML = detailCache.attendance.map(r => {
+        const st = r._student;
+        const statusCls = String(r._status).toLowerCase().includes('absent') ? 'danger'
+          : String(r._status).toLowerCase().includes('late') ? 'warning' : 'success';
+        return `<tr>
+          <td>${SIIT.Utils.escapeHtml(st.full_name || String(r.student_id))}
+            <br><small class="text-muted">${SIIT.Utils.escapeHtml(st.college_roll_no || '')}</small></td>
+          <td class="small">${SIIT.Utils.escapeHtml(r._deptName || '—')}</td>
+          <td>${r._sessionDate ? SIIT.Utils.formatDate(r._sessionDate) : '—'}</td>
+          <td class="small">${SIIT.Utils.escapeHtml(r._topic || '—')}</td>
+          <td><span class="badge bg-${statusCls}">${SIIT.Utils.escapeHtml(r._status)}</span></td>
+          <td class="small">${r.attendance_time ? SIIT.Utils.formatDate(r.attendance_time) : '—'}</td>
+        </tr>`;
+      }).join('');
+    }
+  } catch (e) {
+    document.getElementById('batchAttBody').innerHTML =
+      `<tr><td colspan="6" class="text-danger">${SIIT.Utils.escapeHtml(e.message)}</td></tr>`;
+  }
 }
 
 function downloadBatchCsv(kind) {
@@ -837,22 +989,39 @@ function downloadBatchCsv(kind) {
   if (kind === 'quiz') {
     lines = ['Title,Status,Marks,Attempts'];
     detailCache.quiz.forEach(q => {
-      lines.push([q.title, q.status, q.total_marks, q.attempts].map(v => String(v == null ? '' : v).replace(/,/g, ' ')).join(','));
+      lines.push([q.title, q.status, q.total_marks, q.attempts]
+        .map(v => String(v == null ? '' : v).replace(/,/g, ' ')).join(','));
     });
   } else if (kind === 'assessment') {
     lines = ['Title,Type,Status,Results'];
     detailCache.assessment.forEach(a => {
-      lines.push([a.title, a.assessment_type, a.status, a.results].map(v => String(v == null ? '' : v).replace(/,/g, ' ')).join(','));
+      lines.push([a.title, a.assessment_type, a.status, a.results]
+        .map(v => String(v == null ? '' : v).replace(/,/g, ' ')).join(','));
     });
-  } else {
+  } else if (kind === 'feedback') {
     lines = ['Student,Roll,Form,Type,Rating,Comments,Submitted'];
     detailCache.feedback.forEach(r => {
       const st = r._student || {};
       const fm = r._form || {};
-      lines.push([st.full_name, st.college_roll_no, fm.title, r.form_type || fm.form_type, r.rating, (r.comments || '').replace(/,/g, ' ').replace(/\n/g, ' '), r.submitted_at].map(v => String(v == null ? '' : v).replace(/,/g, ' ')).join(','));
+      lines.push([
+        st.full_name, st.college_roll_no, fm.title,
+        r.form_type || fm.form_type, r.rating,
+        (r.comments || '').replace(/,/g, ' ').replace(/\n/g, ' '),
+        r.submitted_at
+      ].map(v => String(v == null ? '' : v).replace(/,/g, ' ')).join(','));
+    });
+  } else if (kind === 'attendance') {
+    lines = ['Student,Roll,Department,Session Date,Topic,Status,Marked At'];
+    detailCache.attendance.forEach(r => {
+      const st = r._student || {};
+      lines.push([
+        st.full_name, st.college_roll_no, r._deptName,
+        r._sessionDate, r._topic, r._status, r.attendance_time
+      ].map(v => String(v == null ? '' : v).replace(/,/g, ' ')).join(','));
     });
   }
-  const blob = new Blob([lines.join('\\n')], { type: 'text/csv' });
+
+  const blob = new Blob([lines.join('\n')], { type: 'text/csv' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
   a.download = 'batch_' + currentDetailBatchId + '_' + kind + '.csv';
