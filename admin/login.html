@@ -224,7 +224,6 @@
       100%{transform:translateY(0) rotate(0)}
     }
 
-    /* Clear "Pull me" badge for new users */
     .pull-hint {
       position: absolute; left: 50%; top: 100%; transform: translateX(-50%);
       margin-top: 10px; white-space: nowrap;
@@ -282,7 +281,6 @@
                   0 0 75px rgba(52,211,153,0.1), 0 12px 36px rgba(0,0,0,0.45);
     }
 
-    /* Logo clear on white pill */
     .logo-wrap { text-align: center; margin-bottom: 1.1rem; }
     .logo-wrap a {
       display: inline-block; padding: 0.5rem 0.85rem;
@@ -332,7 +330,6 @@
     .form-check-input { background-color: var(--input-bg); border-color: var(--input-border); }
     .form-check-input:checked { background-color: var(--accent); border-color: var(--accent); }
     .form-check-label { font-size: 0.82rem; color: var(--text-muted); }
-    .hint-text { font-size: 0.72rem; color: #6b7080; margin-top: 0.3rem; }
 
     .btn-login {
       background: linear-gradient(135deg, #454555, #353545); border: none; border-radius: 11px;
@@ -371,8 +368,6 @@
     @keyframes fadeInUp {
       from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)}
     }
-    .footer-note { font-size: 0.78rem; color: var(--text-muted); text-align: center; margin-top: 1.15rem; }
-    .demo-note { font-size: 0.72rem; color: #6b7080; text-align: center; margin-top: 0.4rem; }
     .alert-box { border-radius: 10px; font-size: 0.85rem; padding: 0.6rem 0.85rem; margin-bottom: 0.9rem; }
     .particles { position: fixed; inset: 0; pointer-events: none; z-index: 20; overflow: hidden; }
     .particle {
@@ -382,6 +377,57 @@
     @keyframes sparkle {
       0%{opacity:1;transform:translate(0,0) scale(1)}
       100%{opacity:0;transform:translate(var(--tx),var(--ty)) scale(0)}
+    }
+
+    /* ===== Back button — always visible ===== */
+    .back-to-site {
+      position: fixed !important;
+      top: 1rem !important;
+      left: 1rem !important;
+      z-index: 99999 !important;
+      display: inline-flex !important;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.55rem 1.1rem;
+      border-radius: 999px;
+      background: #ffffff !important;
+      border: 2px solid #ffb84d !important;
+      color: #1a1a2e !important;
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-decoration: none !important;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5), 0 0 0 3px rgba(255,184,77,0.25);
+      pointer-events: auto !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+    .back-to-site:hover {
+      background: #ffb84d !important;
+      color: #1a1208 !important;
+    }
+    .back-to-site .back-arrow {
+      font-style: normal; font-size: 1.1rem; line-height: 1; font-weight: 700;
+    }
+    .card-back-link {
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      margin: 0 0 0.85rem 0;
+      padding: 0.4rem 0.75rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #ffb84d !important;
+      text-decoration: none !important;
+      border: 1px dashed rgba(255,184,77,0.45);
+      border-radius: 10px;
+      background: rgba(255,184,77,0.08);
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .card-back-link:hover {
+      background: rgba(255,184,77,0.2);
+      border-color: #ffb84d;
+      color: #ffc96a !important;
     }
 
     @media (max-width: 991.98px) {
@@ -414,64 +460,6 @@
       .login-card { padding: 1.35rem 1.15rem; }
       .logo-wrap img { max-height: 44px; max-width: 130px; }
       .logo-wrap a { padding: 0.4rem 0.7rem; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .lamp-scene, .pull-hint { animation: none; }
-      .cord.bounce, .login-page.lamp-on .lamp, .login-page.lamp-on .login-card { animation: none; }
-    }
-  
-    /* ===== Back button — always visible ===== */
-    .back-to-site {
-      position: fixed !important;
-      top: 1rem !important;
-      left: 1rem !important;
-      z-index: 99999 !important;
-      display: inline-flex !important;
-      align-items: center;
-      gap: 0.45rem;
-      padding: 0.55rem 1.1rem;
-      border-radius: 999px;
-      background: #ffffff !important;
-      border: 2px solid #ffb84d !important;
-      color: #1a1a2e !important;
-      font-size: 0.88rem;
-      font-weight: 700;
-      text-decoration: none !important;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5), 0 0 0 3px rgba(255,184,77,0.25);
-      pointer-events: auto !important;
-      visibility: visible !important;
-      opacity: 1 !important;
-    }
-    .back-to-site:hover {
-      background: #ffb84d !important;
-      color: #1a1208 !important;
-    }
-    .back-to-site .back-arrow {
-      font-style: normal; font-size: 1.1rem; line-height: 1; font-weight: 700;
-    }
-    /* Also show inside the card (guaranteed visible) */
-    .card-back-link {
-      display: flex !important;
-      align-items: center;
-      justify-content: center;
-      gap: 0.4rem;
-      margin: 0 0 0.85rem 0;
-      padding: 0.4rem 0.75rem;
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: #ffb84d !important;
-      text-decoration: none !important;
-      border: 1px dashed rgba(255,184,77,0.45);
-      border-radius: 10px;
-      background: rgba(255,184,77,0.08);
-      transition: background 0.2s, border-color 0.2s;
-    }
-    .card-back-link:hover {
-      background: rgba(255,184,77,0.2);
-      border-color: #ffb84d;
-      color: #ffc96a !important;
-    }
-    @media (max-width: 575.98px) {
       .back-to-site {
         top: 0.6rem !important;
         left: 0.6rem !important;
@@ -479,301 +467,295 @@
         font-size: 0.8rem;
       }
     }
-
+    @media (prefers-reduced-motion: reduce) {
+      .lamp-scene, .pull-hint { animation: none; }
+      .cord.bounce, .login-page.lamp-on .lamp, .login-page.lamp-on .login-card { animation: none; }
+    }
   </style>
 </head>
 <body>
-  <!-- BACK TO WEBSITE — always visible -->
-  <a href="../index.html" id="backToSite"
-     style="position:fixed;top:12px;left:12px;z-index:2147483647;display:inline-flex!important;
-            align-items:center;gap:8px;padding:10px 16px;border-radius:999px;
-            background:#fff;border:2px solid #ffb84d;color:#111;font:700 14px/1.2 Poppins,system-ui,sans-serif;
-            text-decoration:none;box-shadow:0 4px 16px rgba(0,0,0,.45);cursor:pointer;">
-    &#8592; Back to website
-  </a>
 
-  <div class="login-page" id="loginPage">
-<div class="ambient-glow"></div>
-    <div class="particles" id="particles"></div>
-    <div class="container-fluid h-100">
-      <div class="row h-100 align-items-center justify-content-center g-0">
-        <div class="col-12 col-lg-5 d-flex justify-content-center align-items-center lamp-col">
-          <div class="lamp-scene" id="lampScene">
-            <div class="light-cone"></div>
-            <div class="lamp" id="lamp">
-              <div class="lamp-shade">
-                <div class="shade-top"></div>
-                <div class="shade-body">
-                  <div class="lamp-face">
-                    <div class="eye left-eye"><div class="pupil"></div><div class="eyelid"></div></div>
-                    <div class="eye right-eye"><div class="pupil"></div><div class="eyelid"></div></div>
-                    <div class="mouth"></div>
-                    <div class="blush left-blush"></div>
-                    <div class="blush right-blush"></div>
-                  </div>
+<a href="../index.html" id="backToSite" class="back-to-site">
+  <span class="back-arrow">←</span> BACK TO WEBSITE
+</a>
+
+<div class="login-page" id="loginPage">
+  <div class="ambient-glow"></div>
+  <div class="particles" id="particles"></div>
+  <div class="container-fluid h-100">
+    <div class="row h-100 align-items-center justify-content-center g-0">
+      <div class="col-12 col-lg-5 d-flex justify-content-center align-items-center lamp-col">
+        <div class="lamp-scene" id="lampScene">
+          <div class="light-cone"></div>
+          <div class="lamp" id="lamp">
+            <div class="lamp-shade">
+              <div class="shade-top"></div>
+              <div class="shade-body">
+                <div class="lamp-face">
+                  <div class="eye left-eye"><div class="pupil"></div><div class="eyelid"></div></div>
+                  <div class="eye right-eye"><div class="pupil"></div><div class="eyelid"></div></div>
+                  <div class="mouth"></div>
+                  <div class="blush left-blush"></div>
+                  <div class="blush right-blush"></div>
                 </div>
-                <div class="shade-bottom"></div>
               </div>
-              <div class="lamp-arm">
-                <div class="arm-joint"></div>
-                <div class="arm-segment"></div>
-              </div>
-              <div class="lamp-base">
-                <div class="base-top"></div>
-                <div class="base-bottom"></div>
-              </div>
-              <div class="cord-wrapper" id="cordWrapper" tabindex="0" role="button" aria-label="Pull the cord to turn the lamp on">
-                <div class="cord" id="cord">
-                  <div class="cord-line"></div>
-                  <div class="cord-handle" title="Pull me to turn on">
-                    <div class="handle-ball"></div>
-                  </div>
+              <div class="shade-bottom"></div>
+            </div>
+            <div class="lamp-arm">
+              <div class="arm-joint"></div>
+              <div class="arm-segment"></div>
+            </div>
+            <div class="lamp-base">
+              <div class="base-top"></div>
+              <div class="base-bottom"></div>
+            </div>
+            <div class="cord-wrapper" id="cordWrapper" tabindex="0" role="button" aria-label="Pull the cord to turn the lamp on">
+              <div class="cord" id="cord">
+                <div class="cord-line"></div>
+                <div class="cord-handle" title="Pull me to turn on">
+                  <div class="handle-ball"></div>
                 </div>
-                <div class="pull-hint" id="pullHint">
-                  <i class="fas fa-hand-pointer"></i> Pull me
-                </div>
+              </div>
+              <div class="pull-hint" id="pullHint">
+                <i class="fas fa-hand-pointer"></i> Pull me
               </div>
             </div>
-            <div class="floor-glow"></div>
           </div>
+          <div class="floor-glow"></div>
         </div>
-        <div class="col-12 col-lg-6 col-xl-5 d-flex justify-content-center align-items-center form-col">
-          <div class="login-card" id="loginCard">
-            <a href="../index.html" id="cardBackLink"
-               style="display:flex!important;align-items:center;justify-content:center;gap:8px;
-                      width:100%;margin:0 0 14px 0;padding:10px 12px;box-sizing:border-box;
-                      border-radius:10px;background:rgba(255,184,77,.18);border:1px solid #ffb84d;
-                      color:#ffb84d;font:600 14px/1.2 Poppins,system-ui,sans-serif;text-decoration:none;">
-              &#8592; Back to website
-            </a>
+      </div>
+      <div class="col-12 col-lg-6 col-xl-5 d-flex justify-content-center align-items-center form-col">
+        <div class="login-card" id="loginCard">
 
-<div class="logo-wrap">
-              <a href="../index.html" title="Back to website">
-                <img src="../assets/img/logo.png" alt="Sujata Institute Logo">
-              </a>
-            </div>
-            <h1 class="welcome-title">Welcome Back</h1>
-            <p class="welcome-sub">Sign in to Sujata Institute ERP</p>
-            <div id="alertBox" class="alert alert-box d-none" role="alert"></div>
-            <form id="loginForm" novalidate>
-              <div class="mb-3">
-                <label class="form-label" for="email">Email Address</label>
-                <div class="input-wrapper">
-                  <i class="fas fa-envelope input-icon"></i>
-                  <input type="email" class="form-control login-input" id="email" placeholder="admin@sujatainstitute.com" autocomplete="email" required>
-                </div>
-              </div>
-              <div class="mb-3">
-                <label class="form-label" for="password">Password</label>
-                <div class="input-wrapper">
-                  <i class="fas fa-lock input-icon"></i>
-                  <input type="password" class="form-control login-input" id="password" placeholder="Enter password" autocomplete="current-password" required>
-                  <button type="button" class="toggle-password" id="togglePass" aria-label="Show password">
-                    <i class="fas fa-eye" id="eyeIcon"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="mb-3">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="remember">
-                  <label class="form-check-label" for="remember">Remember me</label>
-                </div>
-                <p class="hint-text mb-0">Password can only be changed by Super Admin / Institute Admin from Users.</p>
-              </div>
-              <button type="submit" class="btn btn-login w-100" id="loginBtn">
-                <span class="btn-text"><i class="fas fa-sign-in-alt me-2"></i>Sign In</span>
-                <span class="btn-loader d-none"><span class="spinner-border spinner-border-sm" role="status"></span></span>
-              </button>
-              <div class="success-msg d-none" id="successMsg">Welcome back! &#10024;</div>
-            </form>
-            <p class="footer-note mb-0">After login you are taken to your role home (Admin, Trainer, Student, &#8230;).</p>
-            <p class="demo-note mb-0">Demo: admin@sujatainstitute.com / admin123</p>
+          <a href="../index.html" id="cardBackLink" class="card-back-link">
+            ← BACK TO WEBSITE
+          </a>
+
+          <div class="logo-wrap">
+            <a href="../index.html" title="Back to website">
+              <img src="../assets/img/logo.png" alt="Sujata Institute Logo">
+            </a>
           </div>
+          <h1 class="welcome-title">Welcome Back</h1>
+          <p class="welcome-sub">Sign in to Sujata Institute ERP</p>
+          <div id="alertBox" class="alert alert-box d-none" role="alert"></div>
+          <form id="loginForm" novalidate>
+            <div class="mb-3">
+              <label class="form-label" for="email">Email Address</label>
+              <div class="input-wrapper">
+                <i class="fas fa-envelope input-icon"></i>
+                <input type="email" class="form-control login-input" id="email" placeholder="admin@sujatainstitute.com" autocomplete="email" required>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="password">Password</label>
+              <div class="input-wrapper">
+                <i class="fas fa-lock input-icon"></i>
+                <input type="password" class="form-control login-input" id="password" placeholder="Enter password" autocomplete="current-password" required>
+                <button type="button" class="toggle-password" id="togglePass" aria-label="Show password">
+                  <i class="fas fa-eye" id="eyeIcon"></i>
+                </button>
+              </div>
+            </div>
+            <div class="mb-3">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="remember">
+                <label class="form-check-label" for="remember">Remember me</label>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-login w-100" id="loginBtn">
+              <span class="btn-text"><i class="fas fa-sign-in-alt me-2"></i>Sign In</span>
+              <span class="btn-loader d-none"><span class="spinner-border spinner-border-sm" role="status"></span></span>
+            </button>
+            <div class="success-msg d-none" id="successMsg">Welcome back! ✦</div>
+          </form>
         </div>
       </div>
     </div>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="../assets/js/supabase-config.js"></script>
-  <script src="../assets/js/rbac.js"></script>
-  <script>
-  (function () {
-    'use strict';
-    const page = document.getElementById('loginPage');
-    const cordWrapper = document.getElementById('cordWrapper');
-    const cord = document.getElementById('cord');
-    const loginCard = document.getElementById('loginCard');
-    const loginForm = document.getElementById('loginForm');
-    const loginBtn = document.getElementById('loginBtn');
-    const emailInput = document.getElementById('email');
-    const passwordInput = document.getElementById('password');
-    const togglePass = document.getElementById('togglePass');
-    const eyeIcon = document.getElementById('eyeIcon');
-    const successMsg = document.getElementById('successMsg');
-    const alertBox = document.getElementById('alertBox');
-    const particlesEl = document.getElementById('particles');
-    let lampOn = false, isPulling = false, isAnimating = false, startY = 0, pullDistance = 0;
+</div>
 
-    function startPull(clientY) {
-      if (isAnimating) return;
-      isPulling = true; startY = clientY; pullDistance = 0;
-      cord.classList.remove('bounce'); cord.classList.add('pulling');
-    }
-    function movePull(clientY) {
-      if (!isPulling) return;
-      pullDistance = Math.max(0, Math.min(80, clientY - startY));
-    }
-    function endPull() {
-      if (!isPulling) return;
-      isPulling = false; cord.classList.remove('pulling'); cord.classList.add('bounce');
-      if (pullDistance > 18 || pullDistance < 5) toggleLamp();
-      setTimeout(function(){ cord.classList.remove('bounce'); }, 600);
-    }
-    cordWrapper.addEventListener('mousedown', function(e){ e.preventDefault(); startPull(e.clientY); });
-    window.addEventListener('mousemove', function(e){ if (isPulling) movePull(e.clientY); });
-    window.addEventListener('mouseup', endPull);
-    cordWrapper.addEventListener('touchstart', function(e){ e.preventDefault(); startPull(e.touches[0].clientY); }, {passive:false});
-    window.addEventListener('touchmove', function(e){ if (!isPulling) return; movePull(e.touches[0].clientY); }, {passive:true});
-    window.addEventListener('touchend', endPull);
-    window.addEventListener('touchcancel', endPull);
-    cordWrapper.addEventListener('keydown', function(e){
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        if (!isAnimating) {
-          cord.classList.add('pulling');
-          setTimeout(function(){
-            cord.classList.remove('pulling'); cord.classList.add('bounce');
-            toggleLamp(); setTimeout(function(){ cord.classList.remove('bounce'); }, 600);
-          }, 180);
-        }
-      }
-    });
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../assets/js/supabase-config.js"></script>
+<script src="../assets/js/rbac.js"></script>
+<script>
+(function () {
+  'use strict';
+  const page = document.getElementById('loginPage');
+  const cordWrapper = document.getElementById('cordWrapper');
+  const cord = document.getElementById('cord');
+  const loginCard = document.getElementById('loginCard');
+  const loginForm = document.getElementById('loginForm');
+  const loginBtn = document.getElementById('loginBtn');
+  const emailInput = document.getElementById('email');
+  const passwordInput = document.getElementById('password');
+  const togglePass = document.getElementById('togglePass');
+  const eyeIcon = document.getElementById('eyeIcon');
+  const successMsg = document.getElementById('successMsg');
+  const alertBox = document.getElementById('alertBox');
+  const particlesEl = document.getElementById('particles');
+  let lampOn = false, isPulling = false, isAnimating = false, startY = 0, pullDistance = 0;
 
-    function toggleLamp() {
-      if (isAnimating) return;
-      isAnimating = true; lampOn = !lampOn;
-      if (lampOn) {
-        page.classList.add('lamp-on');
-        page.classList.remove('happy','looking-form','looking-password','focus-strong','success');
-      } else {
-        page.classList.remove('lamp-on','happy','looking-form','looking-password','focus-strong','success');
-        successMsg.classList.add('d-none');
-        loginBtn.classList.remove('loading','success-state');
-        loginBtn.querySelector('.btn-text').innerHTML = '<i class="fas fa-sign-in-alt me-2"></i>Sign In';
-        loginBtn.querySelector('.btn-loader').classList.add('d-none');
-        loginBtn.disabled = false;
-      }
-      setTimeout(function(){ isAnimating = false; }, 700);
-    }
-
-    function onFocus(isPassword) {
-      if (!lampOn) return;
-      page.classList.add('looking-form','focus-strong');
-      if (isPassword) page.classList.add('looking-password');
-      else page.classList.remove('looking-password');
-    }
-    function onBlur() {
-      setTimeout(function(){
-        if (document.activeElement !== emailInput && document.activeElement !== passwordInput) {
-          page.classList.remove('looking-form','looking-password','focus-strong');
-        }
-      }, 80);
-    }
-    emailInput.addEventListener('focus', function(){ onFocus(false); });
-    passwordInput.addEventListener('focus', function(){ onFocus(true); });
-    emailInput.addEventListener('blur', onBlur);
-    passwordInput.addEventListener('blur', onBlur);
-
-    togglePass.addEventListener('click', function(){
-      var hidden = passwordInput.type === 'password';
-      passwordInput.type = hidden ? 'text' : 'password';
-      eyeIcon.classList.toggle('fa-eye', !hidden);
-      eyeIcon.classList.toggle('fa-eye-slash', hidden);
-    });
-
-    function landingForRole(roleName) {
-      var full = ['Super Admin','Institute Admin','Accounts','Placement Officer'];
-      if (full.indexOf(roleName) !== -1) return 'dashboard.html';
-      if (window.RBAC && RBAC.ROLE_ACCESS && RBAC.ROLE_ACCESS[roleName]) {
-        return RBAC.ROLE_ACCESS[roleName].landing || 'dashboard.html';
-      }
-      return 'dashboard.html';
-    }
-    function goToRoleHome() {
-      var s = SIIT.Session.get();
-      var role = (s && s.role_name) || '';
-      window.location.href = landingForRole(role);
-    }
-
-    function spawnParticles() {
-      var count = 28;
-      var rect = loginCard.getBoundingClientRect();
-      var cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2;
-      var lampRect = document.getElementById('lampScene').getBoundingClientRect();
-      var lx = lampRect.left + lampRect.width / 2, ly = lampRect.top + lampRect.height * 0.35;
-      for (var i = 0; i < count; i++) {
-        var p = document.createElement('div');
-        p.className = 'particle';
-        var fromLamp = i % 3 === 0;
-        var ox = fromLamp ? lx : cx, oy = fromLamp ? ly : cy;
-        var angle = Math.random() * Math.PI * 2, dist = 40 + Math.random() * 120;
-        p.style.left = ox + 'px'; p.style.top = oy + 'px';
-        p.style.setProperty('--tx', (Math.cos(angle) * dist) + 'px');
-        p.style.setProperty('--ty', (Math.sin(angle) * dist - 30) + 'px');
-        p.style.background = fromLamp
-          ? 'hsl(' + (35 + Math.random() * 25) + ',90%,60%)'
-          : 'hsl(' + (150 + Math.random() * 40) + ',70%,55%)';
-        p.style.width = p.style.height = (4 + Math.random() * 5) + 'px';
-        p.style.animationDelay = (Math.random() * 0.25) + 's';
-        p.style.animationDuration = (1 + Math.random() * 0.6) + 's';
-        particlesEl.appendChild(p);
-        (function(el){ setTimeout(function(){ el.remove(); }, 2000); })(p);
-      }
-    }
-
-    loginForm.addEventListener('submit', async function(e){
+  function startPull(clientY) {
+    if (isAnimating) return;
+    isPulling = true; startY = clientY; pullDistance = 0;
+    cord.classList.remove('bounce'); cord.classList.add('pulling');
+  }
+  function movePull(clientY) {
+    if (!isPulling) return;
+    pullDistance = Math.max(0, Math.min(80, clientY - startY));
+  }
+  function endPull() {
+    if (!isPulling) return;
+    isPulling = false; cord.classList.remove('pulling'); cord.classList.add('bounce');
+    if (pullDistance > 18 || pullDistance < 5) toggleLamp();
+    setTimeout(function(){ cord.classList.remove('bounce'); }, 600);
+  }
+  cordWrapper.addEventListener('mousedown', function(e){ e.preventDefault(); startPull(e.clientY); });
+  window.addEventListener('mousemove', function(e){ if (isPulling) movePull(e.clientY); });
+  window.addEventListener('mouseup', endPull);
+  cordWrapper.addEventListener('touchstart', function(e){ e.preventDefault(); startPull(e.touches[0].clientY); }, {passive:false});
+  window.addEventListener('touchmove', function(e){ if (!isPulling) return; movePull(e.touches[0].clientY); }, {passive:true});
+  window.addEventListener('touchend', endPull);
+  window.addEventListener('touchcancel', endPull);
+  cordWrapper.addEventListener('keydown', function(e){
+    if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
-      if (!lampOn) return;
-      var email = emailInput.value.trim(), password = passwordInput.value;
-      if (!email || !password) {
-        loginCard.style.animation = 'none';
-        void loginCard.offsetWidth;
-        loginCard.style.animation = 'cardRise 0.4s ease';
-        return;
+      if (!isAnimating) {
+        cord.classList.add('pulling');
+        setTimeout(function(){
+          cord.classList.remove('pulling'); cord.classList.add('bounce');
+          toggleLamp(); setTimeout(function(){ cord.classList.remove('bounce'); }, 600);
+        }, 180);
       }
-      loginBtn.classList.add('loading');
-      loginBtn.querySelector('.btn-loader').classList.remove('d-none');
-      loginBtn.disabled = true;
-      alertBox.classList.add('d-none');
-      try {
-        var session = await SIIT.loginUser(email, password);
-        var role = session.role_name || '';
-        loginBtn.classList.remove('loading');
-        loginBtn.querySelector('.btn-loader').classList.add('d-none');
-        loginBtn.classList.add('success-state');
-        loginBtn.querySelector('.btn-text').textContent = 'SUCCESS';
-        loginBtn.disabled = false;
-        page.classList.add('happy','success');
-        successMsg.classList.remove('d-none');
-        successMsg.textContent = 'Welcome' + (role ? ' (' + role + ')' : '') + '! \u2728';
-        spawnParticles();
-        setTimeout(goToRoleHome, 900);
-      } catch (err) {
-        loginBtn.classList.remove('loading');
-        loginBtn.querySelector('.btn-loader').classList.add('d-none');
-        loginBtn.disabled = false;
-        loginBtn.querySelector('.btn-text').innerHTML = '<i class="fas fa-sign-in-alt me-2"></i>Sign In';
-        alertBox.className = 'alert alert-danger alert-box';
-        alertBox.textContent = err.message || 'Login failed';
-        alertBox.classList.remove('d-none');
-      }
-    });
-
-    if (typeof SIIT !== 'undefined' && SIIT.Session && SIIT.Session.isLoggedIn()) {
-      goToRoleHome();
     }
-  })();
-  </script>
+  });
+
+  function toggleLamp() {
+    if (isAnimating) return;
+    isAnimating = true; lampOn = !lampOn;
+    if (lampOn) {
+      page.classList.add('lamp-on');
+      page.classList.remove('happy','looking-form','looking-password','focus-strong','success');
+    } else {
+      page.classList.remove('lamp-on','happy','looking-form','looking-password','focus-strong','success');
+      successMsg.classList.add('d-none');
+      loginBtn.classList.remove('loading','success-state');
+      loginBtn.querySelector('.btn-text').innerHTML = '<i class="fas fa-sign-in-alt me-2"></i>Sign In';
+      loginBtn.querySelector('.btn-loader').classList.add('d-none');
+      loginBtn.disabled = false;
+    }
+    setTimeout(function(){ isAnimating = false; }, 700);
+  }
+
+  function onFocus(isPassword) {
+    if (!lampOn) return;
+    page.classList.add('looking-form','focus-strong');
+    if (isPassword) page.classList.add('looking-password');
+    else page.classList.remove('looking-password');
+  }
+  function onBlur() {
+    setTimeout(function(){
+      if (document.activeElement !== emailInput && document.activeElement !== passwordInput) {
+        page.classList.remove('looking-form','looking-password','focus-strong');
+      }
+    }, 80);
+  }
+  emailInput.addEventListener('focus', function(){ onFocus(false); });
+  passwordInput.addEventListener('focus', function(){ onFocus(true); });
+  emailInput.addEventListener('blur', onBlur);
+  passwordInput.addEventListener('blur', onBlur);
+
+  togglePass.addEventListener('click', function(){
+    var hidden = passwordInput.type === 'password';
+    passwordInput.type = hidden ? 'text' : 'password';
+    eyeIcon.classList.toggle('fa-eye', !hidden);
+    eyeIcon.classList.toggle('fa-eye-slash', hidden);
+  });
+
+  function landingForRole(roleName) {
+    var full = ['Super Admin','Institute Admin','Accounts','Placement Officer'];
+    if (full.indexOf(roleName) !== -1) return 'dashboard.html';
+    if (window.RBAC && RBAC.ROLE_ACCESS && RBAC.ROLE_ACCESS[roleName]) {
+      return RBAC.ROLE_ACCESS[roleName].landing || 'dashboard.html';
+    }
+    return 'dashboard.html';
+  }
+  function goToRoleHome() {
+    var s = SIIT.Session.get();
+    var role = (s && s.role_name) || '';
+    window.location.href = landingForRole(role);
+  }
+
+  function spawnParticles() {
+    var count = 28;
+    var rect = loginCard.getBoundingClientRect();
+    var cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2;
+    var lampRect = document.getElementById('lampScene').getBoundingClientRect();
+    var lx = lampRect.left + lampRect.width / 2, ly = lampRect.top + lampRect.height * 0.35;
+    for (var i = 0; i < count; i++) {
+      var p = document.createElement('div');
+      p.className = 'particle';
+      var fromLamp = i % 3 === 0;
+      var ox = fromLamp ? lx : cx, oy = fromLamp ? ly : cy;
+      var angle = Math.random() * Math.PI * 2, dist = 40 + Math.random() * 120;
+      p.style.left = ox + 'px'; p.style.top = oy + 'px';
+      p.style.setProperty('--tx', (Math.cos(angle) * dist) + 'px');
+      p.style.setProperty('--ty', (Math.sin(angle) * dist - 30) + 'px');
+      p.style.background = fromLamp
+        ? 'hsl(' + (35 + Math.random() * 25) + ',90%,60%)'
+        : 'hsl(' + (150 + Math.random() * 40) + ',70%,55%)';
+      p.style.width = p.style.height = (4 + Math.random() * 5) + 'px';
+      p.style.animationDelay = (Math.random() * 0.25) + 's';
+      p.style.animationDuration = (1 + Math.random() * 0.6) + 's';
+      particlesEl.appendChild(p);
+      (function(el){ setTimeout(function(){ el.remove(); }, 2000); })(p);
+    }
+  }
+
+  loginForm.addEventListener('submit', async function(e){
+    e.preventDefault();
+    if (!lampOn) return;
+    var email = emailInput.value.trim(), password = passwordInput.value;
+    if (!email || !password) {
+      loginCard.style.animation = 'none';
+      void loginCard.offsetWidth;
+      loginCard.style.animation = 'cardRise 0.4s ease';
+      return;
+    }
+    loginBtn.classList.add('loading');
+    loginBtn.querySelector('.btn-loader').classList.remove('d-none');
+    loginBtn.disabled = true;
+    alertBox.classList.add('d-none');
+    try {
+      var session = await SIIT.loginUser(email, password);
+      var role = session.role_name || '';
+      loginBtn.classList.remove('loading');
+      loginBtn.querySelector('.btn-loader').classList.add('d-none');
+      loginBtn.classList.add('success-state');
+      loginBtn.querySelector('.btn-text').textContent = 'SUCCESS';
+      loginBtn.disabled = false;
+      page.classList.add('happy','success');
+      successMsg.classList.remove('d-none');
+      successMsg.textContent = 'Welcome' + (role ? ' (' + role + ')' : '') + '! ✦';
+      spawnParticles();
+      setTimeout(goToRoleHome, 900);
+    } catch (err) {
+      loginBtn.classList.remove('loading');
+      loginBtn.querySelector('.btn-loader').classList.add('d-none');
+      loginBtn.disabled = false;
+      loginBtn.querySelector('.btn-text').innerHTML = '<i class="fas fa-sign-in-alt me-2"></i>Sign In';
+      alertBox.className = 'alert alert-danger alert-box';
+      alertBox.textContent = err.message || 'Login failed';
+      alertBox.classList.remove('d-none');
+    }
+  });
+
+  if (typeof SIIT !== 'undefined' && SIIT.Session && SIIT.Session.isLoggedIn()) {
+    goToRoleHome();
+  }
+})();
+</script>
 </body>
 </html>
