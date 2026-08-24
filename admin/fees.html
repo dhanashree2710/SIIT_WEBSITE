@@ -127,6 +127,12 @@
             <button class="btn btn-sm btn-warning" onclick="sharePendingFees()" title="WhatsApp pending fee reminders">
               <i class="fab fa-whatsapp me-1"></i>Share Pending Fees
             </button>
+            <div class="d-flex align-items-center gap-1">
+              <input type="month" class="form-control form-control-sm" id="monthDownload" style="width:auto" title="Select month for payment report">
+              <button class="btn btn-sm btn-outline-primary" onclick="downloadMonthlyPayments()" title="Download payments CSV for selected month">
+                <i class="fas fa-file-csv me-1"></i>Download Month
+              </button>
+            </div>
             <button class="btn btn-sm btn-success" onclick="openPaymentForm()"><i class="fas fa-money-bill-wave me-1"></i>Record Payment</button>
             <button class="btn btn-sm btn-primary" onclick="openFeeForm()"><i class="fas fa-plus me-1"></i>Add Fee Record</button>
           </div>
@@ -282,7 +288,7 @@
                   </div>
                   <div class="col-md-6">
                     <label class="form-label">Receipt Number</label>
-                    <input type="text" class="form-control" id="payReceiptNo" placeholder="Auto-generated if blank">
+                    <input type="text" class="form-control" id="payReceiptNo" placeholder="e.g. Rec26/27-0001 (auto if blank)">
                   </div>
                   <div class="col-12">
                     <label class="form-label">Remarks</label>
@@ -460,13 +466,45 @@
     document.getElementById(id)?.addEventListener('input', calcPayable);
   });
 
-  function generateReceiptNo() {
-    const now = new Date();
-    const y = now.getFullYear().toString().slice(-2);
-    const m = String(now.getMonth() + 1).padStart(2, '0');
-    const d = String(now.getDate()).padStart(2, '0');
-    const r = Math.floor(1000 + Math.random() * 9000);
-    return `RCP${y}${m}${d}${r}`;
+  /** Academic year label e.g. 26/27 (June–May). Change startMonth if institute uses different cycle. */
+  function getAcademicYearLabel(date) {
+    const d = date ? new Date(date) : new Date();
+    let y = d.getFullYear();
+    const month = d.getMonth(); // 0=Jan … 5=Jun
+    // Academic year starts in June (month index 5). Before June → previous year.
+    if (month < 5) y = y - 1;
+    const yy = String(y).slice(-2);
+    const next = String(y + 1).slice(-2);
+    return `${yy}/${next}`;
+  }
+
+  /** Next sequential receipt: Rec26/27-0001, Rec26/27-0002, … */
+  function generateReceiptNo(forDate) {
+    const ay = getAcademicYearLabel(forDate);
+    const prefix = `Rec${ay}-`;
+    let maxSeq = 0;
+    // From payment_receipts
+    Object.values(receiptsByPayment || {}).forEach(r => {
+      const n = r?.receipt_number || '';
+      if (typeof n === 'string' && n.startsWith(prefix)) {
+        const part = n.slice(prefix.length).replace(/\D/g, '');
+        const num = parseInt(part, 10);
+        if (!isNaN(num) && num > maxSeq) maxSeq = num;
+      }
+    });
+    // From payment_reference on payments (fallback)
+    Object.values(paymentsByFee || {}).forEach(arr => {
+      (arr || []).forEach(p => {
+        const n = p?.payment_reference || '';
+        if (typeof n === 'string' && n.startsWith(prefix)) {
+          const part = n.slice(prefix.length).replace(/\D/g, '');
+          const num = parseInt(part, 10);
+          if (!isNaN(num) && num > maxSeq) maxSeq = num;
+        }
+      });
+    });
+    const next = maxSeq + 1;
+    return `${prefix}${String(next).padStart(4, '0')}`;
   }
 
   function normalizeMobile(m) {
@@ -778,10 +816,18 @@
     document.getElementById('paymentForm').reset();
     document.getElementById('payFormError').classList.add('d-none');
     document.getElementById('payDate').value = new Date().toISOString().slice(0, 10);
-    document.getElementById('payReceiptNo').value = generateReceiptNo();
+    document.getElementById('payReceiptNo').value = generateReceiptNo(document.getElementById('payDate').value);
     fillPayFeeSelect(feeId || null);
     paymentModal.show();
   }
+
+  document.getElementById('payDate')?.addEventListener('change', function () {
+    const cur = document.getElementById('payReceiptNo').value.trim();
+    // Only auto-refresh if still looks like our format or empty
+    if (!cur || /^Rec\d{2}\/\d{2}-\d+$/i.test(cur) || /^RCP/i.test(cur)) {
+      document.getElementById('payReceiptNo').value = generateReceiptNo(this.value);
+    }
+  });
 
   function onPayFeeChange() {
     const sel = document.getElementById('payFeeId');
@@ -810,7 +856,7 @@
       const mode = document.getElementById('payMode').value;
       const payDate = document.getElementById('payDate').value || new Date().toISOString().slice(0, 10);
       const txnId = document.getElementById('payTxnId').value.trim() || null;
-      let receiptNo = document.getElementById('payReceiptNo').value.trim() || generateReceiptNo();
+      let receiptNo = document.getElementById('payReceiptNo').value.trim() || generateReceiptNo(payDate);
       const remarks = document.getElementById('payRemarks').value.trim() || null;
 
       const session = SIIT.Session.get();
@@ -1282,6 +1328,104 @@
   }
   window.copyText = copyText;
 
+  // ---------- Monthly payments CSV download ----------
+  function csvEscape(v) {
+    const s = String(v ?? '');
+    if (/[",\n\r]/.test(s)) return '"' + s.replace(/"/g, '""') + '"';
+    return s;
+  }
+
+  function downloadMonthlyPayments() {
+    const monthEl = document.getElementById('monthDownload');
+    const ym = (monthEl && monthEl.value) || '';
+    if (!ym || !/^\d{4}-\d{2}$/.test(ym)) {
+      SIIT.Utils.toast('Please select a month first', 'error');
+      return;
+    }
+    const [yStr, mStr] = ym.split('-');
+    const year = parseInt(yStr, 10);
+    const month = parseInt(mStr, 10); // 1–12
+    const start = new Date(year, month - 1, 1);
+    const end = new Date(year, month, 0, 23, 59, 59, 999);
+
+    // Flatten all payments in range
+    const rows = [];
+    Object.keys(paymentsByFee || {}).forEach(feeId => {
+      const fee = allFees.find(f => String(f.id) === String(feeId));
+      const pays = paymentsByFee[feeId] || [];
+      pays.forEach(p => {
+        const pd = p.payment_date ? new Date(p.payment_date) : null;
+        if (!pd || isNaN(pd) || pd < start || pd > end) return;
+        const st = studentMap[p.student_id || fee?.student_id] || {};
+        const receipt = receiptsByPayment[p.id] || null;
+        const courseName = resolveCourseName(fee || {}, st);
+        rows.push({
+          date: pd,
+          receiptNo: receipt?.receipt_number || p.payment_reference || '',
+          name: st.full_name || ('Student #' + (p.student_id || fee?.student_id || '')),
+          mobile: st.mobile || '',
+          roll: st.college_roll_no || '',
+          course: courseName,
+          amount: Number(p.amount) || 0,
+          mode: p.payment_mode || '',
+          txn: p.transaction_id || '',
+          status: p.payment_status || fee?.payment_status || '',
+          remarks: p.remarks || ''
+        });
+      });
+    });
+
+    rows.sort((a, b) => a.date - b.date);
+
+    if (!rows.length) {
+      SIIT.Utils.toast('No payments found for ' + ym, 'error');
+      return;
+    }
+
+    const headers = ['Sr', 'Date', 'Receipt No', 'Student', 'Roll No', 'Mobile', 'Course', 'Amount (₹)', 'Mode', 'Txn ID', 'Status', 'Remarks'];
+    const lines = [headers.join(',')];
+    let totalAmt = 0;
+    rows.forEach((r, i) => {
+      totalAmt += r.amount;
+      lines.push([
+        i + 1,
+        fmtDate(r.date),
+        csvEscape(r.receiptNo),
+        csvEscape(r.name),
+        csvEscape(r.roll),
+        csvEscape(r.mobile),
+        csvEscape(r.course),
+        r.amount.toFixed(2),
+        csvEscape(r.mode),
+        csvEscape(r.txn),
+        csvEscape(r.status),
+        csvEscape(r.remarks)
+      ].join(','));
+    });
+    lines.push('');
+    lines.push(['', '', '', '', '', '', 'TOTAL', totalAmt.toFixed(2), '', '', '', ''].join(','));
+
+    const bom = '\uFEFF';
+    const blob = new Blob([bom + lines.join('\r\n')], { type: 'text/csv;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `SIIT-Payments-${ym}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+    SIIT.Utils.toast(`Downloaded ${rows.length} payment(s) for ${ym}`);
+  }
+
+  // Default month picker to current month
+  (function initMonthPicker() {
+    const el = document.getElementById('monthDownload');
+    if (!el) return;
+    const now = new Date();
+    el.value = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+  })();
+
   // Search / filter
   document.getElementById('searchInput')?.addEventListener('input', applyFilters);
   document.getElementById('statusFilter')?.addEventListener('change', applyFilters);
@@ -1330,6 +1474,7 @@
   window.shareReceiptOnWhatsApp = shareReceiptOnWhatsApp;
   window.printReceipt = printReceipt;
   window.loadData = loadData;
+  window.downloadMonthlyPayments = downloadMonthlyPayments;
 
   if (typeof StudentWorkspace !== 'undefined' && StudentWorkspace.isStudent()) {
     initStudentFees();

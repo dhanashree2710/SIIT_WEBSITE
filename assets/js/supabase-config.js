@@ -62,7 +62,7 @@ const Session = {
 
   requireAuth(redirectTo) {
     if (!this.isLoggedIn()) {
-      window.location.href = redirectTo || '../admin/login.html';
+      window.location.href = redirectTo || 'admin/login.html';
       return false;
     }
     return true;
